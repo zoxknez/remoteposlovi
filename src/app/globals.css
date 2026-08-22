@@ -26,19 +26,20 @@ body {
 /* Custom logo geometric styling */
 header a span.logo-icon,
 header > div > a > span:first-child {
+  font-size: 0;
   position: relative;
 }
 
 header a span.logo-icon::before,
 header > div > a > span:first-child::before {
-  border: 2.5px solid #e7f0df;
+  border: 2px solid #e7f0df;
   border-right-color: transparent;
   border-top-color: transparent;
   content: "";
-  height: 14px;
+  height: 13px;
   position: absolute;
   transform: rotate(45deg);
-  width: 14px;
+  width: 13px;
 }
 
 header a span.logo-icon::after,
@@ -51,6 +52,46 @@ header > div > a > span:first-child::after {
   right: 8px;
   top: 8px;
   width: 5px;
+}
+
+/* Balanced Card Distribution & Centering */
+#directory section[aria-labelledby] article {
+  align-items: center;
+  min-height: 290px;
+  text-align: center;
+}
+
+#directory section[aria-labelledby] article > div:first-child {
+  justify-content: center;
+}
+
+#directory section[aria-labelledby] article > div:first-child > button {
+  position: absolute;
+  right: 1.5rem;
+  top: 1.5rem;
+}
+
+#directory section[aria-labelledby] article h4 {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.5rem;
+  line-height: 1.2;
+}
+
+#directory section[aria-labelledby] article > p {
+  max-width: 22rem;
+}
+
+#directory section[aria-labelledby] article > div:last-child {
+  display: block;
+  text-align: center;
+}
+
+#directory section[aria-labelledby] article > div:last-child span {
+  display: block;
+}
+
+#directory section[aria-labelledby] article > div:last-child span + span {
+  margin-top: 0.5rem;
 }
 
 /* Custom smooth scrollbar */
@@ -72,11 +113,6 @@ header > div > a > span:first-child::after {
   background: #9fb09b;
 }
 
-/* Card typography & smooth transition */
-article h4 {
-  font-family: Georgia, "Times New Roman", serif;
-}
-
 @media (max-width: 767px) {
   header > div {
     height: 68px !important;
@@ -91,10 +127,89 @@ article h4 {
     min-height: 44px;
   }
 
+  header + section > div:first-child {
+    height: 25rem;
+    width: 25rem;
+    border-width: 42px;
+  }
+
+  header + section > div:last-child {
+    min-height: 340px;
+    padding-block: 3.25rem;
+  }
+
+  header + section h1 {
+    font-size: 2.625rem;
+    line-height: 1;
+  }
+
+  #categories > div:last-child > button {
+    min-height: 13.5rem;
+    padding: 1.5rem;
+  }
+
+  #categories > div:last-child > button strong {
+    margin-top: 1.25rem;
+  }
+
+  #categories > div:last-child > button > span:last-child {
+    margin-top: 1.25rem;
+  }
+
+  #directory > div:first-child > label {
+    height: 3.5rem;
+    padding-inline: 1.25rem;
+  }
+
+  #directory > div:first-child > div button {
+    min-height: 44px;
+    padding-inline: 1rem;
+  }
+
+  #directory section[aria-labelledby] article {
+    min-height: 0;
+    padding: 1.25rem;
+  }
+
+  #directory section[aria-labelledby] article > div:first-child > button {
+    min-height: 44px;
+    min-width: 44px;
+    right: 0.875rem;
+    top: 0.875rem;
+  }
+
+  #directory section[aria-labelledby] article h4 {
+    font-size: 1.375rem;
+  }
+
   footer div {
     align-items: center;
     flex-direction: column;
     gap: 0.5rem;
     text-align: center;
+  }
+}
+
+@media (max-width: 359px) {
+  header > div {
+    padding-inline: 1rem !important;
+  }
+
+  header > div > a {
+    gap: 0.5rem;
+  }
+
+  header > div > a > span:first-child {
+    height: 2rem;
+    width: 2rem;
+  }
+
+  header > div > button {
+    font-size: 0.6875rem;
+    padding-inline: 0.625rem;
+  }
+
+  header + section h1 {
+    font-size: 2.25rem;
   }
 }

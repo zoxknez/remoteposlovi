@@ -19,23 +19,23 @@ const sources = [
   ["Outlier", "Plaćeni zadaci za treniranje i evaluaciju AI modela, sa nedeljnim isplatama i podrškom za Srbiju.", "https://outlier.ai/", "Globalno", "Freelance", "AI trening"],
   ["NativeCamp", "Online časovi engleskog jezika sa fleksibilnim rasporedom 24/7, popularno među predavačima u Srbiji.", "https://nativecamp.net/tutors", "Srbija", "Freelance", "Podučavanje"],
   ["Engoo", "Globalna platforma za online časove engleskog jezika uz obezbeđene nastavne materijale.", "https://teach.engoo.com/", "Globalno", "Freelance", "Podučavanje"],
-  ["Preply", "Kreiraj profil i drži online časove jezika ili drugih predmeta.", "https://preply.com/en/teach", "Globalno", "Freelance", "Podučavanje"],
-  ["Cambly", "Online razgovori i časovi engleskog jezika.", "https://www.cambly.com/tutors", "Globalno", "Freelance", "Podučavanje"],
-  ["italki", "Postavi cene i termine za online časove jezika uz međunarodnu naplatu i globalnu bazu učenika.", "https://teach.italki.com/", "Globalno", "Freelance", "Podučavanje"],
+  ["Preply", "Kreirajte profil i držite online časove jezika ili drugih predmeta.", "https://preply.com/en/teach", "Globalno", "Freelance", "Podučavanje"],
+  ["Cambly", "Online razgovori i časovi engleskog jezika sa fleksibilnim terminima.", "https://www.cambly.com/tutors", "Globalno", "Freelance", "Podučavanje"],
+  ["italki", "Postavite cene i termine za online časove jezika uz međunarodnu naplatu i globalnu bazu učenika.", "https://teach.italki.com/", "Globalno", "Freelance", "Podučavanje"],
   ["Twenix", "Online konverzacijski časovi engleskog za odrasle uz materijale i fleksibilne termine.", "https://twenix.com/tweachers-apply/", "Evropa / EMEA", "Freelance", "Podučavanje"],
-  ["Lingo Turtle", "Online časovi engleskog za mlade učenike, sa rasporedom koji možeš sam da postaviš.", "https://lingo-turtle.com/", "Srbija", "Freelance", "Podučavanje"],
+  ["Lingo Turtle", "Online časovi engleskog za mlade učenike, sa rasporedom koji možete sami da postavite.", "https://lingo-turtle.com/", "Srbija", "Freelance", "Podučavanje"],
   ["Reactive Resume", "Besplatan open-source alat za uređivanje modernog, izvozivog CV-ja.", "https://rxresu.me/", "Globalno", "Alat", "CV"],
-  ["Huntr", "Prati oglase, verzije CV-ja, intervjue, kontakte i sledeće korake.", "https://huntr.co/", "Globalno", "Alat", "Organizacija"],
-  ["Jobscan", "Uporedi CV sa konkretnim oglasom, pronađi nedostajuće ATS ključne reči i proveri format.", "https://www.jobscan.co/resume-scanner", "Globalno", "Alat", "ATS CV"],
+  ["Huntr", "Pratite oglase, verzije CV-ja, intervjue, kontakte i sledeće korake.", "https://huntr.co/", "Globalno", "Alat", "Organizacija"],
+  ["Jobscan", "Uporedite CV sa konkretnim oglasom, pronađite nedostajuće ATS ključne reči i proverite format.", "https://www.jobscan.co/resume-scanner", "Globalno", "Alat", "ATS CV"],
   ["Interviewing.io", "Anonimne probne tehničke intervjue i AI vežbe za kodiranje, system design i behavior pitanja.", "https://interviewing.io/", "Globalno", "Alat", "Intervju"],
   ["Resume Worded", "Analiza CV-ja i LinkedIn profila sa konkretnim preporukama za jaču prijavu.", "https://resumeworded.com/", "Globalno", "Alat", "CV"],
   ["Frilenseri Poreska", "Zvanični državni portal za samooporezivanje, kalkulator i kvartalnu prijavu prihoda iz inostranstva.", "https://frilenseri.ujp.gov.rs/", "Srbija", "Alat", "Porezi"],
   ["Digitalna Zajednica", "Vodiči, pravni saveti, kalkulatori i podrška za frilensere i preduzetnike u Srbiji.", "https://digitalnazajednica.org/", "Srbija", "Alat", "Zajednica"],
   ["Paušal.rs", "Vodič i platforma za jednostavno vođenje paušalne agencije, fakturisanje i poreske obaveze.", "https://www.pausal.rs/", "Srbija", "Alat", "Paušal"],
-  ["Good Air Language", "Sveobuhvatna baza i vodič kroz kompanije za online predavanje engleskog jezika, sa detaljima o platama, zahtevima i direktnim linkovima za prijavu.", "https://www.goodairlanguage.com/teaching-english-online-2", "Globalno", "Alat", "ESL vodič"],
+  ["Good Air Language", "Sveobuhvatna baza i vodič kroz kompanije za online predavanje engleskog jezika, sa platama, zahtevima i direktnim linkovima za prijavu.", "https://www.goodairlanguage.com/teaching-english-online-2", "Globalno", "Alat", "ESL vodič"],
   ["Levels.fyi", "Poređenje plata i ukupnih kompenzacija, naročito za IT uloge.", "https://www.levels.fyi/", "Globalno", "Alat", "Plate"],
   ["Glassdoor", "Recenzije kompanija, plate, uslovi rada i iskustva sa intervjua.", "https://www.glassdoor.com/Reviews/index.htm", "Globalno", "Alat", "Istraživanje"],
-  ["Joberty", "Istraži IT kompanije, iskustva zaposlenih, intervjue i plate u regionu.", "https://joberty.com/IT-companies?page=1&sort=featured", "Srbija", "Alat", "Istraživanje"],
+  ["Joberty", "Istražite IT kompanije, iskustva zaposlenih, intervjue i plate u regionu.", "https://joberty.com/IT-companies?page=1&sort=featured", "Srbija", "Alat", "Istraživanje"],
   ["GitLab All-Remote", "Detaljan besplatan priručnik o komunikaciji, dokumentovanju i radu u remote timu.", "https://handbook.gitlab.com/handbook/company/culture/all-remote/", "Globalno", "Alat", "Vodič"],
   ["Remote.co Blog", "Saveti za traženje posla, intervjue, CV i rad od kuće.", "https://remote.co/blog", "Globalno", "Alat", "Vodič"],
   ["Remoters", "Baza remote poslova, digitalnih alata, događaja i vodiča za rad sa bilo koje lokacije.", "https://remoters.net/", "Globalno", "Alat", "Vodič"],
@@ -78,24 +78,24 @@ const sources = [
   ["EU Remote Jobs", "Oglasi u kojima je Srbija eksplicitno navedena kao podržana lokacija.", "https://euremotejobs.com/job-region/serbia/", "Srbija", "Oglasi", "Za Srbiju"],
   ["NCR Voyix Careers", "Zvanične otvorene pozicije kompanije NCR Voyix u Srbiji i inostranstvu.", "https://www.ncrvoyix.com/about/careers", "Srbija", "Oglasi", "Kompanije"],
   ["Freelancer", "Međunarodni freelance projekti iz širokog spektra oblasti.", "https://www.freelancer.com/jobs/", "Globalno", "Freelance", "Projekti"],
-  ["Fiverr", "Platforma na kojoj samostalno nudiš digitalne usluge klijentima širom sveta.", "https://www.fiverr.com/", "Globalno", "Freelance", "Usluge"],
+  ["Fiverr", "Platforma na kojoj samostalno nudite digitalne usluge klijentima širom sveta.", "https://www.fiverr.com/", "Globalno", "Freelance", "Usluge"],
   ["PeoplePerHour", "Freelance poslovi iz razvoja, dizajna, pisanja, marketinga i podrške.", "https://www.peopleperhour.com/freelance-jobs", "Globalno", "Freelance", "Projekti"],
   ["Toptal", "Selektivni freelance projekti za iskusne stručnjake u techu, dizajnu i finansijama.", "https://www.toptal.com/talent/apply", "Globalno", "Freelance", "Senior"],
   ["Gun.io", "Ugovorni i freelance angažmani za iskusne programere.", "https://gun.io/", "Globalno", "Freelance", "Tech"],
 ] as const;
 
 const categories = [
-  ["Poslovi u Srbiji", "Srbija", "Platforme i kompanije koje zapošljavaju iz Srbije."],
-  ["Evropa i EMEA", "Evropa / EMEA", "Remote uloge usklađene sa evropskim zonama."],
-  ["Globalni oglasi", "Globalno", "Međunarodne kompanije i startupi."],
-  ["Freelance", "Freelance", "Projekti, ugovori i samostalni rad."],
-  ["Alati i vodiči", "Alat", "CV, praćenje prijava, plate i priprema."],
+  ["Poslovi u Srbiji", "Srbija", "Platforme i kompanije koje provereno zapošljavaju iz Srbije."],
+  ["Evropa i EMEA", "Evropa / EMEA", "Remote uloge usklađene sa evropskim vremenskim zonama."],
+  ["Globalni oglasi", "Globalno", "Međunarodne kompanije, YC startupi i fleksibilni poslovi."],
+  ["Freelance & AI", "Freelance", "Projekti, AI trening (Outlier), online časovi i samostalni rad."],
+  ["Alati i vodiči", "Alat", "Zvanični UJP portal, paušal, provera plata i priprema CV-ja."],
 ] as const;
 
 const resourceGroups = [
   ["Oglasi", "Oglasi za posao", "Platforme, kompanije i baze otvorenih remote pozicija.", "bg-[#edf3eb] text-[#426052]"],
-  ["Freelance", "Freelance i ugovorni rad", "Projekti, samostalne usluge i dugoročni angažmani.", "bg-[#f8eee9] text-[#98503a]"],
-  ["Alat", "Alati, plate i vodiči", "CV, praćenje prijava, istraživanje kompanija i priprema.", "bg-[#eeeaf6] text-[#5e4f83]"],
+  ["Freelance", "Freelance i ugovorni rad", "Projekti, platforme bez provizije, AI trening i online časovi.", "bg-[#f8eee9] text-[#98503a]"],
+  ["Alat", "Alati, plate i vodiči", "Zvanični UJP portal, paušalni vodiči, provera zarada i priprema CV-ja.", "bg-[#eeeaf6] text-[#5e4f83]"],
 ] as const;
 
 const filters = ["Sve", "Srbija", "Evropa / EMEA", "Globalno", "Freelance", "Alat"];
@@ -155,17 +155,17 @@ export default function Home() {
       <section className="relative overflow-hidden border-b border-[#17312a]/10 bg-[#e5f0df]">
         <div className="absolute left-1/2 top-1/2 size-[42rem] -translate-x-1/2 -translate-y-1/2 rounded-full border-[70px] border-[#f5f8ee]" />
         <div className="relative mx-auto flex min-h-[390px] max-w-[1540px] flex-col items-center justify-center px-5 py-16 text-center md:px-12">
-          <p className="mb-5 rounded-full border border-[#17312a]/15 bg-[#f8fbf4]/90 px-3 py-1.5 text-[11px] font-bold tracking-[0.13em] text-[#4b6658]">
+          <p className="mb-5 rounded-full border border-[#17312a]/15 bg-[#f8fbf4]/90 px-3.5 py-1.5 text-[11px] font-bold tracking-[0.13em] text-[#4b6658]">
             REMOTE POSLOVI · SRBIJA · EVROPA · SVET
           </p>
           <h1 className="max-w-4xl font-serif text-5xl leading-[0.98] tracking-[-0.04em] md:text-7xl text-[#17312a]">
             Direktorijum za remote posao
           </h1>
           <p className="mt-6 max-w-2xl text-base leading-7 text-[#52675f] md:text-lg">
-            Platforme, freelance izvori, kompanije, alati za CV i provera plata. Izaberi kategoriju ili odmah pretraži bazu.
+            Platforme, freelance izvori, kompanije, alati za CV i provera plata. Izaberite kategoriju ili odmah pretražite bazu.
           </p>
           <a href="#categories" className="mt-9 rounded-full bg-[#17312a] px-6 py-3 text-sm font-bold text-white shadow-sm hover:bg-[#244239] transition">
-            Pregledaj kategorije
+            Pregledajte kategorije
           </a>
         </div>
       </section>
@@ -176,7 +176,7 @@ export default function Home() {
         <section id="categories">
           <div className="mb-8 flex flex-col items-center text-center">
             <p className="text-xs font-bold tracking-[0.14em] text-[#dc5b38]">KATEGORIJE</p>
-            <h2 className="mt-2 font-serif text-4xl tracking-[-0.03em] md:text-5xl text-[#17312a]">Izaberi odakle krećeš</h2>
+            <h2 className="mt-2 font-serif text-4xl tracking-[-0.03em] md:text-5xl text-[#17312a]">Izaberite odakle krećete</h2>
           </div>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
             {categories.map(([title, value, description], index) => (
@@ -214,7 +214,7 @@ export default function Home() {
                     !showSaved && filter === value ? "text-[#e7f0df]" : "text-[#dc5b38]"
                   }`}
                 >
-                  Otvori kategoriju →
+                  Otvorite kategoriju →
                 </span>
               </button>
             ))}
@@ -234,7 +234,7 @@ export default function Home() {
                 value={query}
                 onChange={(event) => setQuery(event.target.value)}
                 className="w-full bg-transparent text-base outline-none placeholder:text-[#8a9891]"
-                placeholder="Pretraži platformu, oblast ili alat"
+                placeholder="Pretražite platformu, oblast ili alat"
               />
             </label>
             <div className="mt-6 flex flex-wrap justify-center gap-2">
@@ -323,7 +323,7 @@ export default function Home() {
                               event.stopPropagation();
                               toggleSaved(name);
                             }}
-                            aria-label={`Sačuvaj ${name}`}
+                            aria-label={`Sačuvajte ${name}`}
                             className={`grid size-9 shrink-0 place-items-center rounded-full border text-base transition ${
                               saved.includes(name)
                                 ? "border-[#dc5b38] bg-[#fff1ec] text-[#dc5b38]"
@@ -341,7 +341,7 @@ export default function Home() {
                       <div className="mt-auto flex items-center justify-between border-t border-[#17312a]/10 pt-5">
                         <span className="text-xs font-medium text-[#7c8c84]">{label}</span>
                         <span className="text-sm font-bold text-[#dc5b38] group-hover:translate-x-0.5 transition-transform">
-                          Otvori izvor ↗
+                          Otvorite izvor ↗
                         </span>
                       </div>
                     </article>
@@ -360,12 +360,12 @@ export default function Home() {
       <section className="border-t border-[#17312a]/10 bg-[#e5f0df] px-5 py-14 md:px-12">
         <div className="mx-auto grid max-w-[1540px] gap-7 text-center md:grid-cols-[1fr_auto] md:items-center md:text-left">
           <div>
-            <p className="text-xs font-bold tracking-[0.14em] text-[#dc5b38]">PREDLOŽI RESURS</p>
+            <p className="text-xs font-bold tracking-[0.14em] text-[#dc5b38]">PREDLOŽITE RESURS</p>
             <h2 className="mt-2 font-serif text-3xl tracking-[-0.025em] text-[#17312a]">
-              Znaš koristan izvor koji nedostaje?
+              Znate koristan izvor koji nedostaje?
             </h2>
             <p className="mt-2 text-sm text-[#52675f]">
-              Pošalji link i kratak opis, pa može biti dodat u direktorijum.
+              Pošaljite link i kratak opis, pa može biti dodat u direktorijum.
             </p>
           </div>
           <div className="flex flex-wrap justify-center gap-3 md:justify-end">
@@ -375,13 +375,13 @@ export default function Home() {
               rel="noreferrer"
               className="rounded-full bg-[#17312a] px-5 py-3 text-sm font-bold text-white hover:bg-[#244239] transition"
             >
-              Piši na X
+              Pišite na X
             </a>
             <a
               href="mailto:zoxknez@hotmail.com?subject=Predlog%20resursa%20za%20Remote%20poslove"
               className="rounded-full border border-[#17312a]/20 bg-white px-5 py-3 text-sm font-bold text-[#17312a] hover:bg-[#f3f7f0] transition shadow-sm"
             >
-              Pošalji email
+              Pošaljite email
             </a>
           </div>
         </div>
