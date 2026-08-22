@@ -1,17 +1,56 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f8f9f5;
-  --foreground: #142822;
-  --font-serif: var(--font-serif), Georgia, serif;
+  --background: #f7f8f4;
+  --foreground: #17312a;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans), sans-serif;
-  --font-mono: var(--font-geist-mono), monospace;
-  --font-serif: var(--font-serif), Georgia, serif;
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-geist-sans), sans-serif;
+}
+
+::selection {
+  background: #cce6d4;
+  color: #17312a;
+}
+
+/* Custom logo geometric styling */
+header a span.logo-icon,
+header > div > a > span:first-child {
+  position: relative;
+}
+
+header a span.logo-icon::before,
+header > div > a > span:first-child::before {
+  border: 2.5px solid #e7f0df;
+  border-right-color: transparent;
+  border-top-color: transparent;
+  content: "";
+  height: 14px;
+  position: absolute;
+  transform: rotate(45deg);
+  width: 14px;
+}
+
+header a span.logo-icon::after,
+header > div > a > span:first-child::after {
+  background: #dc5b38;
+  border-radius: 9999px;
+  content: "";
+  height: 5px;
+  position: absolute;
+  right: 8px;
+  top: 8px;
+  width: 5px;
 }
 
 /* Custom smooth scrollbar */
@@ -33,42 +72,29 @@
   background: #9fb09b;
 }
 
-/* Glassmorphism & subtle blur utility */
-.glass-nav {
-  background: rgba(253, 253, 251, 0.85);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+/* Card typography & smooth transition */
+article h4 {
+  font-family: Georgia, "Times New Roman", serif;
 }
 
-.glass-card {
-  background: rgba(255, 255, 255, 0.9);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-}
-
-/* Micro-interaction card shadows */
-.premium-card {
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.premium-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 20px 30px -10px rgba(20, 40, 34, 0.08), 0 8px 16px -6px rgba(20, 40, 34, 0.04);
-}
-
-/* Subtle glow animation */
-@keyframes subtle-pulse {
-  0%, 100% {
-    opacity: 0.9;
-    transform: scale(1);
+@media (max-width: 767px) {
+  header > div {
+    height: 68px !important;
   }
-  50% {
-    opacity: 1;
-    transform: scale(1.02);
+
+  header > div > button {
+    min-height: 44px;
+    padding-inline: 0.875rem;
+  }
+
+  header > div > a {
+    min-height: 44px;
+  }
+
+  footer div {
+    align-items: center;
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: center;
   }
 }
-
-.animate-subtle-pulse {
-  animation: subtle-pulse 4s ease-in-out infinite;
-}
-
