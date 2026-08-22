@@ -60,6 +60,7 @@ const sources = [
   ["Teal", "Prilagođavanje CV-ja, praćenje oglasa i organizovanje procesa zapošljavanja.", "https://www.tealhq.com/", "Globalno", "Alat", "CV"],
   ["Simplify", "Čuvanje oglasa, pomoć pri prijavi i praćenje procesa zapošljavanja.", "https://simplify.jobs/", "Globalno", "Alat", "Organizacija"],
   ["GitLab All-Remote", "Detaljan besplatan priručnik o komunikaciji, dokumentovanju i radu u remote timu.", "https://handbook.gitlab.com/handbook/company/culture/all-remote/", "Globalno", "Alat", "Vodič"],
+  ["Good Air Language", "Sveobuhvatna baza i vodič kroz kompanije za online predavanje engleskog jezika, sa detaljima o platama, zahtevima i direktnim linkovima za prijavu.", "https://www.goodairlanguage.com/teaching-english-online-2", "Globalno", "Alat", "ESL vodič"],
   ["Remote.co Blog", "Saveti za traženje posla, intervjue, CV i rad od kuće.", "https://remote.co/blog", "Globalno", "Alat", "Vodič"],
   ["Zapier Remote Guide", "Vodič za produktivnost, alate i organizaciju remote rada.", "https://zapier.com/blog/remote-work/", "Globalno", "Alat", "Vodič"],
   ["Jobgether", "Velika baza verifikovanih remote oglasa sa filtrima po regionu, senioritetu i ugovoru.", "https://jobgether.com/remote-jobs", "Globalno", "Oglasi", "Verifikovano"],
@@ -70,6 +71,17 @@ const sources = [
   ["EURES", "Zvanični evropski portal za oglase, mobilnost, uslove rada i podršku EURES savetnika.", "https://eures.europa.eu/index_en", "Evropa / EMEA", "Oglasi", "EU zvanično"],
   ["European Job Days", "Online evropski događaji za zapošljavanje, oglasi i direktan kontakt sa poslodavcima.", "https://www.europeanjobdays.eu/en", "Evropa / EMEA", "Oglasi", "Događaji"],
   ["Europass", "Zvanični evropski alat za izradu CV-ja, profila veština i prijava za posao.", "https://europass.europa.eu/en", "Evropa / EMEA", "Alat", "CV"],
+  ["Work at a Startup", "Zvanična Y Combinator baza remote poslova u najperspektivnijim svetskim startupima.", "https://www.workatastartup.com/", "Globalno", "Oglasi", "Startupi"],
+  ["4 Day Week", "Kurirana baza remote poslova sa 4-dnevnom radnom nedeljom (32h) i punom platom.", "https://4dayweek.io/", "Globalno", "Oglasi", "Balans"],
+  ["DailyRemote", "Dnevno ažurirani remote oglasi za razvoj, dizajn, marketing, prodaju i podršku.", "https://dailyremote.com/", "Globalno", "Oglasi", "Globalno"],
+  ["NativeCamp", "Online časovi engleskog jezika sa fleksibilnim rasporedom 24/7, popularno među predavačima u Srbiji.", "https://nativecamp.net/tutors", "Srbija", "Freelance", "Podučavanje"],
+  ["Engoo", "Globalna platforma za online časove engleskog jezika uz obezbeđene nastavne materijale.", "https://teach.engoo.com/", "Globalno", "Freelance", "Podučavanje"],
+  ["Outlier", "Plaćeni zadaci za treniranje i evaluaciju AI modela, sa nedeljnim isplatama i podrškom za Srbiju.", "https://outlier.ai/", "Globalno", "Freelance", "AI trening"],
+  ["Hubstaff Talent", "Besplatna mreža za direktno povezivanje freelancera i kompanija bez posredničkih provizija.", "https://hubstafftalent.com/", "Globalno", "Freelance", "Bez provizije"],
+  ["Frilenseri Poreska", "Zvanični državni portal za samooporezivanje, kalkulator i kvartalnu prijavu prihoda iz inostranstva.", "https://frilenseri.ujp.gov.rs/", "Srbija", "Alat", "Porezi"],
+  ["Digitalna Zajednica", "Vodiči, pravni saveti, kalkulatori i podrška za frilensere i preduzetnike u Srbiji.", "https://digitalnazajednica.org/", "Srbija", "Alat", "Zajednica"],
+  ["Paušal.rs", "Vodič i platforma za jednostavno vođenje paušalne agencije, fakturisanje i poreske obaveze.", "https://www.pausal.rs/", "Srbija", "Alat", "Paušal"],
+  ["Remoters", "Baza remote poslova, digitalnih alata, događaja i vodiča za rad sa bilo koje lokacije.", "https://remoters.net/", "Globalno", "Alat", "Vodič"],
 ] as const;
 
 const filters = ["Sve", "Srbija", "Evropa / EMEA", "Globalno", "Freelance", "Alat"];
