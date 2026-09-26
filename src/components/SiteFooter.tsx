@@ -46,8 +46,8 @@ export function SiteFooter() {
               <div className="flex items-start gap-3">
                 <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-white/8 text-lg" aria-hidden>☕</span>
                 <div>
-                  <p className="text-sm font-bold text-white">Sajt ti je koristan?</p>
-                  <p className="mt-1 text-xs leading-5 text-[#a9beb4]">Možeš da častiš kafu preko PayPal-a ili Ko-fi-ja.</p>
+                  <p className="text-sm font-bold text-white">Sajt vam je koristan?</p>
+                  <p className="mt-1 text-xs leading-5 text-[#a9beb4]">Možete da podržite projekat preko PayPal-a ili Ko-fi-ja.</p>
                 </div>
               </div>
               <p className="mt-4 text-[10px] leading-4 text-[#79978a]">Dugme za podršku nalazi se u donjem desnom uglu.</p>
