@@ -16,7 +16,7 @@ export function TrackerBoard(){
  async function reload(){setItems(await listTracker());}
  useEffect(()=>{let c=false;listTracker().then(e=>!c&&setItems(e));return()=>{c=true}},[]);
  const counts=useMemo(()=>Object.fromEntries(STATUSES.map(s=>[s,items.filter(i=>i.status===s).length])) as Record<TrackerStatus,number>,[items]);
- if(!items.length)return <div className="premium-panel py-14 text-center"><div className="mx-auto grid size-14 place-items-center rounded-2xl bg-[#eef3ed] text-2xl">♡</div><h2 className="mt-5 font-serif text-3xl">Tracker je prazan.</h2><p className="mx-auto mt-2 max-w-md text-sm leading-6 text-[#60736b]">Sačuvajte oglas iz eksperimentalnog job feeda. Podaci se čuvaju samo u ovom pregledaču.</p><a href="/poslovi" className="mt-5 inline-flex rounded-full bg-[#17312a] px-5 py-3 text-xs font-bold text-white">Otvori oglase BETA</a></div>;
+ if(!items.length)return <div className="premium-panel py-14 text-center"><div className="mx-auto grid size-14 place-items-center rounded-2xl bg-[#eef3ed] text-2xl">♡</div><h2 className="mt-5 font-serif text-3xl">Tracker je prazan.</h2><p className="mx-auto mt-2 max-w-md text-sm leading-6 text-[#60736b]">Sačuvajte oglas iz eksperimentalnog job feeda. Podaci se čuvaju samo u ovom pregledaču.</p><a href="/poslovi" className="mt-5 inline-flex rounded-full bg-[#17312a] px-5 py-3 text-xs font-bold text-white">Otvorite oglase BETA</a></div>;
  return <div className="grid gap-6">
    <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-6">{STATUSES.map(s=><div key={s} className="rounded-2xl border border-[#17312a]/8 bg-white p-4"><strong className="font-serif text-2xl">{counts[s]}</strong><p className="mt-1 text-[10px] font-bold text-[#7a8982]">{LABEL[s]}</p></div>)}</div>
    <div className="grid gap-4">{items.map(entry=><article key={entry.id} className="premium-card p-5 md:p-6">
@@ -28,7 +28,7 @@ export function TrackerBoard(){
        <label className="text-[10px] font-bold text-[#60736b]">EMAIL<input type="email" value={entry.contactEmail} onChange={async e=>{await upsertTracker({...entry,contactEmail:e.target.value})}} className="premium-field mt-1.5 font-normal" /></label>
      </div>
      <label className="mt-3 block text-[10px] font-bold text-[#60736b]">NAPOMENA<textarea value={entry.note} onChange={async e=>{await upsertTracker({...entry,note:e.target.value})}} rows={3} className="premium-field mt-1.5 resize-y font-normal" /></label>
-     <div className="mt-5 flex flex-wrap gap-2">{[3,5,7,14].map(days=><button key={days} type="button" className="chip" onClick={()=>downloadIcs(entry,days)}>Follow-up +{days}d</button>)}<a href={entry.applyUrl} target="_blank" rel="noreferrer" className="chip">Originalni oglas ↗</a><button type="button" className="chip text-[#8b3f35]" onClick={async()=>{await removeTracker(entry.id);reload();}}>Ukloni</button></div>
+     <div className="mt-5 flex flex-wrap gap-2">{[3,5,7,14].map(days=><button key={days} type="button" className="chip" onClick={()=>downloadIcs(entry,days)}>Follow-up +{days}d</button>)}<a href={entry.applyUrl} target="_blank" rel="noreferrer" className="chip">Originalni oglas ↗</a><button type="button" className="chip text-[#8b3f35]" onClick={async()=>{await removeTracker(entry.id);reload();}}>Uklonite</button></div>
      {entry.appliedAt?<p className="mt-4 text-[11px] text-[#7a8982]">Prijavljeno {formatDateSr(entry.appliedAt)}</p>:null}
    </article>)}</div>
  </div>
