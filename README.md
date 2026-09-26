@@ -1,90 +1,92 @@
 # Remote Poslovi
 
-Alat za traženje remote posla iz Srbije. Direktorijum proverenih izvora ostaje, a uz njega idu aktuelni oglasi, provera dostupnosti iz Srbije, tracker prijava, poreski kalkulator i alati za CV.
+Kurirana baza resursa za remote rad, freelance i digitalnu karijeru sa fokusom na korisnike iz Srbije.
 
 Produkcija: https://remoteposlovi.vercel.app
 
-## Šta radi
+## Fokus proizvoda
 
-- Pregled javnih remote oglasa (Remotive, Remote OK, Greenhouse boardovi)
-- Klasifikacija da li je oglas realno dostupan iz Srbije
-- Filteri, junior režim, netehničke oblasti
-- Lokalni tracker prijava, follow-up ICS, sačuvane pretrage
-- Informativni poreski obračun za frilensere (2026)
-- Provera rizičnih signala u oglasu, bez lažnog "scam score"
-- CV toolkit i generator promptova (ostaje u pregledaču)
+Primarna vrednost projekta više nije agregacija oglasa. Glavni proizvod je proveriva i pretraživa baza korisnih resursa za:
+
+- CV, portfolio, intervju, engleski i plate
+- učenje i prekvalifikaciju
+- poreze, APR, ePorezi, eFakture i administraciju
+- fakturisanje i freelance poslovanje
+- sigurnost, proveru domena i zaštitu naloga
+- produktivnost, time tracking, vremenske zone i komunikaciju
+- AI alate koji imaju široku praktičnu vrednost
+- freelance platforme i remote vodiče
+
+Live oglasi i kompanije su zadržani kao **eksperimentalna BETA funkcija** pri dnu korisničkog toka.
+
+## Trenutna baza
+
+Podaci su u `src/data/sources.ts`.
+
+Model resursa podržava:
+
+- sekciju i tagove
+- region i podršku za Srbiju
+- free / freemium / paid
+- zvanični izvor
+- open-source oznaku
+- ciljnu publiku
+- tip resursa i oblasti
+- periodični health status
+
+Direktorijum pretražuje naziv, opis, sekciju, tagove i oblasti. Brzi filteri uključuju Srbiju, besplatne, zvanične, open-source, početničke i sačuvane resurse.
+
+## Ugrađeni alati
+
+- CV i application prompt studio
+- informativni poreski kalkulator za freelancere 2026.
+- poreski kalendar i ICS
+- salary pregled po valuti
+- lokalna provera rizičnih signala u oglasima
+- tracker prijava u IndexedDB
+- follow-up ICS
+- wizard za preporuku resursa
 
 Nalog nije potreban.
 
+## Eksperimentalni oglasi
+
+`/poslovi` koristi javne izvore:
+
+| Izvor | Endpoint | Napomena |
+| --- | --- | --- |
+| Remotive | `https://remotive.com/api/remote-jobs` | Javni API, attribution i originalni link |
+| Remote OK | `https://remoteok.com/api` | Javni JSON feed |
+| Greenhouse Job Board API | `https://boards-api.greenhouse.io/v1/boards/{token}/jobs` | Javni boardovi iz `src/data/ats-boards.ts` |
+
+Eligibility klasifikacija je heuristička. Remote ne znači automatski da je pozicija dostupna iz Srbije. Korisnik mora proveriti originalni oglas.
+
 ## Arhitektura
 
-- Next.js 16 App Router, TypeScript, Tailwind CSS 4
-- Server: agregacija oglasa, NBS kurs, health check izvora
-- Klijent: localStorage (izvori, viđeni oglasi, pretrage) i IndexedDB (tracker)
+- Next.js 16 App Router
+- React 19
+- TypeScript
+- Tailwind CSS 4
+- Vitest
 
 ```
 src/
   app/            rute i API
-  components/     UI
-  data/           izvori, poreski parametri, vodiči, ATS boardovi
-  lib/            eligibility, plate, zone, porez, jobs, fx, health
+  components/     UI i lokalni alati
+  data/           kurirana baza, poreski podaci, vodiči, ATS boardovi
+  lib/            jobs, eligibility, porez, plate, zone, FX, health, storage
+  types/          modeli
 ```
 
-## Izvori oglasa
+## Privatnost
 
-| Izvor | Endpoint | Napomena |
-| --- | --- | --- |
-| Remotive | `https://remotive.com/api/remote-jobs` | Javni API, kasni do 24h, max ~4 poziva dnevno, obavezan link ka originalnom oglasu |
-| Remote OK | `https://remoteok.com/api` | Javni JSON, credit i link ka originalnom oglasu |
-| Greenhouse Job Board API | `https://boards-api.greenhouse.io/v1/boards/{token}/jobs` | Javni boardovi kompanija iz `src/data/ats-boards.ts` |
-
-Ako jedan izvor padne, ostali se i dalje prikazuju. Rezultati se keširaju 1 sat (`unstable_cache`).
-
-## Serbia eligibility
-
-Oglas se ne proglašava dostupnim iz Srbije samo zato što piše "Remote".
-
-- `CONFIRMED_SERBIA` - eksplicitno navedena Srbija
-- `WORLDWIDE` - worldwide / anywhere / global
-- `EUROPE` / `EMEA` - regionalna oznaka, treba proveriti uslove
-- `TIMEZONE_BASED` - samo vremenska zona
-- `UNCLEAR` - nema dovoljno podataka
-- `NOT_ELIGIBLE` - lista država bez Srbije, ili US-only uslov
-
-Logika je u `src/lib/eligibility.ts`.
-
-## Deduplikacija
-
-Isti oglas sa više izvora spaja se po ATS URL-u ili normalizovanom paru kompanija + naslov. Prednost ima Greenhouse/Lever career stranica.
-
-## Freshness
-
-Čuvaju se `publishedAt`, `fetchedAt` i `lastCheckedAt`. Javni API-ji vraćaju aktivne oglase. Status `CLOSED` se ne tvrdi bez provere originalnog URL-a.
+CV, tekst oglasa, beleške, kontakt podaci i tracker podaci ostaju u pregledaču tamo gde je to navedeno. Tracker koristi IndexedDB, a lakši preference state localStorage.
 
 ## Porez 2026
 
-Parametri su sa portala Frilenseri i iz važećih propisa, provereni 26. septembra 2026.
+Parametri su izdvojeni u `src/data/tax-2026.ts` i imaju navedene izvore. Kalkulator je informativan. Zvaničan obračun proverava se na portalu Poreske uprave / Frilenseri.
 
-- Opcija 1: normirani troškovi 110.647 RSD, porez 20%
-- Opcija 2: 66.733 RSD + 34% bruto, porez 10%, minimalni kvartalni PIO 36.934 RSD
-- PIO 24%, zdravstvo 10,3%, minimalno zdravstvo 7.003 RSD po kvartalu ako nije osiguran po drugom osnovu
-- Najniža mesečna osnovica doprinosa: 51.297 RSD (Sl. glasnik RS, 112/2025)
-
-Izvori su navedeni u `src/data/tax-2026.ts`. Kalkulator je informativan. Konačan obračun: https://frilenseri.purs.gov.rs/
-
-Kada se menjaju iznosi (obično početkom godine), ažurirati taj fajl i testove u `src/lib/tax.test.ts`.
-
-## Kurs
-
-Primarno: NBS zvanični srednji kurs. Fallback: javni agregator koji koristi NBS servis. Datum liste se prikazuje uz konverziju.
-
-## Environment
-
-| Varijabla | Obavezno | Opis |
-| --- | --- | --- |
-| `CRON_SECRET` | ne | Bearer token za `/api/cron/refresh` |
-
-Cron (Vercel): svakog dana u 06:00 UTC, `GET /api/cron/refresh`.
+Kod godišnje promene iznosa ažurirati podatke i `src/lib/tax.test.ts`.
 
 ## Komande
 
@@ -97,14 +99,18 @@ npm test
 npm run build
 ```
 
-## Privatnost
+## Environment
 
-CV, beleške, email kontakta i tekstovi prijava ostaju u pregledaču. Ne šalju se na server.
+| Varijabla | Obavezno | Opis |
+| --- | --- | --- |
+| `CRON_SECRET` | ne | Bearer token za `/api/cron/refresh` |
 
-## Šta treba periodično proveravati
+## Periodično održavanje
 
-- Poreske iznose na portalu Frilenseri
-- Stope i osnovice u Sl. glasniku
-- Remotive i Remote OK uslove korišćenja
-- Greenhouse tokene u `ats-boards.ts`
-- URL-ove u direktorijumu (health check)
+- proveriti poreske parametre i primarne izvore
+- proveriti cene i dostupnost resursa
+- ukloniti ili zameniti ugašene URL-ove
+- proveriti Remotive / Remote OK uslove
+- proveriti Greenhouse board tokene
+- pregledati health rezultate i redirecte
+- nove resurse dodavati samo ako donose novu praktičnu vrednost
