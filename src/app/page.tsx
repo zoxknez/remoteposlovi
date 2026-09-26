@@ -28,7 +28,7 @@ const TOOL_SUITE = [
   { href: "/plate", title: "Plate", text: "Javni salary izvori i rasponi iz oglasa bez lažnih proseka." },
   { href: "/provera-oglasa", title: "Provera oglasa", text: "Lokalna provera rizičnih signala, bez lažnog scam score-a." },
   { href: "/tracker", title: "Tracker", text: "Sačuvano, prijavljeno, intervju, ponuda i follow-up." },
-  { href: "/wizard", title: "Gde da krenem?", text: "Kratak vodič do najrelevantnijih izvora za vaš profil." },
+  { href: "/wizard", title: "Gde da krenete?", text: "Kratak vodič do najrelevantnijih izvora za vaš profil." },
 ];
 
 function StatIcon({ type }: { type: "book" | "eye" | "file" | "gift" | "code" | "pin" }) {
@@ -87,7 +87,7 @@ export default async function Home() {
                 Istražite bazu
               </a>
               <Link href="/wizard" className="inline-flex min-h-12 items-center rounded-full border border-[#17312a]/14 bg-white/80 px-6 text-sm font-bold text-[#17312a]">
-                Pomozite mi da krenem
+                Gde da krenete?
               </Link>
             </div>
           </div>
