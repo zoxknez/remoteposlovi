@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono, Newsreader } from "next/font/google";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
+import { SupportMenu } from "@/components/SupportMenu";
 import { JsonLd } from "@/components/JsonLd";
 import { SITE_NAME, SITE_URL } from "@/lib/seo";
 import "./globals.css";
@@ -77,6 +78,7 @@ export default function RootLayout({
           {children}
         </div>
         <SiteFooter />
+        <SupportMenu paypalUrl={process.env.NEXT_PUBLIC_PAYPAL_URL} kofiUrl={process.env.NEXT_PUBLIC_KOFI_URL} />
       </body>
     </html>
   );
