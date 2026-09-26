@@ -20,7 +20,7 @@ export default function AlatiPage() {
         <section className="mt-16">
           <div className="flex items-end justify-between gap-4"><div><p className="eyebrow">PROVERENI RESURSI</p><h2 className="mt-2 font-serif text-4xl">Karijerni toolkit</h2></div><a href="/izvori" className="text-xs font-bold text-[#dc5b38]">Cela baza →</a></div>
           <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {career.map((resource) => <a key={resource.id} href={resource.url} target="_blank" rel="noreferrer" className="premium-card p-5"><div className="flex items-center justify-between gap-3"><span className="text-[10px] font-bold tracking-[.12em] text-[#dc5b38]">{resource.label}</span><span className="text-[10px] text-[#7a8982]">{resource.pricing === "free" ? "BESPLATNO" : resource.pricing.toUpperCase()}</span></div><h3 className="mt-4 font-serif text-2xl">{resource.name}</h3><p className="mt-2 text-sm leading-6 text-[#60736b]">{resource.description}</p><span className="mt-5 inline-flex text-xs font-bold">Otvori ↗</span></a>)}
+            {career.map((resource) => <a key={resource.id} href={resource.url} target="_blank" rel="noreferrer" className="premium-card p-5"><div className="flex items-center justify-between gap-3"><span className="text-[10px] font-bold tracking-[.12em] text-[#dc5b38]">{resource.label}</span><span className="text-[10px] text-[#7a8982]">{resource.pricing === "free" ? "BESPLATNO" : resource.pricing.toUpperCase()}</span></div><h3 className="mt-4 font-serif text-2xl">{resource.name}</h3><p className="mt-2 text-sm leading-6 text-[#60736b]">{resource.description}</p><span className="mt-5 inline-flex text-xs font-bold">Otvorite ↗</span></a>)}
           </div>
         </section>
       </div>
