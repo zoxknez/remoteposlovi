@@ -65,7 +65,7 @@ export default async function KompanijePage() {
           <div className="premium-panel p-10 text-center">
             <h2 className="font-serif text-3xl">Feed trenutno nije dostupan.</h2>
             <p className="mx-auto mt-3 max-w-lg text-sm leading-6 text-[#60736b]">Baza resursa i svi lokalni alati rade nezavisno od eksperimentalnog feeda oglasa.</p>
-            <Link href="/izvori" className="mt-5 inline-flex rounded-full bg-[#17312a] px-5 py-3 text-xs font-bold text-white">Otvori bazu resursa</Link>
+            <Link href="/izvori" className="mt-5 inline-flex rounded-full bg-[#17312a] px-5 py-3 text-xs font-bold text-white">Otvorite bazu resursa</Link>
           </div>
         )}
       </div>
