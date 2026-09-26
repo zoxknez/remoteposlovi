@@ -78,7 +78,10 @@ export default function RootLayout({
           {children}
         </div>
         <SiteFooter />
-        <SupportMenu paypalUrl={process.env.NEXT_PUBLIC_PAYPAL_URL} kofiUrl={process.env.NEXT_PUBLIC_KOFI_URL} />
+        <SupportMenu
+          paypalUrl={process.env.NEXT_PUBLIC_PAYPAL_URL ?? "https://www.paypal.com/paypalme/o0o0o0o0o0o0o"}
+          kofiUrl={process.env.NEXT_PUBLIC_KOFI_URL ?? "https://ko-fi.com/o0o0o0o"}
+        />
       </body>
     </html>
   );
