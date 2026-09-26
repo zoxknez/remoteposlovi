@@ -15,7 +15,7 @@ CV:
 Oglas:
 {{jd}}
 
-Vrati:
+Vratite:
 1. prilagođeni CV u istom jeziku
 2. ključne reči iz oglasa koje su pokrivene
 3. rupe koje ne treba lažirati
@@ -141,7 +141,7 @@ export function PromptToolkit() {
           </div>
           <pre className="mt-5 flex-1 whitespace-pre-wrap overflow-auto rounded-2xl border border-white/10 bg-black/10 p-4 font-mono text-xs leading-6 text-[#e7f0df]">{prompt}</pre>
           <div className="mt-4 flex flex-wrap gap-2">
-            <button type="button" className="min-h-11 rounded-full bg-[#dc5b38] px-5 text-xs font-bold text-white" onClick={async () => { await navigator.clipboard.writeText(prompt); setCopied(true); setTimeout(() => setCopied(false), 1600); }}>{copied ? "Kopirano ✓" : "Kopiraj prompt"}</button>
+            <button type="button" className="min-h-11 rounded-full bg-[#dc5b38] px-5 text-xs font-bold text-white" onClick={async () => { await navigator.clipboard.writeText(prompt); setCopied(true); setTimeout(() => setCopied(false), 1600); }}>{copied ? "Kopirano ✓" : "Kopirajte prompt"}</button>
             <a href="https://chatgpt.com/" target="_blank" rel="noreferrer" className="min-h-11 content-center rounded-full border border-white/15 px-4 text-xs font-bold">ChatGPT ↗</a>
             <a href="https://claude.ai/" target="_blank" rel="noreferrer" className="min-h-11 content-center rounded-full border border-white/15 px-4 text-xs font-bold">Claude ↗</a>
           </div>
