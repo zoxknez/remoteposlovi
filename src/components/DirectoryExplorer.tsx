@@ -139,20 +139,20 @@ export function DirectoryExplorer({
       <div className="premium-panel relative overflow-hidden p-5 sm:p-7 md:p-8">
         <div className="pointer-events-none absolute -right-24 -top-24 size-72 rounded-full border-[44px] border-[#eef3ed]" aria-hidden />
         <div className="relative mx-auto max-w-4xl text-center">
-          <p className="eyebrow">KURIRANA BAZA</p>
+          <p className="eyebrow">SVI RESURSI NA JEDNOM MESTU</p>
           <h2 className="mt-3 font-serif text-4xl tracking-[-0.035em] md:text-5xl">
-            Do pravog resursa u nekoliko klikova.
+            Cela baza je ovde - samo je pregledno podeljena po kategorijama.
           </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-sm leading-6 text-[#60736b] md:text-base">
-            Ne morate da pregledate celu bazu. Pretražite direktno, izaberite oblast ili uključite brzi filter.
+          <p className="mx-auto mt-4 max-w-3xl text-sm leading-6 text-[#60736b] md:text-base">
+            Baza sadrži svih ${resources.length} resursa. Umesto jednog ogromnog zida kartica, svaka oblast ispod prikazuje nekoliko primera, a klikom otvarate sve resurse iz te kategorije.
           </p>
         </div>
 
         <div className="relative mx-auto mt-7 grid max-w-4xl gap-3 md:grid-cols-3">
           {[
-            ["01", "Pretražite", "Ako znate šta vam treba, upišite pojam ispod."],
-            ["02", "Izaberite oblast", "Karijera, učenje, porezi, sigurnost, AI i ostalo."],
-            ["03", "Sužite rezultate", "Srbija, besplatno, zvanično, open-source ili početnici."],
+            ["01", "Svi resursi su ovde", `${resources.length} resursa je raspoređeno po oblastima radi lakšeg snalaženja.`],
+            ["02", "Pogledajte primere", "Svaka kategorija odmah prikazuje nekoliko konkretnih resursa."],
+            ["03", "Otvorite celu kategoriju", "Klikom dobijate sve resurse iz izabrane oblasti."],
           ].map(([num,title,text]) => (
             <div key={title} className="rounded-[1.15rem] border border-[#17312a]/8 bg-white/75 p-4 text-left shadow-[0_8px_22px_rgba(23,49,42,.035)]">
               <div className="flex items-start gap-3">
@@ -293,17 +293,23 @@ export function DirectoryExplorer({
                     <span className="hidden rounded-full bg-[#17312a] px-3 py-1.5 text-[10px] font-bold text-white sm:inline">OTVORITE</span>
                   </div>
 
-                  <div className="relative mt-5 flex flex-wrap gap-2">
-                    {group.items.slice(0, 3).map((resource) => (
-                      <span key={resource.id} className="rounded-full border border-[#17312a]/7 bg-[#f7f9f5] px-3 py-1.5 text-[10px] font-medium text-[#60736b]">
-                        {resource.name}
-                      </span>
+                  <div className="relative mt-5 grid gap-2">
+                    {group.items.slice(0, 3).map((resource, resourceIndex) => (
+                      <div key={resource.id} className="flex items-center justify-between gap-3 rounded-xl border border-[#17312a]/7 bg-[#f7f9f5] px-3.5 py-3">
+                        <div className="min-w-0">
+                          <p className="truncate text-sm font-semibold text-[#17312a]">{resource.name}</p>
+                          <p className="mt-0.5 truncate text-[10px] text-[#7a8982]">{resource.label}</p>
+                        </div>
+                        <span className="shrink-0 text-[10px] font-bold text-[#9aa59f]">{String(resourceIndex + 1).padStart(2, "0")}</span>
+                      </div>
                     ))}
                   </div>
 
                   <div className="relative mt-5 flex items-center justify-between border-t border-[#17312a]/7 pt-4">
-                    <span className="text-[10px] font-bold uppercase tracking-[.11em] text-[#8a9690]">Pregled oblasti</span>
-                    <span className="text-xs font-bold text-[#17312a] transition group-hover:text-[#dc5b38]">Otvorite kategoriju →</span>
+                    <span className="text-[10px] font-bold uppercase tracking-[.11em] text-[#8a9690]">
+                      {group.items.length > 3 ? `+ još ${group.items.length - 3} resursa` : "Svi resursi prikazani"}
+                    </span>
+                    <span className="text-xs font-bold text-[#17312a] transition group-hover:text-[#dc5b38]">Prikažite sve resurse →</span>
                   </div>
                 </button>
               ))}
