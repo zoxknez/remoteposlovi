@@ -137,7 +137,7 @@ export function PromptToolkit() {
         <div className="flex min-h-[520px] flex-col bg-[#17312a] p-5 text-[#e7f0df] md:p-7">
           <div className="flex items-center justify-between gap-3">
             <div><p className="text-[10px] font-bold tracking-[.13em] text-[#a9c1b5]">GENERISANI PROMPT</p><p className="mt-1 text-xs text-[#bed0c7]">{prompt.length.toLocaleString("sr-Latn-RS")} karaktera</p></div>
-            <button type="button" onClick={reset} className="rounded-full border border-white/15 px-3 py-2 text-[10px] font-bold">Očisti</button>
+            <button type="button" onClick={reset} className="rounded-full border border-white/15 px-3 py-2 text-[10px] font-bold">Očistite</button>
           </div>
           <pre className="mt-5 flex-1 whitespace-pre-wrap overflow-auto rounded-2xl border border-white/10 bg-black/10 p-4 font-mono text-xs leading-6 text-[#e7f0df]">{prompt}</pre>
           <div className="mt-4 flex flex-wrap gap-2">
