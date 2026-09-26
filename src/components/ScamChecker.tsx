@@ -7,7 +7,7 @@ export function ScamChecker() {
   const [url,setUrl]=useState(""); const [text,setText]=useState(""); const result=checkScamSignals({url,text}); const hasInput=Boolean(url.trim()||text.trim());
   return <div className="grid gap-5 lg:grid-cols-[.95fr_1.05fr]">
     <section className="premium-panel p-5 md:p-7">
-      <div className="flex items-center justify-between"><div><p className="eyebrow">ULAZ</p><h2 className="mt-2 font-serif text-3xl">Oglas ili poruka</h2></div>{hasInput?<button type="button" onClick={()=>{setUrl("");setText("");}} className="chip">Očisti</button>:null}</div>
+      <div className="flex items-center justify-between"><div><p className="eyebrow">ULAZ</p><h2 className="mt-2 font-serif text-3xl">Oglas ili poruka</h2></div>{hasInput?<button type="button" onClick={()=>{setUrl("");setText("");}} className="chip">Očistite</button>:null}</div>
       <label className="mt-6 block text-xs font-bold text-[#52675f]">URL oglasa<input value={url} onChange={e=>setUrl(e.target.value)} className="premium-field mt-1.5 font-normal" placeholder="https://" /></label>
       <label className="mt-4 block text-xs font-bold text-[#52675f]">Tekst oglasa ili poruke<textarea value={text} onChange={e=>setText(e.target.value)} rows={11} className="premium-field mt-1.5 resize-y font-normal" placeholder="Nalepite tekst. Provera ostaje u pregledaču." /></label>
       <p className="mt-4 text-[11px] leading-5 text-[#7a8982]">Ne šaljemo tekst na server i ne donosimo konačan sud da je oglas prevara ili legitiman.</p>
