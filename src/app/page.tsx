@@ -60,10 +60,10 @@ export default async function Home() {
           <div>
             <p className="eyebrow">REMOTE RAD · SRBIJA · 2026</p>
             <h1 className="mt-5 max-w-4xl font-serif text-5xl leading-[0.98] tracking-[-0.045em] text-[#17312a] md:text-7xl">
-              Manje lutanja. Više korisnih, proverenih resursa.
+              Remote rad iz Srbije
             </h1>
             <p className="mt-6 max-w-2xl text-base leading-7 text-[#52675f] md:text-lg">
-              Kurirana baza za karijeru, freelance, učenje, poreze, fakture, sigurnost, produktivnost i svakodnevni remote rad. Oglasi postoje, ali više nisu centar proizvoda.
+              Kurirana baza poslova, freelance platformi, alata, vodiča i korisnih resursa.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <a href="#directory" className="inline-flex min-h-12 items-center rounded-full bg-[#17312a] px-6 text-sm font-bold text-white transition hover:bg-[#244239]">
