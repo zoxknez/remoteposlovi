@@ -13,15 +13,6 @@ export const metadata = pageMeta(
   "/",
 );
 
-const PATHS = [
-  { title: "Karijera", text: "CV, portfolio, engleski, intervju i plate.", href: "/izvori", mark: "01" },
-  { title: "Učenje", text: "Roadmaps, kursevi i praktične putanje za nove veštine.", href: "/izvori", mark: "02" },
-  { title: "Poslovanje", text: "Porezi, APR, ePorezi, fakture, kurs i administracija.", href: "/izvori", mark: "03" },
-  { title: "Sigurnost", text: "Provera domena, phishing, curenja podataka i zaštita naloga.", href: "/izvori", mark: "04" },
-  { title: "Remote workflow", text: "Time tracking, timezone, komunikacija i organizacija rada.", href: "/izvori", mark: "05" },
-  { title: "AI za posao", text: "Nekoliko široko korisnih AI alata, bez kataloga od 500 servisa.", href: "/izvori", mark: "06" },
-];
-
 const TOOL_SUITE = [
   { href: "/alati", title: "CV i prijava", text: "Prompt studio + provereni CV/ATS resursi." },
   { href: "/porez", title: "Poreski kalkulator", text: "Informativni obračun za freelancere u 2026." },
@@ -129,57 +120,8 @@ export default async function Home() {
       </section>
 
       <div className="mx-auto max-w-[1540px] px-5 py-14 md:px-12 md:py-20">
-        <section>
-          <div className="mx-auto max-w-3xl text-center">
-            <p className="eyebrow">ŠTA VAM TREBA?</p>
-            <h2 className="mt-3 font-serif text-4xl tracking-[-0.035em] md:text-5xl">Sve oko remote rada, ne samo oglasi.</h2>
-          </div>
-          <div className="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-            {PATHS.map((item) => (
-              <a
-                key={item.title}
-                href="#directory"
-                className="group relative overflow-hidden rounded-[1.6rem] border border-[#17312a]/8 bg-white/92 p-6 shadow-[0_14px_38px_rgba(23,49,42,0.05)] transition duration-300 hover:-translate-y-1 hover:border-[#17312a]/14 hover:shadow-[0_24px_54px_rgba(23,49,42,0.09)] md:p-7"
-              >
-                <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#17312a]/16 to-transparent opacity-0 transition group-hover:opacity-100" />
-                <div className="absolute -right-10 -top-10 size-28 rounded-full border-[18px] border-[#eef3ed]/85" aria-hidden />
-                <div className="absolute -bottom-10 left-10 size-24 rounded-full bg-[#edf4ef]/70 blur-2xl" aria-hidden />
+        <section className="mt-4">
 
-                <div className="relative flex items-start justify-between gap-4">
-                  <div className="flex items-center gap-3">
-                    <span className="grid size-10 place-items-center rounded-2xl bg-[#eef3ed] text-[11px] font-bold tracking-[.14em] text-[#dc5b38]">
-                      {item.mark}
-                    </span>
-                    <span className="rounded-full border border-[#17312a]/8 bg-[#f8faf7] px-3 py-1 text-[10px] font-semibold uppercase tracking-[.12em] text-[#6f7e77]">
-                      Oblast
-                    </span>
-                  </div>
-                  <span className="grid size-10 place-items-center rounded-full border border-[#17312a]/8 bg-white text-[#93a098] transition group-hover:border-[#dc5b38]/20 group-hover:text-[#dc5b38]">
-                    ↗
-                  </span>
-                </div>
-
-                <div className="relative mt-8">
-                  <h3 className="font-serif text-[2rem] leading-[1.05] tracking-[-0.03em] text-[#17312a]">
-                    {item.title}
-                  </h3>
-                  <p className="mt-3 max-w-[30rem] text-[15px] leading-7 text-[#60736b]">
-                    {item.text}
-                  </p>
-                </div>
-
-                <div className="relative mt-7 flex items-center justify-between border-t border-[#17312a]/7 pt-4">
-                  <span className="text-xs font-semibold text-[#6b7a73]">Istraži resurse</span>
-                  <span className="text-xs font-bold text-[#17312a] transition group-hover:translate-x-1 group-hover:text-[#dc5b38]">
-                    Otvorite →
-                  </span>
-                </div>
-              </a>
-            ))}
-          </div>
-        </section>
-
-        <section className="mt-20">
           <DirectoryExplorer resources={RESOURCES} />
         </section>
 
