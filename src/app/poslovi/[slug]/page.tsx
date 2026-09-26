@@ -132,10 +132,10 @@ export default async function JobPage({ params }: Props) {
           rel="noreferrer"
           className="inline-flex min-h-11 items-center rounded-full bg-[#17312a] px-5 text-sm font-bold text-white"
         >
-          Pogledaj oglas
+          Pogledajte oglas
         </a>
         <Link href="/tracker" className="inline-flex min-h-11 items-center rounded-full border border-[#17312a]/20 px-5 text-sm font-bold">
-          Otvori tracker
+          Otvorite tracker
         </Link>
       </div>
       </div></section><div className="mx-auto max-w-5xl px-5 py-10 md:px-12 md:py-14">{fx ? <div><SalaryConversion job={job} fx={fx} /></div> : null}
