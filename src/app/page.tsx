@@ -31,6 +31,23 @@ const TOOL_SUITE = [
   { href: "/wizard", title: "Gde da krenem?", text: "Kratak vodič do najrelevantnijih izvora za vaš profil." },
 ];
 
+function StatIcon({ type }: { type: "book" | "eye" | "file" | "gift" | "code" | "pin" }) {
+  const paths = {
+    book: <path d="M4 5.5A3.5 3.5 0 0 1 7.5 2H12v15H7.5A3.5 3.5 0 0 0 4 20.5V5.5Zm16 0A3.5 3.5 0 0 0 16.5 2H12v15h4.5A3.5 3.5 0 0 1 20 20.5V5.5Z" />,
+    eye: <><path d="M2.5 12s3.5-5 9.5-5 9.5 5 9.5 5-3.5 5-9.5 5-9.5-5-9.5-5Z" /><circle cx="12" cy="12" r="2.5" /></>,
+    file: <><path d="M7 2.5h7l4 4V21H7V2.5Z" /><path d="M14 2.5V7h4M10 12h5M10 16h5" /></>,
+    gift: <><rect x="4" y="9" width="16" height="11" rx="2" /><path d="M12 9v11M3.5 9h17V6.5h-17V9Zm8.5-2.5c-1.7 0-4-.7-4-2.5 0-1 .8-1.8 1.9-1.8 1.6 0 2.1 2 2.1 4.3Zm0 0c1.7 0 4-.7 4-2.5 0-1-.8-1.8-1.9-1.8-1.6 0-2.1 2-2.1 4.3Z" /></>,
+    code: <><path d="m8 7-4 5 4 5M16 7l4 5-4 5M14 4l-4 16" /></>,
+    pin: <><path d="M12 21s6-5.3 6-11a6 6 0 1 0-12 0c0 5.7 6 11 6 11Z" /><circle cx="12" cy="10" r="2" /></>,
+  } as const;
+
+  return (
+    <svg viewBox="0 0 24 24" className="size-6" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+      {paths[type]}
+    </svg>
+  );
+}
+
 export default async function Home() {
   const feed = await getJobFeed().catch(() => null);
   const jobs = feed?.jobs ?? [];
@@ -75,20 +92,38 @@ export default async function Home() {
             </div>
           </div>
 
-          <div className="premium-panel grid grid-cols-2 gap-px overflow-hidden bg-[#17312a]/8 p-0">
-            {[
-              [RESOURCES.length, "ukupno resursa"],
-              [nonJobs, "resursa van oglasa"],
-              [official, "zvaničnih izvora"],
-              [free, "potpuno besplatnih"],
-              [open, "open-source resursa"],
-              ["SR", "fokus na Srbiju"],
-            ].map(([value, label]) => (
-              <div key={String(label)} className="bg-white/90 p-6 md:p-8">
-                <strong className="font-serif text-3xl text-[#17312a] md:text-4xl">{value}</strong>
-                <p className="mt-2 text-xs font-semibold text-[#6d7e76]">{label}</p>
-              </div>
-            ))}
+          <div className="rounded-[2rem] border border-white/70 bg-white/72 p-3 shadow-[0_28px_80px_rgba(23,49,42,0.12)] backdrop-blur-xl md:p-4">
+            <div className="grid gap-3 sm:grid-cols-2">
+              {[
+                { value: RESOURCES.length, label: "ukupno resursa", icon: "book" as const, tone: "from-[#f4f9f2] to-[#eef5eb]", accent: "bg-[#e5f0df] text-[#1f5a3b]" },
+                { value: nonJobs, label: "resursa van oglasa", icon: "eye" as const, tone: "from-[#fffdf8] to-[#f8f3e9]", accent: "bg-[#f5eddf] text-[#6f5b34]" },
+                { value: official, label: "zvaničnih izvora", icon: "file" as const, tone: "from-[#fffdf9] to-[#f7f4ec]", accent: "bg-[#eef2e9] text-[#45614f]" },
+                { value: free, label: "potpuno besplatnih", icon: "gift" as const, tone: "from-[#f3f9f2] to-[#eaf4e8]", accent: "bg-[#e2efdf] text-[#24593d]" },
+                { value: open, label: "open-source resursa", icon: "code" as const, tone: "from-[#f2f8f1] to-[#eaf3e8]", accent: "bg-[#e1eddd] text-[#22563a]" },
+                { value: "SR", label: "fokus na Srbiju", icon: "pin" as const, tone: "from-[#fffdf8] to-[#f8f2e8]", accent: "bg-[#f3eadc] text-[#6a5736]" },
+              ].map((item) => (
+                <div
+                  key={item.label}
+                  className={`group relative min-h-[148px] overflow-hidden rounded-[1.5rem] border border-[#17312a]/8 bg-gradient-to-br ${item.tone} p-5 shadow-[inset_0_1px_0_rgba(255,255,255,.8)] transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_16px_34px_rgba(23,49,42,0.08)] md:min-h-[164px] md:p-6`}
+                >
+                  <div className="absolute -bottom-12 -right-10 size-32 rounded-full border-[22px] border-white/35" aria-hidden />
+                  <div className="absolute right-6 top-5 size-3 rounded-full bg-[#c9dcbf]/75 opacity-80" aria-hidden />
+                  <div className="relative flex h-full items-start justify-between gap-4">
+                    <div className="flex min-h-full flex-col justify-between">
+                      <strong className="font-serif text-5xl leading-none tracking-[-0.05em] text-[#17312a] md:text-6xl">
+                        {item.value}
+                      </strong>
+                      <p className="mt-5 max-w-[14rem] text-sm font-medium leading-5 text-[#4f655d] md:text-[15px]">
+                        {item.label}
+                      </p>
+                    </div>
+                    <div className={`grid size-14 shrink-0 place-items-center rounded-2xl border border-white/70 shadow-[0_10px_24px_rgba(23,49,42,0.06)] ${item.accent}`}>
+                      <StatIcon type={item.icon} />
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
