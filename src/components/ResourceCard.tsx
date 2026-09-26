@@ -214,7 +214,7 @@ export function ResourceCard({
           rel="noreferrer"
           className="relative mt-5 flex min-h-14 w-full items-center justify-between overflow-hidden rounded-[1.15rem] bg-[#17312a] px-5 text-sm font-bold text-white shadow-[0_14px_28px_rgba(23,49,42,0.16)] transition hover:-translate-y-0.5 hover:bg-[#21483c]"
         >
-          <span className="relative z-10">Otvori resurs</span>
+          <span className="relative z-10">Otvorite resurs</span>
           <span className="relative z-10 grid size-8 place-items-center rounded-full bg-white/10 text-lg transition group-hover:translate-x-1" aria-hidden>→</span>
           <span className="absolute -right-8 -top-10 size-28 rounded-full border-[18px] border-white/5" aria-hidden />
         </a>
