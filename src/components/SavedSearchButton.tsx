@@ -29,7 +29,7 @@ export function SavedSearchButton({ currentCount }: { currentCount: number }) {
         setDone(true);
       }}
     >
-      {done ? "Pretraga sačuvana u pregledaču" : "Sačuvaj ovu pretragu"}
+      {done ? "Pretraga sačuvana u pregledaču" : "Sačuvajte ovu pretragu"}
     </button>
   );
 }
