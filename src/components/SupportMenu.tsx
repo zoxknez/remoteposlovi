@@ -34,7 +34,7 @@ export function SupportMenu({
         <div className="mb-3 w-[250px] overflow-hidden rounded-[1.35rem] border border-[#17312a]/10 bg-white/96 p-3 shadow-[0_24px_70px_rgba(23,49,42,0.18)] backdrop-blur-xl">
           <div className="px-2 pb-2 pt-1">
             <p className="text-[10px] font-bold uppercase tracking-[.13em] text-[#839089]">Podrži projekat</p>
-            <p className="mt-1 text-xs leading-5 text-[#60736b]">Ako ti je sajt koristan, možeš da podržiš projekat.</p>
+            <p className="mt-1 text-xs leading-5 text-[#60736b]">Ako vam je sajt koristan, možete da podržite projekat.</p>
           </div>
 
           <div className="mt-1 grid gap-2">
