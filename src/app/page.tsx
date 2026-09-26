@@ -193,13 +193,23 @@ export default async function Home() {
               Sve je napravljeno da radi bez naloga kad god je moguće. Osetljivi tekstovi i tracker ostaju u pregledaču.
             </p>
           </div>
-          <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {TOOL_SUITE.map((item) => (
-              <Link key={item.href} href={item.href} className="premium-card p-6">
-                <span className="text-[10px] font-bold tracking-[.13em] text-[#dc5b38]">ALAT</span>
-                <h3 className="mt-3 font-serif text-2xl">{item.title}</h3>
-                <p className="mt-2 text-sm leading-6 text-[#60736b]">{item.text}</p>
-                <span className="mt-6 inline-flex text-xs font-bold text-[#17312a]">Otvori →</span>
+          <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {TOOL_SUITE.map((item, index) => (
+              <Link key={item.href} href={item.href} className="group relative overflow-hidden rounded-[1.6rem] border border-[#17312a]/8 bg-white/94 p-6 shadow-[0_16px_38px_rgba(23,49,42,0.05)] transition duration-300 hover:-translate-y-1 hover:border-[#17312a]/14 hover:shadow-[0_24px_54px_rgba(23,49,42,0.09)]">
+                <div className="absolute -right-12 -top-12 size-32 rounded-full border-[20px] border-[#f2f5f1]" aria-hidden />
+                <div className="relative flex items-center justify-between gap-4">
+                  <span className="grid size-11 place-items-center rounded-2xl bg-[#17312a] text-xs font-bold text-white">{String(index + 1).padStart(2, "0")}</span>
+                  <span className="grid size-10 place-items-center rounded-full border border-[#17312a]/8 bg-white text-[#7f8d86] transition group-hover:text-[#dc5b38]">↗</span>
+                </div>
+                <div className="relative mt-7">
+                  <p className="text-[10px] font-bold uppercase tracking-[.14em] text-[#dc5b38]">Ugrađeni alat</p>
+                  <h3 className="mt-2 font-serif text-[2rem] leading-[1.05] tracking-[-0.03em]">{item.title}</h3>
+                  <p className="mt-3 min-h-[52px] text-[15px] leading-7 text-[#60736b]">{item.text}</p>
+                </div>
+                <div className="relative mt-6 flex items-center justify-between border-t border-[#17312a]/8 pt-4">
+                  <span className="text-xs font-semibold text-[#6a7a73]">Bez naloga kad je moguće</span>
+                  <span className="text-xs font-bold text-[#17312a] transition group-hover:translate-x-1 group-hover:text-[#dc5b38]">Otvori →</span>
+                </div>
               </Link>
             ))}
           </div>
