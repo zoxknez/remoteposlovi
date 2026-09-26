@@ -42,7 +42,7 @@ function StatIcon({ type }: { type: "book" | "eye" | "file" | "gift" | "code" | 
   } as const;
 
   return (
-    <svg viewBox="0 0 24 24" className="size-6" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+    <svg viewBox="0 0 24 24" className="size-5" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
       {paths[type]}
     </svg>
   );
@@ -73,16 +73,16 @@ export default async function Home() {
       <section className="relative overflow-hidden border-b border-[#17312a]/8 bg-[#e8f1e4]">
         <div className="absolute -left-24 -top-32 size-[34rem] rounded-full bg-white/45 blur-3xl" />
         <div className="absolute -bottom-40 right-0 size-[32rem] rounded-full bg-[#d8e6d1]/70 blur-3xl" />
-        <div className="relative mx-auto grid min-h-[520px] max-w-[1540px] items-center gap-10 px-5 py-16 md:px-12 lg:grid-cols-[1.2fr_.8fr]">
+        <div className="relative mx-auto grid min-h-[430px] max-w-[1540px] items-center gap-8 px-5 py-10 md:px-12 md:py-12 lg:grid-cols-[1.16fr_.84fr]">
           <div>
             <p className="eyebrow">REMOTE RAD · SRBIJA · 2026</p>
-            <h1 className="mt-5 max-w-4xl font-serif text-5xl leading-[0.98] tracking-[-0.045em] text-[#17312a] md:text-7xl">
+            <h1 className="mt-4 max-w-4xl font-serif text-4xl leading-[0.98] tracking-[-0.045em] text-[#17312a] md:text-6xl">
               Remote rad iz Srbije
             </h1>
-            <p className="mt-6 max-w-2xl text-base leading-7 text-[#52675f] md:text-lg">
+            <p className="mt-4 max-w-2xl text-base leading-7 text-[#52675f]">
               Kurirana baza poslova, freelance platformi, alata, vodiča i korisnih resursa.
             </p>
-            <div className="mt-8 flex flex-wrap gap-3">
+            <div className="mt-6 flex flex-wrap gap-3">
               <a href="#directory" className="inline-flex min-h-12 items-center rounded-full bg-[#17312a] px-6 text-sm font-bold text-white transition hover:bg-[#244239]">
                 Istražite bazu
               </a>
@@ -92,8 +92,8 @@ export default async function Home() {
             </div>
           </div>
 
-          <div className="rounded-[2rem] border border-white/70 bg-white/72 p-3 shadow-[0_28px_80px_rgba(23,49,42,0.12)] backdrop-blur-xl md:p-4">
-            <div className="grid gap-3 sm:grid-cols-2">
+          <div className="rounded-[1.6rem] border border-white/70 bg-white/72 p-2.5 shadow-[0_22px_60px_rgba(23,49,42,0.10)] backdrop-blur-xl md:p-3">
+            <div className="grid gap-2.5 sm:grid-cols-2">
               {[
                 { value: RESOURCES.length, label: "ukupno resursa", icon: "book" as const, tone: "from-[#f4f9f2] to-[#eef5eb]", accent: "bg-[#e5f0df] text-[#1f5a3b]" },
                 { value: nonJobs, label: "resursa van oglasa", icon: "eye" as const, tone: "from-[#fffdf8] to-[#f8f3e9]", accent: "bg-[#f5eddf] text-[#6f5b34]" },
@@ -104,20 +104,20 @@ export default async function Home() {
               ].map((item) => (
                 <div
                   key={item.label}
-                  className={`group relative min-h-[148px] overflow-hidden rounded-[1.5rem] border border-[#17312a]/8 bg-gradient-to-br ${item.tone} p-5 shadow-[inset_0_1px_0_rgba(255,255,255,.8)] transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_16px_34px_rgba(23,49,42,0.08)] md:min-h-[164px] md:p-6`}
+                  className={`group relative min-h-[116px] overflow-hidden rounded-[1.25rem] border border-[#17312a]/8 bg-gradient-to-br ${item.tone} p-4 shadow-[inset_0_1px_0_rgba(255,255,255,.8)] transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_14px_28px_rgba(23,49,42,0.07)] md:min-h-[128px] md:p-4.5`}
                 >
-                  <div className="absolute -bottom-12 -right-10 size-32 rounded-full border-[22px] border-white/35" aria-hidden />
-                  <div className="absolute right-6 top-5 size-3 rounded-full bg-[#c9dcbf]/75 opacity-80" aria-hidden />
+                  <div className="absolute -bottom-10 -right-8 size-24 rounded-full border-[16px] border-white/35" aria-hidden />
+                  <div className="absolute right-5 top-4 size-2.5 rounded-full bg-[#c9dcbf]/75 opacity-80" aria-hidden />
                   <div className="relative flex h-full items-start justify-between gap-4">
                     <div className="flex min-h-full flex-col justify-between">
-                      <strong className="font-serif text-5xl leading-none tracking-[-0.05em] text-[#17312a] md:text-6xl">
+                      <strong className="font-serif text-4xl leading-none tracking-[-0.05em] text-[#17312a] md:text-5xl">
                         {item.value}
                       </strong>
-                      <p className="mt-5 max-w-[14rem] text-sm font-medium leading-5 text-[#4f655d] md:text-[15px]">
+                      <p className="mt-3 max-w-[12rem] text-xs font-medium leading-5 text-[#4f655d] md:text-sm">
                         {item.label}
                       </p>
                     </div>
-                    <div className={`grid size-14 shrink-0 place-items-center rounded-2xl border border-white/70 shadow-[0_10px_24px_rgba(23,49,42,0.06)] ${item.accent}`}>
+                    <div className={`grid size-11 shrink-0 place-items-center rounded-xl border border-white/70 shadow-[0_8px_18px_rgba(23,49,42,0.05)] ${item.accent}`}>
                       <StatIcon type={item.icon} />
                     </div>
                   </div>
