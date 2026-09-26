@@ -104,6 +104,8 @@ npm run build
 | Varijabla | Obavezno | Opis |
 | --- | --- | --- |
 | `CRON_SECRET` | ne | Bearer token za `/api/cron/refresh` |
+| `NEXT_PUBLIC_PAYPAL_URL` | ne | Lični PayPal support link za floating "Časti kafu" meni |
+| `NEXT_PUBLIC_KOFI_URL` | ne | Lični Ko-fi support link za floating "Časti kafu" meni |
 
 ## Periodično održavanje
 
