@@ -25,6 +25,6 @@ export function SalaryConversion({ job, fx }: { job: NormalizedJob; fx: FxRates 
       <p className="text-[10px] font-semibold text-[#7a8982]">{fx.source} · {fx.publishedOn}</p>
     </div>
     <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">{items.map(([currency,value])=><div key={String(currency)} className="rounded-2xl border border-[#17312a]/8 bg-white p-4"><p className="text-[10px] font-bold uppercase tracking-[.12em] text-[#89958f]">{currency}</p><strong className="mt-2 block font-serif text-2xl text-[#17312a]">{value}</strong><p className="mt-1 text-[10px] text-[#7a8982]">mesečno</p></div>)}</div>
-    <Link href={`/porez?iznos=${Math.round(monthly)}&valuta=${job.salaryCurrency}&period=monthly`} className="mt-5 inline-flex min-h-11 items-center rounded-full bg-[#17312a] px-5 text-xs font-bold text-white">Izračunaj približan porez →</Link>
+    <Link href={`/porez?iznos=${Math.round(monthly)}&valuta=${job.salaryCurrency}&period=monthly`} className="mt-5 inline-flex min-h-11 items-center rounded-full bg-[#17312a] px-5 text-xs font-bold text-white">Izračunajte približan porez →</Link>
   </section>;
 }
