@@ -87,7 +87,7 @@ export default async function Home() {
                 Istražite bazu
               </a>
               <Link href="/wizard" className="inline-flex min-h-12 items-center rounded-full border border-[#17312a]/14 bg-white/80 px-6 text-sm font-bold text-[#17312a]">
-                Ne znam odakle da krenem
+                Pomozite mi da krenem
               </Link>
             </div>
           </div>
@@ -208,7 +208,7 @@ export default async function Home() {
                 </div>
                 <div className="relative mt-6 flex items-center justify-between border-t border-[#17312a]/8 pt-4">
                   <span className="text-xs font-semibold text-[#6a7a73]">Bez naloga kad je moguće</span>
-                  <span className="text-xs font-bold text-[#17312a] transition group-hover:translate-x-1 group-hover:text-[#dc5b38]">Otvori →</span>
+                  <span className="text-xs font-bold text-[#17312a] transition group-hover:translate-x-1 group-hover:text-[#dc5b38]">Otvorite →</span>
                 </div>
               </Link>
             ))}
