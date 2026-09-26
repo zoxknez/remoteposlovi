@@ -4,8 +4,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { CATEGORY_LABELS, EMPLOYMENT_LABELS, SENIORITY_LABELS } from "@/lib/classify";
 import type { JobCategory, Seniority } from "@/types";
 
-const SELECT_CLASS =
-  "min-h-11 rounded-full border border-[#17312a]/15 bg-white px-3 text-sm text-[#17312a]";
+const SELECT_CLASS = "premium-field min-h-12 rounded-xl text-sm text-[#17312a]";
 
 export function JobFilters({ defaultSerbia = true }: { defaultSerbia?: boolean }) {
   const router = useRouter();
@@ -44,7 +43,7 @@ export function JobFilters({ defaultSerbia = true }: { defaultSerbia?: boolean }
         router.push(`/poslovi?${next.toString()}`);
       }}
     >
-      <label className="flex h-14 items-center gap-3 rounded-full border border-[#17312a]/15 bg-white px-5 shadow-sm">
+      <label className="flex min-h-14 items-center gap-3 rounded-2xl border border-[#17312a]/10 bg-white px-5 shadow-[0_10px_28px_rgba(23,49,42,0.05)]">
         <span className="text-[#60736b]">⌕</span>
         <input
           name="q"
@@ -58,7 +57,7 @@ export function JobFilters({ defaultSerbia = true }: { defaultSerbia?: boolean }
         <button
           type="button"
           onClick={() => toggle("srbija")}
-          className={`min-h-11 rounded-full px-4 text-xs font-bold ${
+          className={`min-h-11 rounded-xl px-4 text-xs font-bold transition ${
             serbiaOn ? "bg-[#17312a] text-white" : "border border-[#17312a]/10 bg-white text-[#60736b]"
           }`}
         >
@@ -67,7 +66,7 @@ export function JobFilters({ defaultSerbia = true }: { defaultSerbia?: boolean }
         <button
           type="button"
           onClick={() => toggle("pocetnik")}
-          className={`min-h-11 rounded-full px-4 text-xs font-bold ${
+          className={`min-h-11 rounded-xl px-4 text-xs font-bold transition ${
             params.get("pocetnik") === "1"
               ? "bg-[#dc5b38] text-white"
               : "border border-[#17312a]/10 bg-white text-[#60736b]"
@@ -78,7 +77,7 @@ export function JobFilters({ defaultSerbia = true }: { defaultSerbia?: boolean }
         <button
           type="button"
           onClick={() => toggle("plata")}
-          className={`min-h-11 rounded-full px-4 text-xs font-bold ${
+          className={`min-h-11 rounded-xl px-4 text-xs font-bold transition ${
             params.get("plata") === "1"
               ? "bg-[#17312a] text-white"
               : "border border-[#17312a]/10 bg-white text-[#60736b]"
@@ -89,7 +88,7 @@ export function JobFilters({ defaultSerbia = true }: { defaultSerbia?: boolean }
         <button
           type="button"
           onClick={() => toggle("sakrij")}
-          className={`min-h-11 rounded-full px-4 text-xs font-bold ${
+          className={`min-h-11 rounded-xl px-4 text-xs font-bold transition ${
             params.get("sakrij") === "1"
               ? "bg-[#17312a] text-white"
               : "border border-[#17312a]/10 bg-white text-[#60736b]"
@@ -98,8 +97,8 @@ export function JobFilters({ defaultSerbia = true }: { defaultSerbia?: boolean }
           Sakrij pregledane
         </button>
       </div>
-      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-        <label className="grid gap-1 text-xs font-bold text-[#60736b]">
+      <div className="grid gap-4 rounded-[1.35rem] border border-[#17312a]/8 bg-[#f8faf7] p-4 sm:grid-cols-2 lg:grid-cols-4">
+        <label className="grid gap-2 text-[10px] font-bold uppercase tracking-[.11em] text-[#6f7e77]">
           Lokacija
           <select
             className={SELECT_CLASS}
@@ -113,7 +112,7 @@ export function JobFilters({ defaultSerbia = true }: { defaultSerbia?: boolean }
             <option value="worldwide">Worldwide</option>
           </select>
         </label>
-        <label className="grid gap-1 text-xs font-bold text-[#60736b]">
+        <label className="grid gap-2 text-[10px] font-bold uppercase tracking-[.11em] text-[#6f7e77]">
           Oblast
           <select
             className={SELECT_CLASS}
@@ -128,7 +127,7 @@ export function JobFilters({ defaultSerbia = true }: { defaultSerbia?: boolean }
             ))}
           </select>
         </label>
-        <label className="grid gap-1 text-xs font-bold text-[#60736b]">
+        <label className="grid gap-2 text-[10px] font-bold uppercase tracking-[.11em] text-[#6f7e77]">
           Senioritet
           <select
             className={SELECT_CLASS}
@@ -145,7 +144,7 @@ export function JobFilters({ defaultSerbia = true }: { defaultSerbia?: boolean }
               ))}
           </select>
         </label>
-        <label className="grid gap-1 text-xs font-bold text-[#60736b]">
+        <label className="grid gap-2 text-[10px] font-bold uppercase tracking-[.11em] text-[#6f7e77]">
           Tip
           <select
             className={SELECT_CLASS}
@@ -162,7 +161,7 @@ export function JobFilters({ defaultSerbia = true }: { defaultSerbia?: boolean }
               ))}
           </select>
         </label>
-        <label className="grid gap-1 text-xs font-bold text-[#60736b]">
+        <label className="grid gap-2 text-[10px] font-bold uppercase tracking-[.11em] text-[#6f7e77]">
           Timezone
           <select
             className={SELECT_CLASS}
@@ -175,7 +174,7 @@ export function JobFilters({ defaultSerbia = true }: { defaultSerbia?: boolean }
             <option value="cet4">CET ±4h</option>
           </select>
         </label>
-        <label className="grid gap-1 text-xs font-bold text-[#60736b]">
+        <label className="grid gap-2 text-[10px] font-bold uppercase tracking-[.11em] text-[#6f7e77]">
           Datum
           <select
             className={SELECT_CLASS}
