@@ -1,13 +1,5 @@
 import Link from "next/link";
 
 export default function NotFound() {
-  return (
-    <main className="mx-auto max-w-xl px-5 py-24 text-center">
-      <h1 className="font-serif text-4xl">Stranica nije pronađena</h1>
-      <p className="mt-4 text-[#52675f]">Proverite adresu ili se vratite na početnu.</p>
-      <Link href="/" className="mt-6 inline-flex min-h-11 items-center rounded-full bg-[#17312a] px-5 font-bold text-white">
-        Početna
-      </Link>
-    </main>
-  );
+  return <main className="grid min-h-[70vh] place-items-center px-5 py-16"><section className="premium-panel relative w-full max-w-2xl overflow-hidden p-8 text-center md:p-12"><div className="absolute -right-20 -top-20 size-56 rounded-full border-[34px] border-[#eef3ed]" aria-hidden/><div className="relative mx-auto grid size-16 place-items-center rounded-[1.4rem] bg-[#17312a] font-serif text-2xl text-white">404</div><p className="eyebrow mt-6">STRANICA NIJE PRONAĐENA</p><h1 className="mt-3 font-serif text-4xl tracking-[-0.035em] md:text-5xl">Ovaj link više ne vodi nigde.</h1><p className="mx-auto mt-4 max-w-md text-sm leading-6 text-[#60736b]">Proverite adresu ili se vratite na bazu resursa i nastavite odatle.</p><div className="mt-7 flex flex-wrap justify-center gap-3"><Link href="/" className="inline-flex min-h-12 items-center rounded-full bg-[#17312a] px-6 text-sm font-bold text-white">Početna</Link><Link href="/izvori" className="inline-flex min-h-12 items-center rounded-full border border-[#17312a]/12 bg-white px-6 text-sm font-bold text-[#17312a]">Baza resursa</Link></div></section></main>;
 }
