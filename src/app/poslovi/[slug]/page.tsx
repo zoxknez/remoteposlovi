@@ -96,10 +96,10 @@ export default async function JobPage({ params }: Props) {
   const companyQuery = encodeURIComponent(job.company);
 
   return (
-    <main className="mx-auto max-w-4xl px-5 py-12 md:px-12">
+    <main><section className="border-b border-[#dc5b38]/14 bg-[#fff5f0]"><div className="mx-auto max-w-5xl px-5 py-10 md:px-12 md:py-14">
       <SeenMarker ids={[job.id]} />
       <JsonLd data={jobPosting} />
-      <Link href="/poslovi" className="text-sm font-bold text-[#dc5b38]">
+      <Link href="/poslovi" className="inline-flex min-h-11 items-center text-xs font-bold text-[#dc5b38]">
         ← Svi poslovi
       </Link>
       <div className="mt-4 flex flex-wrap gap-2">
@@ -108,9 +108,9 @@ export default async function JobPage({ params }: Props) {
           {job.remoteMode === "fully-remote" ? "Fully remote" : "Hybrid"}
         </span>
       </div>
-      <div className="mt-4 flex items-start justify-between gap-4">
+      <div className="mt-5 flex items-start justify-between gap-4">
         <div>
-          <h1 className="font-serif text-4xl md:text-5xl">{job.title}</h1>
+          <h1 className="max-w-4xl font-serif text-5xl leading-[1.02] tracking-[-0.04em] md:text-6xl">{job.title}</h1>
           <p className="mt-2 text-lg font-semibold">{job.company}</p>
         </div>
         <SaveJobButton job={job} />
@@ -122,7 +122,7 @@ export default async function JobPage({ params }: Props) {
         Objavljeno: {formatRelativeSr(job.publishedAt)} · Provereno: {formatDateTimeSr(job.lastCheckedAt)} · Izvor:{" "}
         {job.sources.join(" + ")}
       </p>
-      <p className="mt-4 rounded-lg bg-[#f3f7f0] p-4 text-sm">
+      <p className="mt-5 rounded-2xl border border-[#17312a]/8 bg-white/80 p-4 text-sm">
         <strong>Zašto ova oznaka?</strong> {job.eligibilityReasons[0] ?? eligibilityHelp(job.serbiaEligibility)}
       </p>
       <div className="mt-6 flex flex-wrap gap-3">
@@ -138,40 +138,40 @@ export default async function JobPage({ params }: Props) {
           Otvori tracker
         </Link>
       </div>
-      {fx ? <div className="mt-6"><SalaryConversion job={job} fx={fx} /></div> : null}
+      </div></section><div className="mx-auto max-w-5xl px-5 py-10 md:px-12 md:py-14">{fx ? <div><SalaryConversion job={job} fx={fx} /></div> : null}
       <div className="mt-4">
         <TimezonePanel window={job.timezone} />
       </div>
-      <section className="mt-6 rounded-lg border border-[#17312a]/10 bg-white p-5">
+      <section className="mt-6 premium-panel p-5 md:p-6">
         <h2 className="font-serif text-xl">Proveri kompaniju</h2>
-        <ul className="mt-3 grid gap-2 text-sm">
+        <ul className="mt-5 grid gap-2 sm:grid-cols-2 text-sm">
           <li>
-            <a className="text-[#dc5b38]" href={`https://www.google.com/search?q=${companyQuery}+official+website`} target="_blank" rel="noreferrer">
+            <a className="flex min-h-11 items-center rounded-xl border border-[#17312a]/8 bg-white px-4 font-bold text-[#a44931] transition hover:border-[#dc5b38]/20" href={`https://www.google.com/search?q=${companyQuery}+official+website`} target="_blank" rel="noreferrer">
               Pretraga zvaničnog sajta
             </a>
           </li>
           <li>
-            <a className="text-[#dc5b38]" href={`https://www.linkedin.com/search/results/companies/?keywords=${companyQuery}`} target="_blank" rel="noreferrer">
+            <a className="flex min-h-11 items-center rounded-xl border border-[#17312a]/8 bg-white px-4 font-bold text-[#a44931] transition hover:border-[#dc5b38]/20" href={`https://www.linkedin.com/search/results/companies/?keywords=${companyQuery}`} target="_blank" rel="noreferrer">
               LinkedIn
             </a>
           </li>
           <li>
-            <a className="text-[#dc5b38]" href={`https://www.glassdoor.com/Search/results.htm?keyword=${companyQuery}`} target="_blank" rel="noreferrer">
+            <a className="flex min-h-11 items-center rounded-xl border border-[#17312a]/8 bg-white px-4 font-bold text-[#a44931] transition hover:border-[#dc5b38]/20" href={`https://www.glassdoor.com/Search/results.htm?keyword=${companyQuery}`} target="_blank" rel="noreferrer">
               Glassdoor
             </a>
           </li>
           <li>
-            <a className="text-[#dc5b38]" href={`https://joberty.com/search?q=${companyQuery}`} target="_blank" rel="noreferrer">
+            <a className="flex min-h-11 items-center rounded-xl border border-[#17312a]/8 bg-white px-4 font-bold text-[#a44931] transition hover:border-[#dc5b38]/20" href={`https://joberty.com/search?q=${companyQuery}`} target="_blank" rel="noreferrer">
               Joberty
             </a>
           </li>
           <li>
-            <a className="text-[#dc5b38]" href={`https://www.crunchbase.com/textsearch?q=${companyQuery}`} target="_blank" rel="noreferrer">
+            <a className="flex min-h-11 items-center rounded-xl border border-[#17312a]/8 bg-white px-4 font-bold text-[#a44931] transition hover:border-[#dc5b38]/20" href={`https://www.crunchbase.com/textsearch?q=${companyQuery}`} target="_blank" rel="noreferrer">
               Crunchbase
             </a>
           </li>
           <li>
-            <a className="text-[#dc5b38]" href={`https://github.com/search?q=${companyQuery}&type=users`} target="_blank" rel="noreferrer">
+            <a className="flex min-h-11 items-center rounded-xl border border-[#17312a]/8 bg-white px-4 font-bold text-[#a44931] transition hover:border-[#dc5b38]/20" href={`https://github.com/search?q=${companyQuery}&type=users`} target="_blank" rel="noreferrer">
               GitHub
             </a>
           </li>
@@ -181,12 +181,12 @@ export default async function JobPage({ params }: Props) {
         </p>
       </section>
       {job.description ? (
-        <section className="mt-6">
-          <h2 className="font-serif text-xl">Opis</h2>
-          <p className="mt-3 whitespace-pre-wrap text-sm leading-7 text-[#52675f]">{job.description}</p>
+        <section className="mt-6 premium-panel p-6 md:p-7">
+          <p className="eyebrow">OPIS OGLASA</p><h2 className="mt-2 font-serif text-3xl">Detalji pozicije</h2>
+          <p className="mt-4 whitespace-pre-wrap text-sm leading-7 text-[#52675f]">{job.description}</p>
         </section>
       ) : null}
-    </main>
+      </div></main>
   );
 }
 
