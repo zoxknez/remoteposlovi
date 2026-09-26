@@ -34,7 +34,7 @@ export function SupportMenu({
         <div className="mb-3 w-[250px] overflow-hidden rounded-[1.35rem] border border-[#17312a]/10 bg-white/96 p-3 shadow-[0_24px_70px_rgba(23,49,42,0.18)] backdrop-blur-xl">
           <div className="px-2 pb-2 pt-1">
             <p className="text-[10px] font-bold uppercase tracking-[.13em] text-[#839089]">Podrži projekat</p>
-            <p className="mt-1 text-xs leading-5 text-[#60736b]">Ako ti je sajt koristan, možeš da častiš kafu.</p>
+            <p className="mt-1 text-xs leading-5 text-[#60736b]">Ako ti je sajt koristan, možeš da podržiš projekat.</p>
           </div>
 
           <div className="mt-1 grid gap-2">
@@ -96,7 +96,7 @@ export function SupportMenu({
         className="flex min-h-12 items-center gap-2 rounded-full border border-white/15 bg-[#17312a] px-4 text-sm font-bold text-white shadow-[0_16px_38px_rgba(23,49,42,0.22)] transition hover:-translate-y-0.5 hover:bg-[#21483c]"
       >
         <span className="grid size-7 place-items-center rounded-full bg-white/10 text-sm" aria-hidden>☕</span>
-        <span>Časti kafu</span>
+        <span>Podrži projekat</span>
         <span className={`text-[11px] transition-transform ${open ? "rotate-180" : ""}`} aria-hidden>⌃</span>
       </button>
     </div>
