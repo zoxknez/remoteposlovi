@@ -234,7 +234,7 @@ export default async function GuidePage({ params }: Props) {
               <h2 className="mt-2 font-serif text-3xl">Pronađite alat ili izvor za konkretan problem.</h2>
             </div>
             <Link href="/izvori" className="inline-flex min-h-11 shrink-0 items-center justify-center rounded-full bg-[#e7f0df] px-5 text-xs font-bold text-[#17312a]">
-              Otvori bazu resursa
+              Otvorite bazu resursa
             </Link>
           </div>
         </article>
