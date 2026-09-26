@@ -36,7 +36,7 @@ export function SiteFooter() {
             <Link href="/provera-oglasa" className="transition hover:text-white">Provera oglasa</Link>
             <Link href="/tracker" className="transition hover:text-white">Tracker</Link>
             <Link href="/plate" className="transition hover:text-white">Plate</Link>
-            <Link href="/wizard" className="transition hover:text-white">Gde da krenem?</Link>
+            <Link href="/wizard" className="transition hover:text-white">Gde da krenete?</Link>
             <Link href="/poslovi" className="transition hover:text-white">Poslovi BETA</Link>
           </nav>
 
