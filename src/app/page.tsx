@@ -171,7 +171,7 @@ export default async function Home() {
                 <div className="relative mt-7 flex items-center justify-between border-t border-[#17312a]/7 pt-4">
                   <span className="text-xs font-semibold text-[#6b7a73]">Istraži resurse</span>
                   <span className="text-xs font-bold text-[#17312a] transition group-hover:translate-x-1 group-hover:text-[#dc5b38]">
-                    Otvori →
+                    Otvorite →
                   </span>
                 </div>
               </a>
@@ -224,7 +224,7 @@ export default async function Home() {
                 Ovaj deo je koristan kao dodatak, ali još nije centralna funkcija. Feed, geografsku dostupnost i klasifikaciju oglasa treba posmatrati kao eksperimentalne.
               </p>
               <Link href="/poslovi" className="mt-5 inline-flex min-h-11 items-center rounded-full bg-[#17312a] px-5 text-xs font-bold text-white">
-                Otvori eksperimentalne oglase
+                Otvorite eksperimentalne oglase
               </Link>
             </div>
             {fallbackLatest.length ? (
