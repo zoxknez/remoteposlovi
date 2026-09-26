@@ -1,154 +1,21 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useMemo,useState } from "react";
 import { RESOURCES } from "@/data/sources";
 import { filtersToQuery } from "@/lib/jobs/filters";
-import type { JobCategory, Resource } from "@/types";
+import type { JobCategory,Resource } from "@/types";
 
-const AREAS: Array<{ id: JobCategory | "all"; label: string }> = [
-  { id: "engineering", label: "IT i Engineering" },
-  { id: "qa", label: "QA" },
-  { id: "design", label: "Dizajn" },
-  { id: "marketing", label: "Marketing" },
-  { id: "support", label: "Podrška" },
-  { id: "sales", label: "Prodaja" },
-  { id: "writing", label: "Pisanje" },
-  { id: "teaching", label: "Podučavanje" },
-  { id: "ai", label: "AI" },
-  { id: "administration", label: "Administracija" },
-  { id: "all", label: "Još uvek biram" },
-];
+const AREAS:Array<{id:JobCategory|"all";label:string}>=[{id:"engineering",label:"IT / Engineering"},{id:"qa",label:"QA"},{id:"design",label:"Dizajn"},{id:"marketing",label:"Marketing"},{id:"support",label:"Podrška"},{id:"sales",label:"Prodaja"},{id:"writing",label:"Pisanje"},{id:"teaching",label:"Podučavanje"},{id:"ai",label:"AI"},{id:"administration",label:"Administracija"},{id:"all",label:"Još biram"}];
 
-export function Wizard() {
-  const [area, setArea] = useState<JobCategory | "all">("all");
-  const [experience, setExperience] = useState<"junior" | "mid" | "senior">("mid");
-  const [place, setPlace] = useState<"serbia" | "europe" | "worldwide">("serbia");
-  const [type, setType] = useState<"full-time" | "freelance" | "contract">("full-time");
-
-  const sources: Resource[] = useMemo(() => {
-    return RESOURCES.filter((resource) => {
-      if (place === "serbia" && resource.serbiaSupport === "not-supported") return false;
-      if (experience === "junior" && resource.juniorFriendly === false) return false;
-      if (type === "freelance" && resource.kind !== "Freelance" && resource.type !== "freelance") {
-        return resource.kind === "Oglasi";
-      }
-      if (area !== "all" && resource.categories.length && !resource.categories.includes(area) && !resource.categories.includes("other")) {
-        return resource.featured || resource.serbiaSupport === "confirmed";
-      }
-      return resource.kind === "Oglasi" || resource.kind === "Freelance";
-    }).slice(0, 8);
-  }, [area, experience, place, type]);
-
-  const jobsQuery = filtersToQuery({
-    category: area === "all" ? "all" : area,
-    junior: experience === "junior",
-    serbiaOnly: place === "serbia",
-    location: place === "europe" ? "europe" : place === "worldwide" ? "worldwide" : undefined,
-    type,
-  });
-
-  return (
-    <div className="grid gap-6">
-      <fieldset className="grid gap-2">
-        <legend className="text-sm font-bold">Šta tražiš?</legend>
-        <div className="flex flex-wrap gap-2">
-          {AREAS.map((item) => (
-            <button
-              key={item.id}
-              type="button"
-              onClick={() => setArea(item.id)}
-              className={`min-h-11 rounded-full px-4 text-xs font-bold ${
-                area === item.id ? "bg-[#17312a] text-white" : "border border-[#17312a]/10 bg-white"
-              }`}
-            >
-              {item.label}
-            </button>
-          ))}
-        </div>
-      </fieldset>
-      <fieldset className="grid gap-2">
-        <legend className="text-sm font-bold">Koliko iskustva imaš?</legend>
-        <div className="flex flex-wrap gap-2">
-          {[
-            ["junior", "Početnik / junior"],
-            ["mid", "Mid"],
-            ["senior", "Senior"],
-          ].map(([id, label]) => (
-            <button
-              key={id}
-              type="button"
-              onClick={() => setExperience(id as typeof experience)}
-              className={`min-h-11 rounded-full px-4 text-xs font-bold ${
-                experience === id ? "bg-[#17312a] text-white" : "border border-[#17312a]/10 bg-white"
-              }`}
-            >
-              {label}
-            </button>
-          ))}
-        </div>
-      </fieldset>
-      <fieldset className="grid gap-2">
-        <legend className="text-sm font-bold">Odakle radiš?</legend>
-        <div className="flex flex-wrap gap-2">
-          {[
-            ["serbia", "Srbija"],
-            ["europe", "Evropa / EMEA"],
-            ["worldwide", "Worldwide"],
-          ].map(([id, label]) => (
-            <button
-              key={id}
-              type="button"
-              onClick={() => setPlace(id as typeof place)}
-              className={`min-h-11 rounded-full px-4 text-xs font-bold ${
-                place === id ? "bg-[#17312a] text-white" : "border border-[#17312a]/10 bg-white"
-              }`}
-            >
-              {label}
-            </button>
-          ))}
-        </div>
-      </fieldset>
-      <fieldset className="grid gap-2">
-        <legend className="text-sm font-bold">Tip angažmana</legend>
-        <div className="flex flex-wrap gap-2">
-          {[
-            ["full-time", "Full-time"],
-            ["contract", "Contract"],
-            ["freelance", "Freelance"],
-          ].map(([id, label]) => (
-            <button
-              key={id}
-              type="button"
-              onClick={() => setType(id as typeof type)}
-              className={`min-h-11 rounded-full px-4 text-xs font-bold ${
-                type === id ? "bg-[#17312a] text-white" : "border border-[#17312a]/10 bg-white"
-              }`}
-            >
-              {label}
-            </button>
-          ))}
-        </div>
-      </fieldset>
-      <section>
-        <h2 className="font-serif text-3xl">Najrelevantniji izvori za tebe</h2>
-        <ul className="mt-4 grid gap-3">
-          {sources.map((source) => (
-            <li key={source.id} className="rounded-lg border border-[#17312a]/10 bg-white p-4">
-              <a href={source.url} target="_blank" rel="noreferrer" className="font-bold text-[#17312a]">
-                {source.name}
-              </a>
-              <p className="text-sm text-[#60736b]">{source.description}</p>
-            </li>
-          ))}
-        </ul>
-        <Link
-          href={`/poslovi?${jobsQuery}`}
-          className="mt-6 inline-flex min-h-11 items-center rounded-full bg-[#17312a] px-5 text-sm font-bold text-white"
-        >
-          Trenutno pronađeni relevantni oglasi
-        </Link>
-      </section>
-    </div>
-  );
+export function Wizard(){
+ const [area,setArea]=useState<JobCategory|"all">("all");const [experience,setExperience]=useState<"junior"|"mid"|"senior">("mid");const [place,setPlace]=useState<"serbia"|"europe"|"worldwide">("serbia");const [type,setType]=useState<"full-time"|"freelance"|"contract">("full-time");
+ const sources:Resource[]=useMemo(()=>RESOURCES.filter(r=>{if(r.section==="Poslovi"&&type!=="full-time")return false;if(type==="freelance"&&r.section!=="Freelance"&&r.section!=="Karijera"&&r.section!=="Poslovanje")return false;if(place==="serbia"&&r.serbiaSupport==="not-supported")return false;if(experience==="junior"&&r.juniorFriendly===false)return false;if(area!=="all"&&r.categories.length&&!r.categories.includes(area)&&!r.categories.includes("other"))return r.featured;return r.section!=="Poslovi";}).sort((a,b)=>Number(b.featured)-Number(a.featured)).slice(0,8),[area,experience,place,type]);
+ const jobsQuery=filtersToQuery({category:area==="all"?"all":area,junior:experience==="junior",serbiaOnly:place==="serbia",location:place==="europe"?"europe":place==="worldwide"?"worldwide":undefined,type});
+ const groups=[{title:"Oblast",items:AREAS,value:area,set:(v:string)=>setArea(v as typeof area)},{title:"Iskustvo",items:[{id:"junior",label:"Početnik / junior"},{id:"mid",label:"Mid"},{id:"senior",label:"Senior"}],value:experience,set:(v:string)=>setExperience(v as typeof experience)},{title:"Lokacija",items:[{id:"serbia",label:"Srbija"},{id:"europe",label:"Evropa / EMEA"},{id:"worldwide",label:"Worldwide"}],value:place,set:(v:string)=>setPlace(v as typeof place)},{title:"Angažman",items:[{id:"full-time",label:"Full-time"},{id:"contract",label:"Contract"},{id:"freelance",label:"Freelance"}],value:type,set:(v:string)=>setType(v as typeof type)}];
+ return <div className="grid gap-6">
+   <div className="premium-panel p-5 md:p-7"><div className="grid gap-7">{groups.map((g,index)=><fieldset key={g.title}><legend className="flex items-center gap-3 text-sm font-bold"><span className="grid size-7 place-items-center rounded-full bg-[#17312a] text-[10px] text-white">0{index+1}</span>{g.title}</legend><div className="mt-3 flex flex-wrap gap-2">{g.items.map((item:any)=><button key={item.id} type="button" onClick={()=>g.set(item.id)} className={`chip ${g.value===item.id?"chip-active":""}`}>{item.label}</button>)}</div></fieldset>)}</div></div>
+   <section><div className="flex items-end justify-between gap-4"><div><p className="eyebrow">PREPORUČENI IZVORI</p><h2 className="mt-2 font-serif text-4xl">Od ovoga bih krenuo.</h2></div><Link href="/izvori" className="text-xs font-bold text-[#dc5b38]">Cela baza →</Link></div><div className="mt-5 grid gap-3 md:grid-cols-2">{sources.map(source=><a key={source.id} href={source.url} target="_blank" rel="noreferrer" className="premium-card p-5"><div className="flex items-center justify-between"><span className="text-[10px] font-bold text-[#dc5b38]">{source.section}</span><span className="text-[10px] text-[#7a8982]">{source.label}</span></div><h3 className="mt-3 font-serif text-2xl">{source.name}</h3><p className="mt-2 text-sm leading-6 text-[#60736b]">{source.description}</p></a>)}</div>
+   <div className="mt-6 rounded-2xl border border-[#dc5b38]/14 bg-[#fff5f0] p-5"><span className="rounded-full bg-[#dc5b38] px-2.5 py-1 text-[9px] font-bold text-white">BETA</span><p className="mt-3 text-sm leading-6 text-[#765f57]">Ako želite, isti profil možemo primeniti i na eksperimentalni feed oglasa.</p><Link href={`/poslovi?${jobsQuery}`} className="mt-3 inline-flex text-xs font-bold text-[#a44931]">Prikaži eksperimentalne oglase →</Link></div></section>
+ </div>
 }

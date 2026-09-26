@@ -2,80 +2,28 @@ import { PromptToolkit } from "@/components/PromptToolkit";
 import { RESOURCES } from "@/data/sources";
 import { pageMeta } from "@/lib/seo";
 
-export const metadata = pageMeta(
-  "CV i alati za prijavu",
-  "Besplatni CV alati, ATS provera, Europass i generator promptova za prijavu. Prompt ostaje u pregledaču.",
-  "/alati",
-);
+export const metadata = pageMeta("CV i prijava", "Premium studio za CV, prijavu i pripremu uz proverene spoljne resurse.", "/alati");
 
-const FILTERS = [
-  { key: "free", label: "Besplatno", test: (pricing: string) => pricing === "free" },
-  { key: "ats", label: "ATS provera", names: ["Jobscan"] },
-  { key: "ai", label: "AI", names: ["Interviewing.io", "Teal", "Resume Worded"] },
-  { key: "europass", label: "Europass", names: ["Europass"] },
-  { key: "portfolio", label: "Portfolio", names: ["Reactive Resume", "Behance Jobs", "Dribbble Jobs"] },
-  { key: "linkedin", label: "LinkedIn", names: ["Resume Worded", "LinkedIn Remote Srbija"] },
-  { key: "builder", label: "CV builder", names: ["Reactive Resume", "Europass", "Teal"] },
-];
-
-export default async function AlatiPage({
-  searchParams,
-}: {
-  searchParams: Promise<Record<string, string | string[] | undefined>>;
-}) {
-  const params = await searchParams;
-  const filter = typeof params.filter === "string" ? params.filter : "all";
-  const tools = RESOURCES.filter((resource) => resource.kind === "Alat" || resource.type === "cv");
-  const selected = FILTERS.find((item) => item.key === filter);
-  const visible = tools.filter((resource) => {
-    if (!selected) return true;
-    if (selected.test) return selected.test(resource.pricing);
-    if (selected.names) return selected.names.includes(resource.name);
-    return true;
-  });
-
+export default function AlatiPage() {
+  const career = RESOURCES.filter((r) => r.section === "Karijera" && ["cv","portfolio","interview","language","salary","tool"].includes(r.type)).slice(0, 18);
   return (
-    <main className="mx-auto max-w-5xl px-5 py-12 md:px-12">
-      <h1 className="font-serif text-4xl md:text-6xl">CV i alati za prijavu</h1>
-      <div className="mt-6 flex flex-wrap gap-2">
-        <a href="/alati" className={`min-h-11 rounded-full px-4 content-center text-xs font-bold ${filter === "all" ? "bg-[#17312a] text-white" : "border bg-white"}`}>
-          Sve
-        </a>
-        {FILTERS.map((item) => (
-          <a
-            key={item.key}
-            href={`/alati?filter=${item.key}`}
-            className={`min-h-11 rounded-full px-4 content-center text-xs font-bold ${
-              filter === item.key ? "bg-[#17312a] text-white" : "border bg-white"
-            }`}
-          >
-            {item.label}
-          </a>
-        ))}
-      </div>
-      <div className="mt-8 grid gap-4 md:grid-cols-2">
-        {visible.map((resource) => (
-          <a
-            key={resource.id}
-            href={resource.url}
-            target="_blank"
-            rel="noreferrer"
-            className="rounded-lg border border-[#17312a]/10 bg-white p-5"
-          >
-            <h2 className="font-bold">{resource.name}</h2>
-            <p className="mt-2 text-sm text-[#60736b]">{resource.description}</p>
-          </a>
-        ))}
-      </div>
-      <section className="mt-12">
-        <h2 className="font-serif text-3xl">Generator promptova</h2>
-        <p className="mt-2 text-sm text-[#52675f]">
-          Kopirajte prompt u ChatGPT, Claude ili Gemini. CV i oglas ne napuštaju ovaj pregledač.
-        </p>
-        <div className="mt-6">
-          <PromptToolkit />
+    <main>
+      <section className="border-b border-[#17312a]/8 bg-[#eef3ed]">
+        <div className="mx-auto max-w-6xl px-5 py-14 md:px-12 md:py-20">
+          <p className="eyebrow">CV · PRIJAVA · INTERVJU</p>
+          <h1 className="mt-3 max-w-4xl font-serif text-5xl tracking-[-0.04em] md:text-7xl">Studio za bolju prijavu, bez generičkog AI spama.</h1>
+          <p className="mt-5 max-w-2xl text-base leading-7 text-[#52675f]">Generišite kvalitetan prompt, a zatim koristite proverene spoljne resurse za CV, ATS, portfolio, engleski i intervju. Tekst koji unesete u studio ne šalje se na server.</p>
         </div>
       </section>
+      <div className="mx-auto max-w-6xl px-5 py-12 md:px-12 md:py-16">
+        <PromptToolkit />
+        <section className="mt-16">
+          <div className="flex items-end justify-between gap-4"><div><p className="eyebrow">PROVERENI RESURSI</p><h2 className="mt-2 font-serif text-4xl">Karijerni toolkit</h2></div><a href="/izvori" className="text-xs font-bold text-[#dc5b38]">Cela baza →</a></div>
+          <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {career.map((resource) => <a key={resource.id} href={resource.url} target="_blank" rel="noreferrer" className="premium-card p-5"><div className="flex items-center justify-between gap-3"><span className="text-[10px] font-bold tracking-[.12em] text-[#dc5b38]">{resource.label}</span><span className="text-[10px] text-[#7a8982]">{resource.pricing === "free" ? "BESPLATNO" : resource.pricing.toUpperCase()}</span></div><h3 className="mt-4 font-serif text-2xl">{resource.name}</h3><p className="mt-2 text-sm leading-6 text-[#60736b]">{resource.description}</p><span className="mt-5 inline-flex text-xs font-bold">Otvori ↗</span></a>)}
+          </div>
+        </section>
+      </div>
     </main>
   );
 }

@@ -1,76 +1,11 @@
 import { pageMeta } from "@/lib/seo";
-
-export const metadata = pageMeta(
-  "Kako da radim remote iz Srbije",
-  "Razlike između frilensera, preduzetnika, DOO, zaposlenja, contractora i EOR-a. Informativno, nije pravni savet.",
-  "/kako-da-radim",
-);
-
-const MODELS = [
-  {
-    title: "Frilenser, samooporezivanje",
-    points:
-      "Fizičko lice prijavljuje prihod od isplatioca koji ne obustavlja porez u Srbiji. Kvartalno, portal Frilenseri, dve opcije. Nije pravni status, već poreski režim.",
-  },
-  {
-    title: "Preduzetnik (paušal ili knjige)",
-    points:
-      "Registracija preko APR-a. Paušal ima fiksnu osnovicu koju određuje Poreska uprava. Knjige prate stvarne prihode i rashode. Postoje pragovi i obaveze evidencije.",
-  },
-  {
-    title: "DOO",
-    points:
-      "Privredno društvo sa punom računovodstvenom evidencijom. Odgovara kada ima više klijenata, zaposlenih ili veći promet. Osnivanje i obaveze su na APR-u i Poreskoj upravi.",
-  },
-  {
-    title: "Direktno zaposlenje",
-    points:
-      "Radni odnos kod poslodavca. Za stranu firmu u Srbiji to obično ide preko lokalnog entiteta ili EOR-a. Prava i obaveze zavise od ugovora i merodavnog prava.",
-  },
-  {
-    title: "Contractor",
-    points:
-      "Ugovor o pružanju usluga, bez radnog odnosa. Vi fakturišete. Porez i doprinosi su vaša obaveza, osim ako klijent ima lokalnu obavezu po odbitku.",
-  },
-  {
-    title: "Employer of Record (EOR)",
-    points:
-      "Treća firma vas zaposli, a vi radite za njihovog klijenta. Primeri servisa, samo kao informacija: Remote.com, Deel, Oyster. Proverite da li pokrivaju Srbiju za konkretnu ulogu.",
-  },
+export const metadata=pageMeta("Kako raditi remote iz Srbije","Pregled modela rada: freelancer, preduzetnik, DOO, contractor, zaposlenje i EOR.","/kako-da-radim");
+const MODELS=[
+["Frilenser","Kvartalno samooporezivanje fizičkog lica za prihode koje domaći isplatilac ne oporezuje po odbitku.","Najmanje administracije, ali pratite rokove i poreski režim."],
+["Preduzetnik","Registracija preko APR-a, paušal ili vođenje knjiga u zavisnosti od uslova i delatnosti.","Poslovni status i fakturisanje, uz test samostalnosti i druge obaveze."],
+["DOO","Privredno društvo sa punim računovodstvom i odvojenim pravnim subjektivitetom.","Veća administracija i troškovi, često smislenije za kompleksnije poslovanje."],
+["Contractor","Ugovor o pružanju usluga bez radnog odnosa.","Ugovor, valuta, rokovi plaćanja, IP i poreske obaveze treba jasno definisati."],
+["Direktno zaposlenje","Radni odnos kod poslodavca ili lokalnog entiteta.","Prava i obaveze zavise od ugovora i merodavnog prava."],
+["EOR","Treća firma vas formalno zapošljava za stranog klijenta.","Može rešiti lokalno zapošljavanje kada strani poslodavac nema entitet u Srbiji."],
 ];
-
-export default function KakoDaRadimPage() {
-  return (
-    <main className="mx-auto max-w-3xl px-5 py-12 md:px-12">
-      <h1 className="font-serif text-4xl md:text-6xl">Kako da radim</h1>
-      <p className="mt-4 text-[#52675f]">
-        Ovo je pregled razlika, ne preporuka modela. Za registraciju koristite APR, za porez Poresku upravu.
-      </p>
-      <div className="mt-8 grid gap-4">
-        {MODELS.map((model) => (
-          <article key={model.title} className="rounded-lg border border-[#17312a]/10 bg-white p-6">
-            <h2 className="font-serif text-2xl">{model.title}</h2>
-            <p className="mt-2 text-sm leading-7 text-[#52675f]">{model.points}</p>
-          </article>
-        ))}
-      </div>
-      <ul className="mt-8 grid gap-2 text-sm">
-        <li>
-          <a className="text-[#dc5b38]" href="https://www.apr.gov.rs/" target="_blank" rel="noreferrer">
-            Agencija za privredne registre (APR)
-          </a>
-        </li>
-        <li>
-          <a className="text-[#dc5b38]" href="https://frilenseri.purs.gov.rs/" target="_blank" rel="noreferrer">
-            Portal Frilenseri
-          </a>
-        </li>
-        <li>
-          <a className="text-[#dc5b38]" href="https://www.purs.gov.rs/" target="_blank" rel="noreferrer">
-            Poreska uprava
-          </a>
-        </li>
-      </ul>
-    </main>
-  );
-}
+export default function Page(){return <main><section className="border-b border-[#17312a]/8 bg-[#eef3ed]"><div className="mx-auto max-w-6xl px-5 py-14 md:px-12 md:py-20"><p className="eyebrow">MODELI RADA</p><h1 className="mt-3 max-w-4xl font-serif text-5xl tracking-[-.04em] md:text-7xl">Šta zapravo znači “radim za strance”?</h1><p className="mt-5 max-w-2xl text-base leading-7 text-[#52675f]">Kratko poređenje modela, bez pokušaja da vam aplikacija izabere pravnu ili poresku formu. Za odluku koristite zvanične izvore i stručni savet kada je potreban.</p></div></section><div className="mx-auto max-w-6xl px-5 py-12 md:px-12 md:py-16"><div className="grid gap-4 md:grid-cols-2">{MODELS.map(([title,text,note],i)=><article key={title} className="premium-card p-6"><span className="text-[10px] font-bold tracking-[.13em] text-[#dc5b38]">0{i+1}</span><h2 className="mt-4 font-serif text-3xl">{title}</h2><p className="mt-3 text-sm leading-6 text-[#60736b]">{text}</p><p className="mt-5 rounded-xl bg-[#f6f8f4] p-4 text-xs leading-5 text-[#64746d]">{note}</p></article>)}</div><section className="mt-12 premium-panel p-6"><p className="eyebrow">ZVANIČNO</p><h2 className="mt-2 font-serif text-3xl">Krenite od primarnih izvora</h2><div className="mt-5 flex flex-wrap gap-2"><a href="https://apr.gov.rs/usluge/eservisi/eregistracija-osnivanja-preduzetnika.2406.html" target="_blank" rel="noreferrer" className="chip">APR eRegistracija ↗</a><a href="https://frilenseri.purs.gov.rs/" target="_blank" rel="noreferrer" className="chip">Portal Frilenseri ↗</a><a href="https://purs.gov.rs/e-porezi/portal.html" target="_blank" rel="noreferrer" className="chip">ePorezi ↗</a><a href="https://www.efaktura.gov.rs/" target="_blank" rel="noreferrer" className="chip">eFaktura ↗</a></div></section></div></main>}

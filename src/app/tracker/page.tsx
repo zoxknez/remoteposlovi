@@ -1,23 +1,4 @@
 import { TrackerBoard } from "@/components/TrackerBoard";
 import { pageMeta } from "@/lib/seo";
-
-export const metadata = pageMeta(
-  "Tracker prijava",
-  "Lokalni tracker oglasa: sačuvano, prijavljeno, intervju, ponuda. Podaci ostaju u pregledaču.",
-  "/tracker",
-);
-
-export default function TrackerPage() {
-  return (
-    <main className="mx-auto max-w-4xl px-5 py-12 md:px-12">
-      <h1 className="font-serif text-4xl md:text-6xl">Tracker</h1>
-      <p className="mt-4 text-[#52675f]">
-        Status prijave, CV verzija, kontakt i follow-up. Ništa se ne šalje na server. Koristi se IndexedDB ovog
-        pregledača.
-      </p>
-      <div className="mt-8">
-        <TrackerBoard />
-      </div>
-    </main>
-  );
-}
+export const metadata=pageMeta("Tracker prijava","Lokalni premium tracker prijava sa follow-up ICS podsetnicima.","/tracker");
+export default function Page(){return <main><section className="border-b border-[#17312a]/8 bg-[#eef3ed]"><div className="mx-auto max-w-6xl px-5 py-14 md:px-12 md:py-20"><p className="eyebrow">LOKALNO U PREGLEDAČU</p><h1 className="mt-3 max-w-4xl font-serif text-5xl tracking-[-.04em] md:text-7xl">Pratite prijave bez još jednog naloga.</h1><p className="mt-5 max-w-2xl text-base leading-7 text-[#52675f]">Status, CV verzija, kontakt, napomene i follow-up. Tracker koristi IndexedDB ovog pregledača i ne šalje podatke na server.</p></div></section><div className="mx-auto max-w-6xl px-5 py-12 md:px-12 md:py-16"><TrackerBoard /></div></main>}

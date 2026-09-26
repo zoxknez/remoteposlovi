@@ -4,59 +4,19 @@ import { useState } from "react";
 import { checkScamSignals, SCAM_OFFICIAL_LINKS } from "@/lib/scam";
 
 export function ScamChecker() {
-  const [url, setUrl] = useState("");
-  const [text, setText] = useState("");
-  const result = checkScamSignals({ url, text });
-
-  return (
-    <div className="grid gap-6">
-      <form className="grid gap-4 rounded-lg border border-[#17312a]/10 bg-white p-6">
-        <label className="grid gap-1 text-sm font-bold">
-          URL oglasa
-          <input
-            value={url}
-            onChange={(event) => setUrl(event.target.value)}
-            className="min-h-11 rounded-lg border border-[#17312a]/15 px-3"
-            placeholder="https://"
-          />
-        </label>
-        <label className="grid gap-1 text-sm font-bold">
-          Tekst oglasa ili poruke
-          <textarea
-            value={text}
-            onChange={(event) => setText(event.target.value)}
-            rows={8}
-            className="rounded-lg border border-[#17312a]/15 px-3 py-2"
-            placeholder="Nalepite tekst oglasa. Provera ostaje u pregledaču."
-          />
-        </label>
-      </form>
-      <section className="rounded-lg border border-[#17312a]/10 bg-white p-6">
-        <h2 className="font-serif text-2xl">{result.summary}</h2>
-        {result.signals.length > 0 ? (
-          <ul className="mt-4 grid gap-3">
-            {result.signals.map((signal) => (
-              <li key={signal.id} className="rounded-lg bg-[#f8eee9] p-4">
-                <strong>{signal.title}</strong>
-                <p className="mt-1 text-sm text-[#52675f]">{signal.detail}</p>
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <p className="mt-3 text-sm text-[#52675f]">
-            Algoritam ne garantuje da je oglas legitiman. Proverite kompanijski sajt i karijernu stranicu.
-          </p>
-        )}
-      </section>
-      <ul className="text-sm">
-        {SCAM_OFFICIAL_LINKS.map((link) => (
-          <li key={link.url}>
-            <a href={link.url} className="text-[#dc5b38] underline" target="_blank" rel="noreferrer">
-              {link.label}
-            </a>
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
+  const [url,setUrl]=useState(""); const [text,setText]=useState(""); const result=checkScamSignals({url,text}); const hasInput=Boolean(url.trim()||text.trim());
+  return <div className="grid gap-5 lg:grid-cols-[.95fr_1.05fr]">
+    <section className="premium-panel p-5 md:p-7">
+      <div className="flex items-center justify-between"><div><p className="eyebrow">ULAZ</p><h2 className="mt-2 font-serif text-3xl">Oglas ili poruka</h2></div>{hasInput?<button type="button" onClick={()=>{setUrl("");setText("");}} className="chip">Očisti</button>:null}</div>
+      <label className="mt-6 block text-xs font-bold text-[#52675f]">URL oglasa<input value={url} onChange={e=>setUrl(e.target.value)} className="premium-field mt-1.5 font-normal" placeholder="https://" /></label>
+      <label className="mt-4 block text-xs font-bold text-[#52675f]">Tekst oglasa ili poruke<textarea value={text} onChange={e=>setText(e.target.value)} rows={11} className="premium-field mt-1.5 resize-y font-normal" placeholder="Nalepite tekst. Provera ostaje u pregledaču." /></label>
+      <p className="mt-4 text-[11px] leading-5 text-[#7a8982]">Ne šaljemo tekst na server i ne donosimo konačan sud da je oglas prevara ili legitiman.</p>
+    </section>
+    <section className="premium-panel p-5 md:p-7">
+      <p className="eyebrow">REZULTAT</p>
+      <h2 className="mt-2 font-serif text-3xl">{hasInput?result.summary:"Unesite URL ili tekst za lokalnu proveru."}</h2>
+      {hasInput&&result.signals.length>0?<div className="mt-6 grid gap-3">{result.signals.map((signal,index)=><div key={signal.id} className="rounded-2xl border border-[#dc5b38]/12 bg-[#fff5f0] p-4"><div className="flex gap-3"><span className="grid size-7 shrink-0 place-items-center rounded-full bg-[#dc5b38] text-[10px] font-bold text-white">{index+1}</span><div><strong className="text-sm">{signal.title}</strong><p className="mt-1 text-sm leading-6 text-[#6e5d56]">{signal.detail}</p></div></div></div>)}</div>:hasInput?<div className="mt-6 rounded-2xl bg-[#eef3ed] p-5 text-sm leading-6 text-[#52675f]">Nisu pronađeni signali koje lokalni parser trenutno prepoznaje. To nije potvrda da je oglas legitiman. Proverite career stranicu, domen i način komunikacije.</div>:<div className="mt-6 grid gap-3 text-sm text-[#60736b]"><p>Provera traži konkretne obrasce poput uplate unapred, kripta, gift kartica, čekova, “task job” šema i sumnjivog kanala komunikacije.</p></div>}
+      <div className="mt-8 border-t border-[#17312a]/8 pt-5"><p className="text-[10px] font-bold tracking-[.12em] text-[#7a8982]">ZVANIČNI I KORISNI IZVORI</p><div className="mt-3 flex flex-wrap gap-2">{SCAM_OFFICIAL_LINKS.map(link=><a key={link.url} href={link.url} target="_blank" rel="noreferrer" className="chip">{link.label} ↗</a>)}</div></div>
+    </section>
+  </div>;
 }
