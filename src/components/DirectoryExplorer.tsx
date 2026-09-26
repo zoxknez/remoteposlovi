@@ -105,7 +105,7 @@ export function DirectoryExplorer({
           />
           {query ? (
             <button type="button" onClick={() => setQuery("")} className="min-h-11 px-2 text-xs font-bold text-[#60736b]">
-              Očisti
+              Očistite
             </button>
           ) : null}
         </label>
@@ -195,7 +195,7 @@ export function DirectoryExplorer({
             <h3 className="mt-5 font-serif text-2xl">Nema rezultata za ovu kombinaciju.</h3>
             <p className="mx-auto mt-2 max-w-md text-sm text-[#60736b]">Probajte širi pojam ili uklonite jedan od filtera.</p>
             <button type="button" onClick={() => { setQuery(""); setSection("Sve"); setQuick("none"); setShowSaved(false); }} className="mt-5 rounded-full bg-[#17312a] px-5 py-3 text-xs font-bold text-white">
-              Resetuj pretragu
+              Resetujte pretragu
             </button>
           </div>
         ) : null}
