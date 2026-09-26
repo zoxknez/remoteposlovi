@@ -143,7 +143,7 @@ export default async function JobPage({ params }: Props) {
         <TimezonePanel window={job.timezone} />
       </div>
       <section className="mt-6 premium-panel p-5 md:p-6">
-        <h2 className="font-serif text-xl">Proveri kompaniju</h2>
+        <h2 className="font-serif text-xl">Proverite kompaniju</h2>
         <ul className="mt-5 grid gap-2 sm:grid-cols-2 text-sm">
           <li>
             <a className="flex min-h-11 items-center rounded-xl border border-[#17312a]/8 bg-white px-4 font-bold text-[#a44931] transition hover:border-[#dc5b38]/20" href={`https://www.google.com/search?q=${companyQuery}+official+website`} target="_blank" rel="noreferrer">
