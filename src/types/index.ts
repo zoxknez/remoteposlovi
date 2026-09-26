@@ -7,7 +7,29 @@ export type ResourceType =
   | "community"
   | "salary"
   | "cv"
-  | "tax";
+  | "tax"
+  | "learning"
+  | "language"
+  | "security"
+  | "productivity"
+  | "portfolio"
+  | "interview"
+  | "payment"
+  | "invoice"
+  | "ai";
+
+export type ResourceSection =
+  | "Poslovi"
+  | "Freelance"
+  | "Karijera"
+  | "Učenje"
+  | "Poslovanje"
+  | "Sigurnost"
+  | "Produktivnost"
+  | "Komunikacija"
+  | "AI"
+  | "Zajednice"
+  | "Remote rad";
 
 export type SerbiaSupport =
   | "confirmed"
@@ -73,6 +95,11 @@ export interface Resource {
   kind: "Oglasi" | "Freelance" | "Alat";
   label: string;
   feedUrl?: string;
+  section: ResourceSection;
+  tags: string[];
+  official: boolean;
+  openSource: boolean;
+  audience: Array<"beginner" | "junior" | "mid" | "senior" | "freelancer" | "entrepreneur" | "student" | "manager">;
 }
 
 export type SerbiaEligibility =

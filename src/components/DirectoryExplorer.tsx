@@ -2,11 +2,24 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { ResourceCard } from "@/components/ResourceCard";
-import { RESOURCE_GROUPS } from "@/data/sources";
+import { RESOURCE_SECTIONS } from "@/data/sources";
 import { getSavedResources, toggleSavedResource } from "@/lib/storage";
-import type { Resource, SourceHealth } from "@/types";
+import type { Resource, ResourceSection, SourceHealth } from "@/types";
 
-const FILTERS = ["Sve", "Srbija", "Evropa / EMEA", "Globalno", "Freelance", "Alat"];
+const PRIMARY: Array<ResourceSection | "Sve"> = [
+  "Sve",
+  "Karijera",
+  "Učenje",
+  "Poslovanje",
+  "Sigurnost",
+  "Produktivnost",
+  "Komunikacija",
+  "AI",
+  "Freelance",
+  "Poslovi",
+];
+
+type QuickFilter = "none" | "serbia" | "free" | "official" | "open" | "beginner";
 
 export function DirectoryExplorer({
   resources,
@@ -15,7 +28,8 @@ export function DirectoryExplorer({
   resources: Resource[];
   health?: Record<string, SourceHealth>;
 }) {
-  const [filter, setFilter] = useState("Sve");
+  const [section, setSection] = useState<ResourceSection | "Sve">("Sve");
+  const [quick, setQuick] = useState<QuickFilter>("none");
   const [query, setQuery] = useState("");
   const [saved, setSaved] = useState<string[]>([]);
   const [showSaved, setShowSaved] = useState(false);
@@ -23,9 +37,7 @@ export function DirectoryExplorer({
 
   useEffect(() => {
     let cancelled = false;
-    Promise.resolve().then(() => {
-      if (!cancelled) setSaved(getSavedResources());
-    });
+    Promise.resolve().then(() => !cancelled && setSaved(getSavedResources()));
     fetch("/api/health")
       .then((response) => response.json())
       .then((payload: { items?: SourceHealth[] }) => {
@@ -40,88 +52,131 @@ export function DirectoryExplorer({
   }, []);
 
   const matches = useMemo(() => {
+    const needle = query.trim().toLowerCase();
     return resources.filter((resource) => {
-      const matchesFilter =
-        filter === "Sve" || resource.regions.includes(filter as never) || resource.kind === filter;
-      const matchesSaved = !showSaved || saved.includes(resource.id);
-      const haystack = `${resource.name} ${resource.description} ${resource.label}`.toLowerCase();
-      return matchesFilter && matchesSaved && haystack.includes(query.toLowerCase());
+      if (section !== "Sve" && resource.section !== section) return false;
+      if (showSaved && !saved.includes(resource.id)) return false;
+      if (quick === "serbia" && resource.serbiaSupport === "not-supported") return false;
+      if (quick === "free" && resource.pricing !== "free") return false;
+      if (quick === "official" && !resource.official) return false;
+      if (quick === "open" && !resource.openSource) return false;
+      if (quick === "beginner" && !resource.audience.some((item) => item === "beginner" || item === "junior" || item === "student")) return false;
+      if (!needle) return true;
+      const haystack = [
+        resource.name,
+        resource.description,
+        resource.label,
+        resource.section,
+        ...resource.tags,
+        ...resource.categories,
+      ]
+        .join(" ")
+        .toLowerCase();
+      return haystack.includes(needle);
     });
-  }, [resources, filter, query, saved, showSaved]);
+  }, [resources, section, quick, query, saved, showSaved]);
 
-  const grouped = RESOURCE_GROUPS.map((group) => ({
+  const grouped = RESOURCE_SECTIONS.map((group) => ({
     ...group,
-    items: matches.filter((item) => item.kind === group.kind),
+    items: matches.filter((item) => item.section === group.section),
   })).filter((group) => group.items.length > 0);
 
   return (
-    <section id="directory" className="scroll-mt-8">
-      <div className="mx-auto max-w-4xl text-center">
-        <p className="text-xs font-bold tracking-[0.14em] text-[#dc5b38]">PRETRAGA IZVORA</p>
-        <h2 className="mt-2 font-serif text-4xl tracking-[-0.03em] text-[#17312a] md:text-5xl">
-          {showSaved ? "Sačuvani izvori" : filter === "Sve" ? "Svi izvori" : filter}
-        </h2>
-        <label className="mx-auto mt-8 flex h-14 max-w-2xl items-center gap-4 rounded-full border border-[#17312a]/15 bg-white px-6 shadow-sm">
-          <span className="text-xl text-[#60736b]">⌕</span>
+    <section id="directory" className="scroll-mt-28">
+      <div className="premium-panel overflow-hidden p-5 sm:p-7 md:p-8">
+        <div className="mx-auto max-w-3xl text-center">
+          <p className="eyebrow">KURIRANA BAZA</p>
+          <h2 className="mt-3 font-serif text-4xl tracking-[-0.035em] md:text-5xl">
+            Pronađite pravi resurs bez lutanja.
+          </h2>
+          <p className="mx-auto mt-4 max-w-2xl text-sm leading-6 text-[#60736b] md:text-base">
+            Pretražujte po nazivu, oblasti ili nameni. Baza uključuje zvanične servise, besplatne i open-source alate, kurseve, sigurnost, poslovanje i izvore poslova.
+          </p>
+        </div>
+
+        <label className="mx-auto mt-8 flex min-h-14 max-w-3xl items-center gap-3 rounded-2xl border border-[#17312a]/12 bg-white px-4 shadow-[0_14px_40px_rgba(23,49,42,0.07)]">
+          <span aria-hidden className="grid size-9 place-items-center rounded-xl bg-[#eef3ed] text-lg">⌕</span>
+          <span className="sr-only">Pretraga baze</span>
           <input
             value={query}
             onChange={(event) => setQuery(event.target.value)}
-            className="w-full bg-transparent text-base outline-none placeholder:text-[#8a9891]"
-            placeholder="Pretražite platformu, oblast ili alat"
+            className="min-w-0 flex-1 bg-transparent py-3 text-sm outline-none placeholder:text-[#8d9a94]"
+            placeholder="npr. porez, engleski, portfolio, faktura, bezbednost..."
           />
+          {query ? (
+            <button type="button" onClick={() => setQuery("")} className="min-h-11 px-2 text-xs font-bold text-[#60736b]">
+              Očisti
+            </button>
+          ) : null}
         </label>
+
         <div className="mt-6 flex flex-wrap justify-center gap-2">
-          {FILTERS.map((item) => (
+          {PRIMARY.map((item) => (
             <button
               key={item}
               type="button"
               onClick={() => {
-                setFilter(item);
+                setSection(item);
                 setShowSaved(false);
               }}
-              className={`min-h-11 rounded-full px-4 text-xs font-bold ${
-                !showSaved && filter === item
-                  ? "bg-[#17312a] text-white"
-                  : "border border-[#17312a]/10 bg-white text-[#60736b]"
-              }`}
+              className={`chip ${!showSaved && section === item ? "chip-active" : ""}`}
             >
               {item}
+            </button>
+          ))}
+        </div>
+
+        <div className="mt-3 flex flex-wrap justify-center gap-2 border-t border-[#17312a]/8 pt-4">
+          {[
+            ["serbia", "Za Srbiju"],
+            ["free", "Besplatno"],
+            ["official", "Zvanično"],
+            ["open", "Open-source"],
+            ["beginner", "Za početnike"],
+          ].map(([id, label]) => (
+            <button
+              key={id}
+              type="button"
+              onClick={() => {
+                setQuick((current) => (current === id ? "none" : (id as QuickFilter)));
+                setShowSaved(false);
+              }}
+              className={`chip chip-soft ${quick === id && !showSaved ? "chip-active" : ""}`}
+            >
+              {label}
             </button>
           ))}
           <button
             type="button"
             onClick={() => setShowSaved((value) => !value)}
-            className={`min-h-11 rounded-full px-4 text-xs font-bold ${
-              showSaved ? "bg-[#dc5b38] text-white" : "border border-[#17312a]/10 bg-white text-[#60736b]"
-            }`}
+            className={`chip chip-soft ${showSaved ? "chip-accent" : ""}`}
           >
-            Sačuvano ({saved.length})
+            Sačuvano {saved.length ? `· ${saved.length}` : ""}
           </button>
         </div>
-        <p className="mt-5 text-sm font-medium text-[#60736b]">{matches.length} rezultata</p>
+
+        <div className="mt-5 flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-xs text-[#75857e]">
+          <strong className="text-[#17312a]">{matches.length}</strong>
+          <span>rezultata</span>
+          {query ? <><span>·</span><span>za “{query}”</span></> : null}
+        </div>
       </div>
 
-      <div className="mt-12 space-y-16">
+      <div className="mt-10 space-y-12 md:mt-14 md:space-y-16">
         {grouped.map((group) => (
-          <section key={group.kind} aria-labelledby={`group-${group.kind}`}>
-            <div className="mb-6 grid overflow-hidden rounded-lg border border-[#17312a]/10 bg-white md:grid-cols-3">
-              <div className="flex min-h-32 flex-col items-center justify-center border-b border-[#17312a]/10 p-6 text-center md:border-b-0 md:border-r">
-                <span className={`grid size-14 place-items-center rounded-full text-sm font-bold ${group.color}`}>
-                  {group.items.length}
+          <section key={group.section} aria-labelledby={`group-${group.section}`}>
+            <div className="mb-5 flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+              <div>
+                <span className={`inline-flex rounded-full px-3 py-1 text-[10px] font-bold tracking-[0.12em] ${group.accent}`}>
+                  {group.items.length} RESURSA
                 </span>
-                <span className="mt-2 text-xs font-medium text-[#60736b]">izvora u kategoriji</span>
-              </div>
-              <div className="flex min-h-32 flex-col items-center justify-center border-b border-[#17312a]/10 p-6 text-center md:border-b-0 md:border-r">
-                <p className="text-[11px] font-bold tracking-[0.14em] text-[#dc5b38]">{group.kind.toUpperCase()}</p>
-                <h3 id={`group-${group.kind}`} className="mt-2 text-2xl font-semibold text-[#17312a]">
+                <h3 id={`group-${group.section}`} className="mt-3 font-serif text-3xl tracking-[-0.025em] md:text-4xl">
                   {group.title}
                 </h3>
               </div>
-              <div className="flex min-h-32 items-center justify-center p-6 text-center">
-                <p className="max-w-xs text-sm leading-6 text-[#60736b]">{group.description}</p>
-              </div>
+              <p className="max-w-xl text-sm leading-6 text-[#60736b]">{group.description}</p>
             </div>
-            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
               {group.items.map((resource) => (
                 <ResourceCard
                   key={resource.id}
@@ -135,7 +190,14 @@ export function DirectoryExplorer({
           </section>
         ))}
         {matches.length === 0 ? (
-          <p className="py-20 text-center text-sm text-[#60736b]">Nema izvora za ovaj filter ili pretragu.</p>
+          <div className="premium-panel py-16 text-center">
+            <div className="mx-auto grid size-14 place-items-center rounded-2xl bg-[#eef3ed] text-2xl">⌕</div>
+            <h3 className="mt-5 font-serif text-2xl">Nema rezultata za ovu kombinaciju.</h3>
+            <p className="mx-auto mt-2 max-w-md text-sm text-[#60736b]">Probajte širi pojam ili uklonite jedan od filtera.</p>
+            <button type="button" onClick={() => { setQuery(""); setSection("Sve"); setQuick("none"); setShowSaved(false); }} className="mt-5 rounded-full bg-[#17312a] px-5 py-3 text-xs font-bold text-white">
+              Resetuj pretragu
+            </button>
+          </div>
         ) : null}
       </div>
     </section>

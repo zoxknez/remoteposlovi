@@ -1,7 +1,13 @@
 "use client";
 
-import { ResourceSupportBadge } from "@/components/EligibilityBadge";
 import type { Resource, SourceHealth } from "@/types";
+
+const PRICING: Record<Resource["pricing"], string> = {
+  free: "Besplatno",
+  freemium: "Freemium",
+  paid: "Plaćeno",
+  unknown: "Cena varira",
+};
 
 export function ResourceCard({
   resource,
@@ -14,57 +20,58 @@ export function ResourceCard({
   onToggle: (id: string) => void;
   health?: SourceHealth;
 }) {
+  const visibleTags = resource.tags.slice(0, 3);
   return (
-    <article
-      className="group relative flex min-h-[250px] cursor-pointer flex-col justify-between rounded-lg border border-[#17312a]/10 bg-white p-7 text-center transition duration-200 hover:-translate-y-1 hover:border-[#17312a]/30 hover:shadow-xl focus-within:ring-2 focus-within:ring-[#dc5b38]"
-    >
-      <div>
-        <div className="flex items-start justify-center gap-2 pr-10">
-          <div className="flex flex-wrap justify-center gap-2">
-            <ResourceSupportBadge support={resource.serbiaSupport} note={resource.serbiaSupportNote} />
-            <span className="rounded-full bg-[#f8eee9] px-2.5 py-1 text-[10px] font-bold text-[#a54931]">
-              {resource.kind}
-            </span>
-          </div>
-          <button
-            type="button"
-            onClick={(event) => {
-              event.preventDefault();
-              event.stopPropagation();
-              onToggle(resource.id);
-            }}
-            aria-label={`Sačuvajte ${resource.name}`}
-            className={`absolute right-6 top-6 grid size-11 place-items-center rounded-full border text-base ${
-              saved
-                ? "border-[#dc5b38] bg-[#fff1ec] text-[#dc5b38]"
-                : "border-[#17312a]/15 text-[#60736b] hover:border-[#dc5b38] hover:text-[#dc5b38]"
-            }`}
-          >
-            {saved ? "♥" : "♡"}
-          </button>
+    <article className="premium-card group relative flex min-h-[292px] flex-col overflow-hidden p-6">
+      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#17312a]/20 to-transparent opacity-0 transition group-hover:opacity-100" />
+      <div className="flex items-start justify-between gap-4">
+        <div className="flex min-w-0 flex-wrap gap-2">
+          <span className="rounded-full bg-[#eef3ed] px-2.5 py-1 text-[10px] font-bold text-[#426052]">{resource.section}</span>
+          {resource.official ? <span className="rounded-full bg-[#e9f0ff] px-2.5 py-1 text-[10px] font-bold text-[#315a92]">Zvanično</span> : null}
+          {resource.openSource ? <span className="rounded-full bg-[#f1edfa] px-2.5 py-1 text-[10px] font-bold text-[#65518d]">Open-source</span> : null}
         </div>
-        <h3 className="mt-7 font-serif text-2xl text-[#17312a] group-hover:text-[#dc5b38]">
-          <a href={resource.url} target="_blank" rel="noreferrer" className="after:absolute after:inset-0">
-            {resource.name}
-          </a>
-        </h3>
-        <p className="mx-auto mt-3 max-w-[22rem] text-sm leading-6 text-[#60736b]">{resource.description}</p>
+        <button
+          type="button"
+          onClick={() => onToggle(resource.id)}
+          aria-label={saved ? `Uklonite ${resource.name} iz sačuvanih` : `Sačuvajte ${resource.name}`}
+          className={`grid size-10 shrink-0 place-items-center rounded-full border transition ${saved ? "border-[#dc5b38]/30 bg-[#fff0e9] text-[#dc5b38]" : "border-[#17312a]/10 bg-white text-[#73827b] hover:border-[#dc5b38]/35 hover:text-[#dc5b38]"}`}
+        >
+          {saved ? "♥" : "♡"}
+        </button>
       </div>
-      <div className="mt-auto border-t border-[#17312a]/10 pt-5 text-xs text-[#7c8c84]">
-        <p>{resource.label}</p>
-        {health ? (
-          <p className="mt-1">
-            {health.ok ? "Aktivno" : "Privremeno nedostupan"}
-            {health.lastSuccessfulCheck
-              ? ` · Poslednja provera: ${new Date(health.lastSuccessfulCheck).toLocaleDateString("sr-Latn-RS")}`
-              : health.lastFailedCheck
-                ? ` · Provera: ${new Date(health.lastFailedCheck).toLocaleDateString("sr-Latn-RS")}`
-                : ""}
-          </p>
-        ) : (
-          <p className="mt-1">Status izvora se proverava periodično.</p>
-        )}
-        <p className="mt-2 font-bold text-[#dc5b38]">Otvorite izvor ↗</p>
+
+      <div className="mt-5">
+        <p className="text-[10px] font-bold uppercase tracking-[0.12em] text-[#87938d]">{resource.label}</p>
+        <h4 className="mt-2 font-serif text-[1.65rem] leading-tight tracking-[-0.025em] text-[#17312a] transition group-hover:text-[#b9472d]">
+          {resource.name}
+        </h4>
+        <p className="mt-3 text-sm leading-6 text-[#60736b]">{resource.description}</p>
+      </div>
+
+      <div className="mt-5 flex flex-wrap gap-1.5">
+        {visibleTags.map((tag) => (
+          <span key={tag} className="rounded-md border border-[#17312a]/8 bg-[#f8faf7] px-2 py-1 text-[10px] font-medium text-[#65766e]">
+            {tag}
+          </span>
+        ))}
+      </div>
+
+      <div className="mt-auto pt-6">
+        <div className="flex items-center justify-between gap-3 border-t border-[#17312a]/8 pt-4 text-[11px] text-[#78877f]">
+          <span className="font-semibold text-[#52675f]">{PRICING[resource.pricing]}</span>
+          <span>
+            {health ? (health.ok ? "Aktivno" : "Proveriti dostupnost") : resource.regions[0]}
+          </span>
+        </div>
+        <a
+          href={resource.url}
+          target="_blank"
+          rel="noreferrer"
+          className="mt-4 flex min-h-11 items-center justify-between rounded-xl bg-[#17312a] px-4 text-xs font-bold text-white transition hover:bg-[#244239]"
+        >
+          <span>Otvori resurs</span>
+          <span aria-hidden>↗</span>
+        </a>
       </div>
     </article>
   );

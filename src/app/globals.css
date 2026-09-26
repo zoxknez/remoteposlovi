@@ -231,3 +231,61 @@ header > div > a > span:first-child::after {
     font-size: 2.25rem;
   }
 }
+
+
+/* Premium surface system */
+.premium-panel {
+  border: 1px solid rgb(23 49 42 / 0.09);
+  background:
+    radial-gradient(circle at 15% 0%, rgb(229 240 223 / 0.62), transparent 38%),
+    linear-gradient(180deg, rgb(255 255 255 / 0.96), rgb(250 251 247 / 0.96));
+  border-radius: 1.5rem;
+  box-shadow: 0 24px 70px rgb(23 49 42 / 0.06);
+}
+.premium-card {
+  border: 1px solid rgb(23 49 42 / 0.09);
+  background: rgb(255 255 255 / 0.92);
+  border-radius: 1.25rem;
+  box-shadow: 0 10px 34px rgb(23 49 42 / 0.045);
+  transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease;
+}
+.premium-card:hover {
+  transform: translateY(-3px);
+  border-color: rgb(23 49 42 / 0.2);
+  box-shadow: 0 22px 52px rgb(23 49 42 / 0.09);
+}
+.eyebrow {
+  font-size: .68rem;
+  font-weight: 800;
+  letter-spacing: .15em;
+  color: #dc5b38;
+}
+.chip {
+  min-height: 2.55rem;
+  border: 1px solid rgb(23 49 42 / 0.1);
+  background: white;
+  border-radius: 9999px;
+  padding: .65rem 1rem;
+  font-size: .7rem;
+  font-weight: 750;
+  color: #60736b;
+  transition: all .18s ease;
+}
+.chip:hover { border-color: rgb(23 49 42 / .25); color: #17312a; }
+.chip-soft { background: rgb(248 250 247 / .85); }
+.chip-active { background: #17312a; border-color: #17312a; color: white; }
+.chip-accent { background: #dc5b38; border-color: #dc5b38; color: white; }
+.premium-field {
+  width: 100%;
+  min-height: 3rem;
+  border: 1px solid rgb(23 49 42 / 0.13);
+  border-radius: .9rem;
+  background: white;
+  padding: .7rem .85rem;
+  outline: none;
+  transition: border-color .18s ease, box-shadow .18s ease;
+}
+.premium-field:focus {
+  border-color: rgb(220 91 56 / .55);
+  box-shadow: 0 0 0 4px rgb(220 91 56 / .09);
+}

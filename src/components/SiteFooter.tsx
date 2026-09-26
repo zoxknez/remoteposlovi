@@ -1,41 +1,24 @@
 import Link from "next/link";
-import { formatDateSr } from "@/lib/format";
 
-export function SiteFooter({
-  jobsUpdatedAt,
-  sourcesCheckedAt,
-}: {
-  jobsUpdatedAt?: string | null;
-  sourcesCheckedAt?: string | null;
-}) {
+export function SiteFooter() {
   return (
-    <footer className="mt-auto border-t border-[#17312a]/10 bg-white px-5 py-8 text-xs text-[#60736b] md:px-12">
-      <div className="mx-auto flex max-w-[1540px] flex-col gap-6 md:flex-row md:items-start md:justify-between">
-        <div className="space-y-2">
-          <p className="font-semibold text-[#17312a]">Remote poslovi</p>
-          <p>Alat za traženje remote posla iz Srbije. Oglasi, izvori, porez i praćenje prijava.</p>
+    <footer className="mt-auto border-t border-[#17312a]/8 bg-[#f1f5ef] px-5 py-10 text-sm text-[#60736b] md:px-12">
+      <div className="mx-auto grid max-w-[1540px] gap-8 md:grid-cols-[1.4fr_1fr_1fr]">
+        <div>
+          <div className="flex items-center gap-3"><span className="logo-icon grid size-9 place-items-center rounded-full bg-[#17312a] text-[#e7f0df]">R</span><strong className="text-[#17312a]">Remote poslovi</strong></div>
+          <p className="mt-4 max-w-md leading-6">Kurirana baza resursa za remote rad, freelance, učenje, poslovanje, sigurnost i karijeru, sa fokusom na korisnike iz Srbije.</p>
         </div>
-        <nav className="flex flex-wrap gap-x-5 gap-y-2" aria-label="Podnožje">
-          <Link href="/poslovi" className="min-h-11 content-center hover:text-[#17312a]">
-            Poslovi
-          </Link>
-          <Link href="/provera-oglasa" className="min-h-11 content-center hover:text-[#17312a]">
-            Provera oglasa
-          </Link>
-          <Link href="/porez" className="min-h-11 content-center hover:text-[#17312a]">
-            Porez
-          </Link>
-          <Link href="/kako-da-radim" className="min-h-11 content-center hover:text-[#17312a]">
-            Kako da radim
-          </Link>
-          <Link href="/privatnost" className="min-h-11 content-center hover:text-[#17312a]">
-            Privatnost
-          </Link>
+        <nav className="grid content-start gap-2 text-xs font-semibold" aria-label="Podnožje">
+          <Link href="/izvori" className="hover:text-[#17312a]">Baza resursa</Link>
+          <Link href="/alati" className="hover:text-[#17312a]">CV i prijava</Link>
+          <Link href="/porez" className="hover:text-[#17312a]">Porezi</Link>
+          <Link href="/provera-oglasa" className="hover:text-[#17312a]">Provera oglasa</Link>
+          <Link href="/privatnost" className="hover:text-[#17312a]">Privatnost</Link>
         </nav>
-        <div className="space-y-1 text-[#7c8c84]">
-          {jobsUpdatedAt ? <p>Oglasi osveženi: {formatDateSr(jobsUpdatedAt)}</p> : null}
-          {sourcesCheckedAt ? <p>Izvori provereni: {formatDateSr(sourcesCheckedAt)}</p> : null}
-          <p>Podaci se razlikuju od datuma deploya sajta.</p>
+        <div className="text-xs leading-6 text-[#75857e]">
+          <p><strong className="text-[#17312a]">Baza:</strong> proverava se i dopunjava ručno i automatski.</p>
+          <p className="mt-1">Live oglasi su eksperimentalna funkcija i nisu centralni deo direktorijuma.</p>
+          <p className="mt-3">Ažurirano: septembar 2026.</p>
         </div>
       </div>
     </footer>

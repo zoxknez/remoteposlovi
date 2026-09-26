@@ -25,16 +25,19 @@ const newsreader = Newsreader({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Remote Poslovi | Remote posao iz Srbije",
+    default: "Remote Poslovi | Kurirana baza za remote rad",
     template: "%s | Remote Poslovi",
   },
   description:
-    "Pronađite remote poslove dostupne iz Srbije, proverite kompaniju, platu, vremensku zonu i poreske obaveze. Direktorijum izvora ostaje deo alata.",
+    "Kurirana baza resursa za remote rad, freelance, CV, učenje, poreze, fakture, sigurnost, produktivnost i karijeru sa fokusom na Srbiju.",
   keywords: [
     "remote poslovi",
     "posao od kuce",
     "freelance srbija",
     "remote jobs serbia",
+    "remote alati",
+    "cv alati",
+    "kursevi",
     "frilenseri porez",
   ],
   applicationName: SITE_NAME,
@@ -64,7 +67,7 @@ export default function RootLayout({
             url: SITE_URL,
             potentialAction: {
               "@type": "SearchAction",
-              target: `${SITE_URL}/poslovi?q={search_term_string}`,
+              target: `${SITE_URL}/izvori?q={search_term_string}`,
               "query-input": "required name=search_term_string",
             },
           }}
