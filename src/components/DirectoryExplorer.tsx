@@ -138,14 +138,32 @@ export function DirectoryExplorer({
     <section id="directory" className="scroll-mt-28">
       <div className="premium-panel relative overflow-hidden p-5 sm:p-7 md:p-8">
         <div className="pointer-events-none absolute -right-24 -top-24 size-72 rounded-full border-[44px] border-[#eef3ed]" aria-hidden />
-        <div className="relative mx-auto max-w-3xl text-center">
+        <div className="relative mx-auto max-w-4xl text-center">
           <p className="eyebrow">KURIRANA BAZA</p>
           <h2 className="mt-3 font-serif text-4xl tracking-[-0.035em] md:text-5xl">
-            Pronađite pravi resurs bez lutanja.
+            Do pravog resursa u nekoliko klikova.
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-sm leading-6 text-[#60736b] md:text-base">
-            Izaberite oblast ili pretražite celu bazu. Kategorije drže veliku bazu preglednom, a detaljni rezultati se otvaraju tek kada su vam potrebni.
+            Ne morate da pregledate celu bazu. Pretražite direktno, izaberite oblast ili uključite brzi filter.
           </p>
+        </div>
+
+        <div className="relative mx-auto mt-7 grid max-w-4xl gap-3 md:grid-cols-3">
+          {[
+            ["01", "Pretražite", "Ako znate šta vam treba, upišite pojam ispod."],
+            ["02", "Izaberite oblast", "Karijera, učenje, porezi, sigurnost, AI i ostalo."],
+            ["03", "Sužite rezultate", "Srbija, besplatno, zvanično, open-source ili početnici."],
+          ].map(([num,title,text]) => (
+            <div key={title} className="rounded-[1.15rem] border border-[#17312a]/8 bg-white/75 p-4 text-left shadow-[0_8px_22px_rgba(23,49,42,.035)]">
+              <div className="flex items-start gap-3">
+                <span className="grid size-8 shrink-0 place-items-center rounded-xl bg-[#17312a] text-[10px] font-bold text-white">{num}</span>
+                <div>
+                  <p className="text-sm font-bold text-[#17312a]">{title}</p>
+                  <p className="mt-1 text-xs leading-5 text-[#718079]">{text}</p>
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
 
         <label className="relative mx-auto mt-8 flex min-h-14 max-w-3xl items-center gap-3 rounded-2xl border border-[#17312a]/12 bg-white px-4 shadow-[0_14px_40px_rgba(23,49,42,0.07)]">
@@ -167,7 +185,11 @@ export function DirectoryExplorer({
           ) : null}
         </label>
 
-        <div className="relative mt-6 flex flex-wrap justify-center gap-2">
+        <div className="relative mt-7">
+          <div className="mb-3 text-center">
+            <p className="text-[10px] font-bold uppercase tracking-[.13em] text-[#7b8982]">1. Izaberite oblast</p>
+          </div>
+          <div className="flex flex-wrap justify-center gap-2">
           {PRIMARY.map((item) => (
             <button
               key={item}
@@ -181,9 +203,14 @@ export function DirectoryExplorer({
               {item}
             </button>
           ))}
+          </div>
         </div>
 
-        <div className="relative mt-3 flex flex-wrap justify-center gap-2 border-t border-[#17312a]/8 pt-4">
+        <div className="relative mt-5 border-t border-[#17312a]/8 pt-5">
+          <div className="mb-3 text-center">
+            <p className="text-[10px] font-bold uppercase tracking-[.13em] text-[#7b8982]">2. Po potrebi suzite rezultate</p>
+          </div>
+          <div className="flex flex-wrap justify-center gap-2">
           {[
             ["serbia", "Za Srbiju"],
             ["free", "Besplatno"],
@@ -213,6 +240,7 @@ export function DirectoryExplorer({
           >
             Sačuvano {saved.length ? `· ${saved.length}` : ""}
           </button>
+          </div>
         </div>
 
         <div className="relative mt-5 flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-xs text-[#75857e]">
@@ -231,7 +259,7 @@ export function DirectoryExplorer({
                 <h3 className="mt-2 font-serif text-4xl tracking-[-0.03em]">Baza po kategorijama</h3>
               </div>
               <p className="max-w-xl text-sm leading-6 text-[#60736b]">
-                Otvorite samo oblast koja vam je potrebna. Broj u kartici pokazuje koliko resursa trenutno odgovara aktivnim filterima.
+                Kliknite na oblast ispod. Tada će se prikazati samo resursi iz te kategorije, bez beskonačnog skrolovanja.
               </p>
             </div>
 
@@ -257,8 +285,13 @@ export function DirectoryExplorer({
                     <span className="grid size-10 place-items-center rounded-full border border-[#17312a]/8 bg-white text-[#87958e] transition group-hover:translate-x-1 group-hover:border-[#dc5b38]/20 group-hover:text-[#dc5b38]">→</span>
                   </div>
 
-                  <h4 className="relative mt-6 font-serif text-[2rem] leading-[1.05] tracking-[-0.03em]">{group.title}</h4>
-                  <p className="relative mt-3 line-clamp-2 text-sm leading-6 text-[#60736b]">{group.description}</p>
+                  <div className="relative mt-6 flex items-end justify-between gap-4">
+                    <div>
+                      <h4 className="font-serif text-[2rem] leading-[1.05] tracking-[-0.03em]">{group.title}</h4>
+                      <p className="mt-2 line-clamp-2 text-sm leading-6 text-[#60736b]">{group.description}</p>
+                    </div>
+                    <span className="hidden rounded-full bg-[#17312a] px-3 py-1.5 text-[10px] font-bold text-white sm:inline">OTVORITE</span>
+                  </div>
 
                   <div className="relative mt-5 flex flex-wrap gap-2">
                     {group.items.slice(0, 3).map((resource) => (
@@ -270,7 +303,7 @@ export function DirectoryExplorer({
 
                   <div className="relative mt-5 flex items-center justify-between border-t border-[#17312a]/7 pt-4">
                     <span className="text-[10px] font-bold uppercase tracking-[.11em] text-[#8a9690]">Pregled oblasti</span>
-                    <span className="text-xs font-bold text-[#17312a] transition group-hover:text-[#dc5b38]">Prikažite sve →</span>
+                    <span className="text-xs font-bold text-[#17312a] transition group-hover:text-[#dc5b38]">Otvorite kategoriju →</span>
                   </div>
                 </button>
               ))}
