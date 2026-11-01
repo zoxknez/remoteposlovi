@@ -8,11 +8,11 @@ export interface Guide {
 export const GUIDES: Guide[] = [
   {
     slug: "kako-pronaci-remote-posao",
-    title: "Kako pronaći remote posao iz Srbije",
-    summary: "Redosled koji štedi vreme: filter za Srbiju, pa EMEA, pa worldwide oglasi sa jasnom listom država.",
+    title: "Kako pronaći remote posao sa Balkana",
+    summary: "Redosled koji štedi vreme: lokalni servisi, pa EMEA, pa worldwide oglasi sa jasnom listom država.",
     body: [
-      "Remote u oglasu ne znači da možete da se prijavite iz Srbije. Prvo tražite oglase koji eksplicitno navode Serbia, Balkans, EMEA ili Worldwide. Ako piše samo Remote, otvorite oglas i potražite listu država, time zone i work authorization.",
-      "Počnite od stranice Poslovi na ovom sajtu, zatim od izvora sa Serbia filterom: HelloWorld, Infostud, Himalayas, Arc, Remote Rocketship, LinkedIn remote + Srbija. Za širi zahvat koristite Remotive, Remote OK i We Work Remotely, ali uvek proverite lokaciju.",
+      "Remote u oglasu ne znači da možete da se prijavite iz bilo koje zemlje. Prvo tražite oglase koji eksplicitno navode vašu zemlju, Balkans, EMEA ili Worldwide. Iz Hrvatske i Slovenije su otvoreni i oglasi označeni kao EU only. Ako piše samo Remote, otvorite oglas i potražite listu država, time zone i work authorization.",
+      "Počnite od stranice vaše zemlje u bazi (najveći lokalni portali i zavod za zapošljavanje), zatim od globalnih izvora sa filterom po državi: Himalayas, Arc, Remote Rocketship i LinkedIn sa lokacijom vaše zemlje. Za širi zahvat koristite Remotive, Remote OK i We Work Remotely, ali uvek proverite lokaciju.",
       "Prijavljujte se na manje, bolje pogođene oglase. Prilagodite CV svakom oglasu. Čuvajte status u trackeru i postavite follow-up posle 5-7 dana.",
     ],
   },

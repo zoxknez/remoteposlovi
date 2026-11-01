@@ -1,11 +1,7 @@
-import type { SavedSearch, TrackerEntry } from "@/types";
+import type { TrackerEntry } from "@/types";
 
 const KEYS = {
   savedResources: "rp.savedResources",
-  seenJobs: "rp.seenJobs",
-  savedSearches: "rp.savedSearches",
-  juniorMode: "rp.juniorMode",
-  hideSeen: "rp.hideSeen",
   wizard: "rp.wizard",
 } as const;
 
@@ -33,56 +29,6 @@ export function toggleSavedResource(id: string): string[] {
   const next = current.includes(id) ? current.filter((item) => item !== id) : [...current, id];
   writeJson(KEYS.savedResources, next);
   return next;
-}
-
-export function getSeenJobs(): string[] {
-  return readJson<string[]>(KEYS.seenJobs, []);
-}
-
-export function markJobsSeen(ids: string[]) {
-  const set = new Set([...getSeenJobs(), ...ids]);
-  writeJson(KEYS.seenJobs, Array.from(set).slice(-2000));
-}
-
-export function getSavedSearches(): SavedSearch[] {
-  return readJson<SavedSearch[]>(KEYS.savedSearches, []);
-}
-
-export function saveSearch(search: SavedSearch) {
-  const current = getSavedSearches().filter((item) => item.id !== search.id);
-  writeJson(KEYS.savedSearches, [search, ...current].slice(0, 20));
-}
-
-export function deleteSearch(id: string) {
-  writeJson(
-    KEYS.savedSearches,
-    getSavedSearches().filter((item) => item.id !== id),
-  );
-}
-
-export function touchSearch(id: string, count: number) {
-  writeJson(
-    KEYS.savedSearches,
-    getSavedSearches().map((item) =>
-      item.id === id ? { ...item, lastSeenAt: new Date().toISOString(), lastCount: count } : item,
-    ),
-  );
-}
-
-export function getJuniorMode(): boolean {
-  return readJson(KEYS.juniorMode, false);
-}
-
-export function setJuniorMode(value: boolean) {
-  writeJson(KEYS.juniorMode, value);
-}
-
-export function getHideSeen(): boolean {
-  return readJson(KEYS.hideSeen, false);
-}
-
-export function setHideSeen(value: boolean) {
-  writeJson(KEYS.hideSeen, value);
 }
 
 const DB_NAME = "remoteposlovi";

@@ -1,5 +1,6 @@
 "use client";
 
+import { getCountry } from "@/data/countries";
 import type { Resource, SourceHealth } from "@/types";
 
 const PRICING: Record<Resource["pricing"], string> = {
@@ -124,7 +125,8 @@ export function ResourceCard({
 }) {
   const visibleTags = resource.tags.slice(0, 2);
   const tone = toneForSection(resource.section);
-  const status = health ? (health.ok ? "Aktivno" : "Proveriti") : resource.regions[0];
+  const country = getCountry(resource.country);
+  const status = health ? (health.ok ? "Aktivno" : "Proveriti") : country.name;
 
   return (
     <article className="group relative flex min-h-[390px] flex-col overflow-hidden rounded-[1.75rem] border border-[#17312a]/8 bg-white/95 p-6 shadow-[0_18px_46px_rgba(23,49,42,0.055)] transition duration-300 hover:-translate-y-1 hover:border-[#17312a]/14 hover:shadow-[0_30px_68px_rgba(23,49,42,0.1)] md:p-7">
@@ -136,6 +138,10 @@ export function ResourceCard({
         <div className="flex min-w-0 flex-wrap gap-2">
           <span className={`rounded-full px-3.5 py-1.5 text-[10px] font-bold uppercase tracking-[.14em] ${tone.badge}`}>
             {resource.section}
+          </span>
+          <span className={`inline-flex items-center gap-1.5 rounded-full py-1 pl-1 pr-3 text-[10px] font-bold uppercase tracking-[.1em] ${country.tone}`}>
+            <span className="grid size-5 place-items-center rounded-full bg-white/70 text-[8px] tracking-normal">{country.badge}</span>
+            {country.code === "global" ? "Globalno" : country.code === "eu" ? "Evropa" : country.name}
           </span>
           {resource.official ? (
             <span className="rounded-full bg-[#e9f0ff] px-3.5 py-1.5 text-[10px] font-bold uppercase tracking-[.14em] text-[#315a92]">

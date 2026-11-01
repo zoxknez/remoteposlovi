@@ -3,9 +3,9 @@ import { pageMeta } from "@/lib/seo";
 export const metadata = pageMeta("Privatnost","CV, beleške i email kontakta ostaju u pregledaču. Nema obaveznog naloga.","/privatnost");
 
 const ITEMS = [
-  ["Bez obaveznog naloga","Sajt radi bez prijave. Sačuvani izvori, viđeni oglasi i sačuvane pretrage čuvaju se u localStorage-u, a tracker prijava u IndexedDB-u."],
+  ["Bez obaveznog naloga","Sajt radi bez prijave. Sačuvani servisi čuvaju se u localStorage-u, a tracker prijava u IndexedDB-u."],
   ["Osetljivi sadržaj ostaje lokalno","CV, napomene, email kontakta i tekstovi promptova ne šalju se na naš server. Provera oglasa takođe radi lokalno u pregledaču."],
-  ["Server obrađuje samo javne izvore","Server preuzima javne feedove oglasa, NBS kurs i health podatke izvora. Ti zahtevi ne sadrže vaš CV, beleške ili identitet."],
+  ["Server obrađuje samo javne izvore","Server preuzima NBS kurs i periodično proverava da li linkovi u bazi rade. Ti zahtevi ne sadrže vaš CV, beleške ili identitet."],
   ["Bez invazivnog praćenja","Ova verzija nema invazivan analytics sistem niti profilisanje korisnika na osnovu lokalnih podataka iz alata."],
 ];
 

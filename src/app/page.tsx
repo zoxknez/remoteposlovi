@@ -1,22 +1,21 @@
 import Link from "next/link";
+import { CountryBadge } from "@/components/CountryBadge";
 import { DirectoryExplorer } from "@/components/DirectoryExplorer";
-import { JobCard } from "@/components/JobCard";
 import { JsonLd } from "@/components/JsonLd";
+import { BALKAN_COUNTRIES } from "@/data/countries";
 import { RESOURCES } from "@/data/sources";
-import { getJobFeed } from "@/lib/jobs/aggregate";
-import { isSerbiaLikely } from "@/lib/eligibility";
 import { pageMeta } from "@/lib/seo";
 
 export const metadata = pageMeta(
-  "Kurirana baza za remote rad",
-  "Provereni resursi za remote karijeru, freelance, učenje, CV, poreze, fakture, bezbednost, produktivnost i rad iz Srbije.",
+  "Remote rad sa Balkana",
+  "Provereni servisi za remote posao iz Srbije, Hrvatske, BiH, Crne Gore, Severne Makedonije, Slovenije, Kosova i Albanije: oglasnici, freelance platforme, zavodi, porezi, plate i alati.",
   "/",
 );
 
 const TOOL_SUITE = [
   { href: "/alati", title: "CV i prijava", text: "Prompt studio + provereni CV/ATS resursi." },
-  { href: "/porez", title: "Poreski kalkulator", text: "Informativni obračun za freelancere u 2026." },
-  { href: "/plate", title: "Plate", text: "Javni salary izvori i rasponi iz oglasa bez lažnih proseka." },
+  { href: "/porez", title: "Porezi", text: "Kalkulator za Srbiju i zvanični poreski portali regiona." },
+  { href: "/plate", title: "Plate", text: "Preračun satnice u mesečno i godišnje i izvori plata po zemljama." },
   { href: "/provera-oglasa", title: "Provera oglasa", text: "Lokalna provera rizičnih signala, bez lažnog scam score-a." },
   { href: "/tracker", title: "Tracker", text: "Sačuvano, prijavljeno, intervju, ponuda i follow-up." },
   { href: "/wizard", title: "Gde da krenete?", text: "Kratak vodič do najrelevantnijih izvora za vaš profil." },
@@ -39,16 +38,11 @@ function StatIcon({ type }: { type: "book" | "eye" | "file" | "gift" | "code" | 
   );
 }
 
-export default async function Home() {
-  const feed = await getJobFeed().catch(() => null);
-  const jobs = feed?.jobs ?? [];
-  const latest = jobs.filter((job) => isSerbiaLikely(job.serbiaEligibility)).slice(0, 3);
-  const fallbackLatest = latest.length ? latest : jobs.slice(0, 3);
-
+export default function Home() {
   const official = RESOURCES.filter((item) => item.official).length;
   const free = RESOURCES.filter((item) => item.pricing === "free").length;
   const open = RESOURCES.filter((item) => item.openSource).length;
-  const nonJobs = RESOURCES.filter((item) => item.section !== "Poslovi").length;
+  const local = RESOURCES.filter((item) => item.country !== "eu" && item.country !== "global").length;
 
   return (
     <main>
@@ -57,7 +51,7 @@ export default async function Home() {
           "@context": "https://schema.org",
           "@type": "CollectionPage",
           name: "Remote Poslovi",
-          description: "Kurirana baza resursa za remote rad i freelance sa fokusom na Srbiju.",
+          description: "Kurirana baza servisa za remote rad i freelance za ljude sa Balkana.",
         }}
       />
 
@@ -66,12 +60,13 @@ export default async function Home() {
         <div className="absolute -bottom-40 right-0 size-[32rem] rounded-full bg-[#d8e6d1]/70 blur-3xl" />
         <div className="relative mx-auto grid min-h-[430px] max-w-[1540px] items-center gap-8 px-5 py-10 md:px-12 md:py-12 lg:grid-cols-[1.16fr_.84fr]">
           <div>
-            <p className="eyebrow">REMOTE RAD · SRBIJA · 2026</p>
+            <p className="eyebrow">REMOTE RAD · BALKAN · 2026</p>
             <h1 className="mt-4 max-w-4xl font-serif text-4xl leading-[0.98] tracking-[-0.045em] text-[#17312a] md:text-6xl">
-              Remote rad iz Srbije
+              Remote rad sa Balkana
             </h1>
             <p className="mt-4 max-w-2xl text-base leading-7 text-[#52675f]">
-              Kurirana baza poslova, freelance platformi, alata, vodiča i korisnih resursa.
+              Kurirana baza servisa za posao, freelance, poreze, plate i alate, za osam zemalja regiona i ceo svet.
+              Izaberete servis i idete direktno kod njih.
             </p>
             <div className="mt-6 flex flex-wrap gap-3">
               <a href="#directory" className="inline-flex min-h-12 items-center rounded-full bg-[#17312a] px-6 text-sm font-bold text-white transition hover:bg-[#244239]">
@@ -81,17 +76,29 @@ export default async function Home() {
                 Gde da krenete?
               </Link>
             </div>
+            <div className="mt-6 flex flex-wrap gap-2">
+              {BALKAN_COUNTRIES.map((country) => (
+                <Link
+                  key={country.code}
+                  href={`/zemlje/${country.slug}`}
+                  className="inline-flex min-h-10 items-center gap-2 rounded-full border border-[#17312a]/10 bg-white/75 py-1 pl-1 pr-3.5 text-xs font-bold text-[#17312a] transition hover:border-[#17312a]/25 hover:bg-white"
+                >
+                  <CountryBadge code={country.code} className="size-7 text-[9px]" />
+                  {country.name}
+                </Link>
+              ))}
+            </div>
           </div>
 
           <div className="rounded-[1.6rem] border border-white/70 bg-white/72 p-2.5 shadow-[0_22px_60px_rgba(23,49,42,0.10)] backdrop-blur-xl md:p-3">
             <div className="grid gap-2.5 sm:grid-cols-2">
               {[
-                { value: RESOURCES.length, label: "ukupno resursa", icon: "book" as const, tone: "from-[#f4f9f2] to-[#eef5eb]", accent: "bg-[#e5f0df] text-[#1f5a3b]" },
-                { value: nonJobs, label: "resursa van oglasa", icon: "eye" as const, tone: "from-[#fffdf8] to-[#f8f3e9]", accent: "bg-[#f5eddf] text-[#6f5b34]" },
+                { value: RESOURCES.length, label: "ukupno servisa", icon: "book" as const, tone: "from-[#f4f9f2] to-[#eef5eb]", accent: "bg-[#e5f0df] text-[#1f5a3b]" },
+                { value: local, label: "lokalnih servisa", icon: "eye" as const, tone: "from-[#fffdf8] to-[#f8f3e9]", accent: "bg-[#f5eddf] text-[#6f5b34]" },
                 { value: official, label: "zvaničnih izvora", icon: "file" as const, tone: "from-[#fffdf9] to-[#f7f4ec]", accent: "bg-[#eef2e9] text-[#45614f]" },
                 { value: free, label: "potpuno besplatnih", icon: "gift" as const, tone: "from-[#f3f9f2] to-[#eaf4e8]", accent: "bg-[#e2efdf] text-[#24593d]" },
-                { value: open, label: "open-source resursa", icon: "code" as const, tone: "from-[#f2f8f1] to-[#eaf3e8]", accent: "bg-[#e1eddd] text-[#22563a]" },
-                { value: "SR", label: "fokus na Srbiju", icon: "pin" as const, tone: "from-[#fffdf8] to-[#f8f2e8]", accent: "bg-[#f3eadc] text-[#6a5736]" },
+                { value: open, label: "open-source alata", icon: "code" as const, tone: "from-[#f2f8f1] to-[#eaf3e8]", accent: "bg-[#e1eddd] text-[#22563a]" },
+                { value: BALKAN_COUNTRIES.length, label: "zemalja regiona", icon: "pin" as const, tone: "from-[#fffdf8] to-[#f8f2e8]", accent: "bg-[#f3eadc] text-[#6a5736]" },
               ].map((item) => (
                 <div
                   key={item.label}
@@ -158,26 +165,25 @@ export default async function Home() {
         </section>
 
         <section className="mt-24 overflow-hidden rounded-[1.5rem] border border-[#dc5b38]/16 bg-[#fff5f0]">
-          <div className="grid gap-8 p-6 md:p-9 lg:grid-cols-[.7fr_1.3fr] lg:items-end">
+          <div className="grid gap-6 p-6 md:p-9 lg:grid-cols-[1.3fr_.7fr] lg:items-center">
             <div>
-              <span className="inline-flex rounded-full bg-[#dc5b38] px-3 py-1 text-[10px] font-bold tracking-[.12em] text-white">EKSPERIMENTALNO</span>
-              <h2 className="mt-4 font-serif text-3xl tracking-[-0.03em] md:text-4xl">Live pretraga oglasa</h2>
-              <p className="mt-3 text-sm leading-6 text-[#765f57]">
-                Ovaj deo je koristan kao dodatak, ali još nije centralna funkcija. Feed, geografsku dostupnost i klasifikaciju oglasa treba posmatrati kao eksperimentalne.
+              <span className="inline-flex rounded-full bg-[#dc5b38] px-3 py-1 text-[10px] font-bold tracking-[.12em] text-white">KONTAKT</span>
+              <h2 className="mt-4 font-serif text-3xl tracking-[-0.03em] md:text-4xl">Pitanje, ispravka ili novi servis?</h2>
+              <p className="mt-3 max-w-2xl text-sm leading-6 text-[#765f57]">
+                Ako imate pitanje, primetili ste netačan podatak ili znate koristan servis iz vaše zemlje, pišite na X.
+                Za predlog pošaljite link i kratak opis.
               </p>
-              <Link href="/poslovi" className="mt-5 inline-flex min-h-11 items-center rounded-full bg-[#17312a] px-5 text-xs font-bold text-white">
-                Otvorite eksperimentalne oglase
-              </Link>
             </div>
-            {fallbackLatest.length ? (
-              <div className="grid gap-4 md:grid-cols-3">
-                {fallbackLatest.map((job) => <JobCard key={job.id} job={job} seen />)}
-              </div>
-            ) : (
-              <div className="rounded-2xl border border-[#dc5b38]/12 bg-white/75 p-8 text-sm text-[#765f57]">
-                Live feed trenutno nije dostupan. Kurirana baza resursa iznad radi nezavisno od njega.
-              </div>
-            )}
+            <div className="flex flex-wrap gap-3 lg:justify-end">
+              <a
+                href="https://x.com/KoronVirus"
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex min-h-12 items-center rounded-full bg-[#17312a] px-6 text-sm font-bold text-white transition hover:bg-[#244239]"
+              >
+                Pišite na X · @KoronVirus
+              </a>
+            </div>
           </div>
         </section>
       </div>

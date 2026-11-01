@@ -3,7 +3,7 @@
 import { useEffect,useMemo,useState } from "react";
 import { addDays,buildFollowUpIcs } from "@/lib/ics";
 import { formatDateSr } from "@/lib/format";
-import { listTracker,removeTracker,upsertTracker } from "@/lib/storage";
+import { createTrackerEntry,listTracker,removeTracker,upsertTracker } from "@/lib/storage";
 import type { TrackerEntry,TrackerStatus } from "@/types";
 
 const STATUSES:TrackerStatus[]=["saved","applied","interview","offer","rejected","archived"];
@@ -24,15 +24,34 @@ export function TrackerBoard(){
   useEffect(()=>{let c=false;listTracker().then(e=>!c&&setItems(e));return()=>{c=true}},[]);
   const counts=useMemo(()=>Object.fromEntries(STATUSES.map(s=>[s,items.filter(i=>i.status===s).length])) as Record<TrackerStatus,number>,[items]);
 
-  if(!items.length)return <div className="premium-panel relative overflow-hidden py-16 text-center">
-    <div className="absolute -right-16 -top-16 size-48 rounded-full border-[30px] border-[#eef3ed]" aria-hidden />
-    <div className="relative mx-auto grid size-16 place-items-center rounded-[1.4rem] bg-[#17312a] text-2xl text-white">♡</div>
-    <h2 className="relative mt-5 font-serif text-3xl">Tracker je prazan.</h2>
-    <p className="relative mx-auto mt-2 max-w-md text-sm leading-6 text-[#60736b]">Sačuvajte oglas iz eksperimentalnog feeda. Podaci ostaju samo u ovom pregledaču.</p>
-    <a href="/poslovi" className="relative mt-6 inline-flex rounded-full bg-[#17312a] px-5 py-3 text-xs font-bold text-white">Otvorite oglase BETA</a>
+  const addForm=<form className="premium-panel relative grid gap-3 overflow-hidden p-5 md:grid-cols-[1fr_1fr_1.2fr_auto] md:items-end md:p-6" onSubmit={async e=>{
+    e.preventDefault();
+    const form=e.currentTarget;const data=new FormData(form);
+    const title=String(data.get("title")??"").trim();const company=String(data.get("company")??"").trim();const applyUrl=String(data.get("url")??"").trim();
+    if(!title||!company)return;
+    const id=`manual-${Date.now().toString(36)}`;
+    await upsertTracker(createTrackerEntry({id,jobId:id,slug:id,title,company,applyUrl,source:"Ručno dodato"}));
+    form.reset();reload();
+  }}>
+    <label className="text-[9px] font-bold uppercase tracking-[.11em] text-[#60736b]">Pozicija<input name="title" required className="premium-field mt-2 font-normal normal-case tracking-normal" placeholder="Customer Support" /></label>
+    <label className="text-[9px] font-bold uppercase tracking-[.11em] text-[#60736b]">Kompanija<input name="company" required className="premium-field mt-2 font-normal normal-case tracking-normal" placeholder="Acme" /></label>
+    <label className="text-[9px] font-bold uppercase tracking-[.11em] text-[#60736b]">Link oglasa<input name="url" type="url" className="premium-field mt-2 font-normal normal-case tracking-normal" placeholder="https://" /></label>
+    <button type="submit" className="min-h-12 whitespace-nowrap rounded-xl bg-[#17312a] px-5 text-sm font-bold text-white shadow-[0_10px_22px_rgba(23,49,42,.12)] transition hover:-translate-y-0.5 hover:bg-[#21483c]">Dodajte prijavu</button>
+  </form>;
+
+  if(!items.length)return <div className="grid gap-7">
+    {addForm}
+    <div className="premium-panel relative overflow-hidden py-16 text-center">
+      <div className="absolute -right-16 -top-16 size-48 rounded-full border-[30px] border-[#eef3ed]" aria-hidden />
+      <div className="relative mx-auto grid size-16 place-items-center rounded-[1.4rem] bg-[#17312a] text-2xl text-white">♡</div>
+      <h2 className="relative mt-5 font-serif text-3xl">Tracker je prazan.</h2>
+      <p className="relative mx-auto mt-2 max-w-md text-sm leading-6 text-[#60736b]">Dodajte prvu prijavu iznad. Podaci ostaju samo u ovom pregledaču.</p>
+      <a href="/izvori" className="relative mt-6 inline-flex rounded-full bg-[#17312a] px-5 py-3 text-xs font-bold text-white">Pronađite servis za prijavu</a>
+    </div>
   </div>;
 
   return <div className="grid gap-7">
+    {addForm}
     <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
       {STATUSES.map((s,index)=><div key={s} className="relative overflow-hidden rounded-[1.2rem] border border-[#17312a]/8 bg-white p-4 shadow-[0_10px_26px_rgba(23,49,42,.035)]">
         <div className="absolute -right-6 -top-6 size-16 rounded-full border-[10px] border-[#f3f6f2]" aria-hidden />
@@ -62,7 +81,7 @@ export function TrackerBoard(){
 
       <div className="relative mt-5 flex flex-wrap gap-2 border-t border-[#17312a]/7 pt-5">
         {[3,5,7,14].map(days=><button key={days} type="button" className="chip" onClick={()=>downloadIcs(entry,days)}>Follow-up +{days}d</button>)}
-        <a href={entry.applyUrl} target="_blank" rel="noreferrer" className="chip">Originalni oglas ↗</a>
+        {entry.applyUrl?<a href={entry.applyUrl} target="_blank" rel="noreferrer" className="chip">Originalni oglas ↗</a>:null}
         <button type="button" className="chip text-[#8b3f35]" onClick={async()=>{await removeTracker(entry.id);reload();}}>Uklonite</button>
       </div>
       {entry.appliedAt?<p className="relative mt-4 text-[11px] text-[#7a8982]">Prijavljeno {formatDateSr(entry.appliedAt)}</p>:null}

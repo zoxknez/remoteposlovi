@@ -4,8 +4,8 @@ import { RESOURCES } from "@/data/sources";
 import { pageMeta } from "@/lib/seo";
 
 export const metadata = pageMeta(
-  "Baza remote resursa",
-  "Kurirana baza za karijeru, učenje, poslovanje, sigurnost, produktivnost, freelance i remote rad.",
+  "Baza servisa za remote rad",
+  "Kurirana baza servisa za posao, freelance, poreze, plate, učenje i remote rad za osam zemalja Balkana, Evropu i svet.",
   "/izvori",
 );
 
@@ -16,15 +16,15 @@ export default function IzvoriPage() {
 
   return (
     <main>
-      <JsonLd data={{ "@context": "https://schema.org", "@type": "CollectionPage", name: "Baza remote resursa", mainEntity: { "@type": "ItemList", numberOfItems: RESOURCES.length, itemListElement: RESOURCES.map((resource, index) => ({ "@type": "ListItem", position: index + 1, name: resource.name, url: resource.url })) } }} />
+      <JsonLd data={{ "@context": "https://schema.org", "@type": "CollectionPage", name: "Baza servisa za remote rad", mainEntity: { "@type": "ItemList", numberOfItems: RESOURCES.length, itemListElement: RESOURCES.map((resource, index) => ({ "@type": "ListItem", position: index + 1, name: resource.name, url: resource.url })) } }} />
       <section className="relative overflow-hidden border-b border-[#17312a]/8 bg-[#e9f1e6]">
         <div className="absolute -right-28 -top-28 size-[28rem] rounded-full border-[70px] border-white/22" aria-hidden />
         <div className="relative mx-auto max-w-[1540px] px-5 py-14 md:px-12 md:py-20">
-          <p className="eyebrow">BAZA RESURSA</p>
+          <p className="eyebrow">BAZA SERVISA</p>
           <div className="mt-3 grid gap-10 lg:grid-cols-[1fr_420px] lg:items-end">
             <div>
               <h1 className="max-w-4xl font-serif text-5xl tracking-[-0.04em] md:text-7xl">Provereni linkovi za ceo remote workflow.</h1>
-              <p className="mt-5 max-w-2xl text-base leading-7 text-[#52675f]">Od CV-a i učenja do APR-a, poreza, faktura, sigurnosti i organizacije rada. Pretraga obuhvata naziv, tagove i namenu.</p>
+              <p className="mt-5 max-w-2xl text-base leading-7 text-[#52675f]">Lokalni portali, zavodi i poreski servisi za osam zemalja Balkana, plus globalne platforme, CV, učenje, sigurnost i organizacija rada. Pretraga obuhvata naziv, zemlju, tagove i namenu.</p>
             </div>
             <div className="grid grid-cols-3 gap-3">
               {[[RESOURCES.length, "ukupno"], [official, "zvanično"], [open, "open-source"]].map(([value,label],index)=><div key={String(label)} className="relative overflow-hidden rounded-[1.35rem] border border-white/65 bg-white/72 p-4 shadow-[0_14px_34px_rgba(23,49,42,.07)] backdrop-blur">

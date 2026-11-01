@@ -26,15 +26,18 @@ const newsreader = Newsreader({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Remote Poslovi | Kurirana baza za remote rad",
+    default: "Remote Poslovi | Remote rad sa Balkana",
     template: "%s | Remote Poslovi",
   },
   description:
-    "Kurirana baza resursa za remote rad, freelance, CV, učenje, poreze, fakture, sigurnost, produktivnost i karijeru sa fokusom na Srbiju.",
+    "Kurirana baza servisa za remote rad, freelance, CV, učenje, poreze i plate za Srbiju, Hrvatsku, BiH, Crnu Goru, Severnu Makedoniju, Sloveniju, Kosovo i Albaniju.",
   keywords: [
     "remote poslovi",
     "posao od kuce",
     "freelance srbija",
+    "rad od kuće hrvatska",
+    "posao bih",
+    "remote jobs balkans",
     "remote jobs serbia",
     "remote alati",
     "cv alati",

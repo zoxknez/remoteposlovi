@@ -289,3 +289,12 @@ header > div > a > span:first-child::after {
   border-color: rgb(220 91 56 / .55);
   box-shadow: 0 0 0 4px rgb(220 91 56 / .09);
 }
+
+/* Horizontalni skrol zemalja na telefonu bez vidljive trake */
+.country-scroller {
+  scrollbar-width: none;
+}
+
+.country-scroller::-webkit-scrollbar {
+  display: none;
+}

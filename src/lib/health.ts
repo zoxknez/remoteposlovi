@@ -39,7 +39,7 @@ async function checkOne(url: string, id: string): Promise<SourceHealth> {
 }
 
 async function checkAll(): Promise<{ checkedAt: string; items: SourceHealth[] }> {
-  const items = await mapPool(RESOURCES, 12, (resource) => checkOne(resource.url, resource.id));
+  const items = await mapPool(RESOURCES, 20, (resource) => checkOne(resource.url, resource.id));
   return { checkedAt: new Date().toISOString(), items };
 }
 

@@ -6,7 +6,9 @@ import { useEffect, useState } from "react";
 import { getSavedResources, listTracker } from "@/lib/storage";
 
 const LINKS = [
-  { href: "/izvori", label: "Baza resursa" },
+  { href: "/izvori", label: "Baza servisa" },
+  { href: "/zemlje", label: "Zemlje" },
+  { href: "/wizard", label: "Gde da krenete" },
   { href: "/alati", label: "CV i prijava" },
   { href: "/porez", label: "Porez" },
   { href: "/plate", label: "Plate" },
@@ -56,9 +58,6 @@ export function SiteHeader() {
         </nav>
 
         <div className="flex items-center gap-2">
-          <Link href="/poslovi" className="hidden min-h-10 items-center gap-2 rounded-full border border-[#dc5b38]/16 bg-[#fff5f0] px-3.5 text-xs font-bold text-[#a44931] shadow-[0_6px_16px_rgba(220,91,56,.06)] lg:inline-flex">
-            Poslovi <span className="rounded-full bg-[#dc5b38] px-1.5 py-0.5 text-[9px] text-white">BETA</span>
-          </Link>
           <Link href="/tracker" className="hidden min-h-10 items-center rounded-full border border-[#17312a]/9 bg-white px-3.5 text-xs font-bold text-[#17312a] shadow-[0_6px_16px_rgba(23,49,42,.04)] sm:inline-flex">
             Sačuvano{savedCount > 0 ? ` · ${savedCount}` : ""}
           </Link>
@@ -74,7 +73,6 @@ export function SiteHeader() {
             {LINKS.map((link) => (
               <li key={link.href}><Link href={link.href} onClick={() => setOpen(false)} className="flex min-h-11 items-center rounded-xl px-3 text-sm font-semibold text-[#17312a] transition hover:bg-[#eef3ed]">{link.label}</Link></li>
             ))}
-            <li><Link href="/poslovi" onClick={() => setOpen(false)} className="mt-2 flex min-h-11 items-center justify-between rounded-xl bg-[#fff0e9] px-3 text-sm font-semibold text-[#9a432d]"><span>Eksperimentalni oglasi</span><span className="text-[10px] font-bold">BETA</span></Link></li>
           </ul>
         </nav>
       ) : null}

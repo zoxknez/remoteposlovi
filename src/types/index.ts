@@ -31,14 +31,15 @@ export type ResourceSection =
   | "Zajednice"
   | "Remote rad";
 
-export type SerbiaSupport =
+/** Da li je servis dostupan ljudima iz regiona (Balkan). */
+export type RegionSupport =
   | "confirmed"
   | "partial"
   | "unknown"
   | "not-supported";
 
 export type RemoteScope =
-  | "serbia"
+  | "local"
   | "europe"
   | "emea"
   | "worldwide"
@@ -72,6 +73,12 @@ export type ResourceCategory =
   | "administration"
   | "other";
 
+/** Zemlje Balkana (ex-YU + Albanija) plus evropski i globalni servisi. */
+export type BalkanCountry = "rs" | "hr" | "ba" | "me" | "mk" | "si" | "xk" | "al";
+export type CountryCode = BalkanCountry | "eu" | "global";
+
+export type ResourceKind = "Oglasi" | "Freelance" | "Alat";
+
 export interface Resource {
   id: string;
   name: string;
@@ -79,9 +86,9 @@ export interface Resource {
   description: string;
   type: ResourceType;
   categories: ResourceCategory[];
-  regions: Array<"Srbija" | "Evropa / EMEA" | "Globalno">;
-  serbiaSupport: SerbiaSupport;
-  serbiaSupportNote: string;
+  country: CountryCode;
+  regionSupport: RegionSupport;
+  regionSupportNote: string;
   remoteScope: RemoteScope[];
   pricing: Pricing;
   accountRequired: boolean | null;
@@ -92,146 +99,13 @@ export interface Resource {
   jobTypes: JobType[];
   sourceType: SourceKind;
   featured: boolean;
-  kind: "Oglasi" | "Freelance" | "Alat";
+  kind: ResourceKind;
   label: string;
-  feedUrl?: string;
   section: ResourceSection;
   tags: string[];
   official: boolean;
   openSource: boolean;
   audience: Array<"beginner" | "junior" | "mid" | "senior" | "freelancer" | "entrepreneur" | "student" | "manager">;
-}
-
-export type SerbiaEligibility =
-  | "CONFIRMED_SERBIA"
-  | "WORLDWIDE"
-  | "EUROPE"
-  | "EMEA"
-  | "TIMEZONE_BASED"
-  | "UNCLEAR"
-  | "NOT_ELIGIBLE";
-
-export type JobCategory =
-  | "engineering"
-  | "qa"
-  | "data"
-  | "ai"
-  | "design"
-  | "product"
-  | "marketing"
-  | "sales"
-  | "support"
-  | "finance"
-  | "hr"
-  | "writing"
-  | "teaching"
-  | "administration"
-  | "other";
-
-export type Seniority =
-  | "internship"
-  | "junior"
-  | "mid"
-  | "senior"
-  | "lead"
-  | "manager"
-  | "unknown";
-
-export type EmploymentType =
-  | "full-time"
-  | "part-time"
-  | "contract"
-  | "freelance"
-  | "internship"
-  | "unknown";
-
-export type RemoteMode = "fully-remote" | "hybrid" | "unknown";
-
-export type JobStatus = "ACTIVE" | "CLOSED" | "REMOVED" | "UNKNOWN";
-
-export type JobSourceName = "remotive" | "remoteok" | "greenhouse" | "lever";
-
-export interface TimezoneWindow {
-  zone: string;
-  startHour: number;
-  endHour: number;
-  label: string;
-}
-
-export interface EligibilityResult {
-  status: SerbiaEligibility;
-  reasons: string[];
-  eligibleCountries: string[];
-  remoteScope: RemoteScope[];
-}
-
-export interface NormalizedJob {
-  id: string;
-  slug: string;
-  source: JobSourceName;
-  sourceId: string;
-  sourceUrl: string;
-  applyUrl: string;
-  canonicalUrl: string;
-  company: string;
-  companyNormalized: string;
-  title: string;
-  titleNormalized: string;
-  description: string;
-  location: string;
-  remoteScope: RemoteScope[];
-  eligibleCountries: string[];
-  serbiaEligibility: SerbiaEligibility;
-  eligibilityReasons: string[];
-  salaryMin: number | null;
-  salaryMax: number | null;
-  salaryCurrency: string | null;
-  salaryPeriod: "year" | "month" | "hour" | "day" | null;
-  salaryRaw: string | null;
-  category: JobCategory;
-  seniority: Seniority;
-  employmentType: EmploymentType;
-  remoteMode: RemoteMode;
-  timezone: TimezoneWindow | null;
-  publishedAt: string | null;
-  fetchedAt: string;
-  expiresAt: string | null;
-  lastCheckedAt: string;
-  status: JobStatus;
-  sources: JobSourceName[];
-  sourceUrls: Record<string, string>;
-  juniorFriendly: boolean;
-}
-
-export interface JobFeedMeta {
-  fetchedAt: string;
-  sources: Array<{
-    name: JobSourceName;
-    ok: boolean;
-    count: number;
-    error?: string;
-    durationMs: number;
-  }>;
-}
-
-export interface JobFeed {
-  jobs: NormalizedJob[];
-  meta: JobFeedMeta;
-}
-
-export interface JobFilters {
-  q?: string;
-  location?: "srbija" | "europe" | "emea" | "worldwide";
-  serbiaOnly?: boolean;
-  category?: JobCategory | "all";
-  seniority?: Seniority | "all";
-  type?: EmploymentType | "all";
-  remote?: RemoteMode | "all";
-  salaryOnly?: boolean;
-  timezone?: "cet" | "cet2" | "cet4" | "any";
-  posted?: "24h" | "3d" | "7d" | "30d" | "all";
-  hideSeen?: boolean;
-  junior?: boolean;
 }
 
 export type TrackerStatus =
@@ -259,15 +133,6 @@ export interface TrackerEntry {
   note: string;
   nextStep: string;
   followUpAt: string | null;
-}
-
-export interface SavedSearch {
-  id: string;
-  name: string;
-  filters: JobFilters;
-  createdAt: string;
-  lastSeenAt: string;
-  lastCount: number;
 }
 
 export interface SourceHealth {

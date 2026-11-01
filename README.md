@@ -1,12 +1,14 @@
 # Remote Poslovi
 
-Kurirana baza resursa za remote rad, freelance i digitalnu karijeru sa fokusom na korisnike iz Srbije.
+Kurirana baza servisa za remote rad, freelance i digitalnu karijeru za ljude sa Balkana: Srbija, Hrvatska, BiH, Crna Gora, Severna Makedonija, Slovenija, Kosovo i Albanija. Sajt ne objavljuje oglase, nego vodi do servisa koji ih imaju.
 
 Produkcija: https://remoteposlovi.vercel.app
 
 ## Fokus proizvoda
 
-Primarna vrednost projekta više nije agregacija oglasa. Glavni proizvod je proveriva i pretraživa baza korisnih resursa za:
+Glavni proizvod je proveriva i pretraživa baza servisa, podeljena po zemljama i oblastima, za:
+
+- portale za posao i zavode za zapošljavanje u svakoj zemlji regiona
 
 - CV, portfolio, intervju, engleski i plate
 - učenje i prekvalifikaciju
@@ -17,16 +19,16 @@ Primarna vrednost projekta više nije agregacija oglasa. Glavni proizvod je prov
 - AI alate koji imaju široku praktičnu vrednost
 - freelance platforme i remote vodiče
 
-Live oglasi i kompanije su zadržani kao **eksperimentalna BETA funkcija** pri dnu korisničkog toka.
+Svaka zemlja ima svoju stranicu (`/zemlje/[slug]`) sa lokalnim portalima, zavodom, poreskim portalom, platama i savetima. Agregacija oglasa je uklonjena; stari URL-ovi `/poslovi` i `/kompanije` trajno preusmeravaju na `/izvori` (`next.config.ts`).
 
 ## Trenutna baza
 
-Podaci su u `src/data/sources.ts`.
+Podaci su u `src/data/sources.ts` (`SEEDS`, `EXTRA_SEEDS`, `BALKAN_SEEDS`), a zemlje u `src/data/countries.ts`. Testovi u `src/data/sources.test.ts` proveravaju jedinstvene id-jeve i URL-ove, https linkove i da svaka zemlja ima bar jedan oglasnik i jedan zvaničan portal.
 
 Model resursa podržava:
 
 - sekciju i tagove
-- region i podršku za Srbiju
+- zemlju (`country`) i dostupnost za region (`regionSupport`)
 - free / freemium / paid
 - zvanični izvor
 - open-source oznaku
@@ -34,32 +36,20 @@ Model resursa podržava:
 - tip resursa i oblasti
 - periodični health status
 
-Direktorijum pretražuje naziv, opis, sekciju, tagove i oblasti. Brzi filteri uključuju Srbiju, besplatne, zvanične, open-source, početničke i sačuvane resurse.
+Direktorijum pretražuje naziv, opis, sekciju, tagove i oblasti. Direktorijum prvo bira zemlju, pa oblast. Brzi filteri uključuju potvrđeno za region, besplatne, zvanične, open-source, početničke i sačuvane resurse.
 
 ## Ugrađeni alati
 
 - CV i application prompt studio
 - informativni poreski kalkulator za freelancere 2026.
 - poreski kalendar i ICS
-- salary pregled po valuti
+- preračun zarade (sat, mesec, godina; EUR/RSD) i izvori plata po zemljama
 - lokalna provera rizičnih signala u oglasima
-- tracker prijava u IndexedDB
+- tracker prijava u IndexedDB, sa ručnim dodavanjem
 - follow-up ICS
-- wizard za preporuku resursa
+- wizard za preporuku servisa (zemlja, vrsta rada, iskustvo)
 
 Nalog nije potreban.
-
-## Eksperimentalni oglasi
-
-`/poslovi` koristi javne izvore:
-
-| Izvor | Endpoint | Napomena |
-| --- | --- | --- |
-| Remotive | `https://remotive.com/api/remote-jobs` | Javni API, attribution i originalni link |
-| Remote OK | `https://remoteok.com/api` | Javni JSON feed |
-| Greenhouse Job Board API | `https://boards-api.greenhouse.io/v1/boards/{token}/jobs` | Javni boardovi iz `src/data/ats-boards.ts` |
-
-Eligibility klasifikacija je heuristička. Remote ne znači automatski da je pozicija dostupna iz Srbije. Korisnik mora proveriti originalni oglas.
 
 ## Arhitektura
 
@@ -73,8 +63,8 @@ Eligibility klasifikacija je heuristička. Remote ne znači automatski da je poz
 src/
   app/            rute i API
   components/     UI i lokalni alati
-  data/           kurirana baza, poreski podaci, vodiči, ATS boardovi
-  lib/            jobs, eligibility, porez, plate, zone, FX, health, storage
+  data/           kurirana baza, zemlje, poreski podaci, vodiči
+  lib/            porez, plate, FX, health, scam, ics, storage
   types/          modeli
 ```
 
@@ -112,7 +102,6 @@ npm run build
 - proveriti poreske parametre i primarne izvore
 - proveriti cene i dostupnost resursa
 - ukloniti ili zameniti ugašene URL-ove
-- proveriti Remotive / Remote OK uslove
-- proveriti Greenhouse board tokene
+- proveriti da li servisi i dalje primaju korisnike iz regiona
 - pregledati health rezultate i redirecte
 - nove resurse dodavati samo ako donose novu praktičnu vrednost

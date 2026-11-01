@@ -1,21 +1,68 @@
-import Link from "next/link";
-import { CATEGORY_LABELS, SENIORITY_LABELS } from "@/lib/classify";
-import { formatNumberSr } from "@/lib/format";
-import { getJobFeed } from "@/lib/jobs/aggregate";
-import { annualizeSalary } from "@/lib/salary";
+import { CountryBadge } from "@/components/CountryBadge";
+import { ResourceGrid } from "@/components/ResourceGrid";
+import { SalaryCalculator } from "@/components/SalaryCalculator";
+import { ALL_SCOPES } from "@/data/countries";
+import { RESOURCES } from "@/data/sources";
+import { getFxRates } from "@/lib/fx";
 import { pageMeta } from "@/lib/seo";
-import type { JobCategory,Seniority } from "@/types";
 
-export const metadata=pageMeta("Plate i javni izvori","Rasponi iz trenutno preuzetih oglasa grupisani po valuti, uz javne salary izvore.","/plate");
-export default async function PlatePage({searchParams}:{searchParams:Promise<Record<string,string|string[]|undefined>>}){
- const params=await searchParams;const category=(typeof params.oblast==="string"?params.oblast:"all") as JobCategory|"all";const seniority=(typeof params.senioritet==="string"?params.senioritet:"all") as Seniority|"all";const scope=typeof params.obuhvat==="string"?params.obuhvat:"all";const feed=await getJobFeed().catch(()=>null);
- const jobs=(feed?.jobs??[]).filter(job=>{if(job.salaryMin==null&&job.salaryMax==null)return false;if(category!=="all"&&job.category!==category)return false;if(seniority!=="all"&&job.seniority!==seniority)return false;if(scope==="srbija"&&job.serbiaEligibility!=="CONFIRMED_SERBIA")return false;if(scope==="eu"&&!["EUROPE","EMEA","CONFIRMED_SERBIA"].includes(job.serbiaEligibility))return false;if(scope==="global"&&job.serbiaEligibility!=="WORLDWIDE")return false;return true});
- const grouped=new Map<string,number[]>();for(const job of jobs){const value=job.salaryMax??job.salaryMin;if(value==null||!job.salaryCurrency)continue;const annual=annualizeSalary(value,job.salaryPeriod);if(annual==null)continue;const arr=grouped.get(job.salaryCurrency)??[];arr.push(annual);grouped.set(job.salaryCurrency,arr);}
- const groups=[...grouped.entries()].map(([currency,values])=>({currency,values:values.sort((a,b)=>a-b)}));
- return <main><section className="border-b border-[#17312a]/8 bg-[#f3efe6]"><div className="mx-auto max-w-6xl px-5 py-14 md:px-12 md:py-20"><p className="eyebrow">PLATE</p><h1 className="mt-3 max-w-4xl font-serif text-5xl tracking-[-.04em] md:text-7xl">Rasponi, ne izmišljeni “tržišni prosek”.</h1><p className="mt-5 max-w-2xl text-base leading-7 text-[#665f50]">Oglasi često koriste različite valute i periode. Zato ih ne sabiramo u jednu besmislenu cifru, već godišnje raspone prikazujemo odvojeno po valuti.</p></div></section><div className="mx-auto max-w-6xl px-5 py-12 md:px-12 md:py-16">
-   <form method="get" action="/plate" className="premium-panel relative grid gap-4 overflow-hidden p-5 md:grid-cols-4 md:p-6"><select name="oblast" defaultValue={category} className="premium-field text-sm"><option value="all">Sve uloge</option>{Object.entries(CATEGORY_LABELS).map(([k,l])=><option key={k} value={k}>{l}</option>)}</select><select name="senioritet" defaultValue={seniority} className="premium-field text-sm"><option value="all">Sav senioritet</option>{Object.entries(SENIORITY_LABELS).filter(([k])=>k!=="unknown").map(([k,l])=><option key={k} value={k}>{l}</option>)}</select><select name="obuhvat" defaultValue={scope} className="premium-field text-sm"><option value="all">Svi oglasi</option><option value="srbija">Srbija potvrđena</option><option value="eu">EU / EMEA</option><option value="global">Worldwide</option></select><button className="min-h-12 rounded-xl bg-[#17312a] px-4 text-sm font-bold text-white shadow-[0_10px_22px_rgba(23,49,42,.12)] transition hover:-translate-y-0.5 hover:bg-[#21483c]">Primenite filter</button></form>
-   <section className="mt-8 grid gap-4 md:grid-cols-2">{groups.length?groups.map(g=><article key={g.currency} className="group relative overflow-hidden rounded-[1.45rem] border border-[#17312a]/8 bg-white p-6 shadow-[0_14px_34px_rgba(23,49,42,.045)]"><div className="flex items-center justify-between"><h2 className="font-serif text-3xl">{g.currency}</h2><span className="text-[10px] font-bold text-[#7a8982]">{g.values.length} OGLASA</span></div><div className="mt-5 grid grid-cols-2 gap-3"><div className="rounded-2xl border border-[#17312a]/7 bg-[#f6f8f4] p-4"><p className="text-[10px] font-bold text-[#7a8982]">NAJNIŽI GODIŠNJI</p><strong className="mt-1 block text-xl">{formatNumberSr(g.values[0])} {g.currency}</strong></div><div className="rounded-xl bg-[#f6f7f3] p-4"><p className="text-[10px] font-bold text-[#7a8982]">NAJVIŠI GODIŠNJI</p><strong className="mt-1 block text-xl">{formatNumberSr(g.values[g.values.length-1])} {g.currency}</strong></div></div><p className="mt-4 text-xs leading-5 text-[#7a8982]">Ovo je raspon iz trenutno dostupnih oglasa, ne statistički reprezentativan prosek tržišta.</p></article>):<div className="premium-panel col-span-full p-8 text-sm text-[#60736b]">Nema dovoljno oglasa sa javno objavljenom platom za ovu kombinaciju filtera.</div>}</section>
-   <section className="mt-14"><p className="eyebrow">DODATNI IZVORI</p><div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">{[["Levels.fyi","https://www.levels.fyi/"],["Glassdoor","https://www.glassdoor.com/Salaries/index.htm"],["HelloWorld","https://www.helloworld.rs/"],["Joberty","https://joberty.com/"]].map(([n,u])=><a key={n} href={u} target="_blank" rel="noreferrer" className="group relative overflow-hidden rounded-[1.3rem] border border-[#17312a]/8 bg-white p-5 shadow-[0_12px_28px_rgba(23,49,42,.04)] transition hover:-translate-y-0.5 hover:shadow-[0_18px_38px_rgba(23,49,42,.07)]"><strong>{n}</strong><span className="mt-4 block text-xs text-[#dc5b38]">Otvorite ↗</span></a>)}</div></section>
-   <div className="mt-10 rounded-2xl border border-[#dc5b38]/14 bg-[#fff5f0] p-5 text-sm text-[#765f57]"><strong>Eksperimentalno:</strong> rasponi iz live oglasa zavise od kvaliteta i dostupnosti javnih feedova. <Link href="/poslovi?plata=1" className="font-bold text-[#a44931]">Pogledajte oglase sa platom →</Link></div>
- </div></main>
+export const metadata = pageMeta(
+  "Plate i preračun zarade",
+  "Preračun satnice u mesečnu i godišnju zaradu u EUR i RSD i izvori podataka o platama za svaku zemlju Balkana.",
+  "/plate",
+);
+
+export default async function PlatePage() {
+  const fx = await getFxRates().catch(() => null);
+  const salaryResources = RESOURCES.filter((resource) => resource.type === "salary");
+  const byCountry = ALL_SCOPES.map((scope) => ({
+    scope,
+    items: salaryResources.filter((resource) => resource.country === scope.code),
+  })).filter((group) => group.items.length > 0);
+
+  return (
+    <main>
+      <section className="border-b border-[#17312a]/8 bg-[#f3efe6]">
+        <div className="mx-auto max-w-6xl px-5 py-14 md:px-12 md:py-20">
+          <p className="eyebrow">PLATE</p>
+          <h1 className="mt-3 max-w-4xl font-serif text-5xl tracking-[-.04em] md:text-7xl">
+            Koliko je to zapravo?
+          </h1>
+          <p className="mt-5 max-w-2xl text-base leading-7 text-[#665f50]">
+            Remote ponude dolaze po satu, mesečno ili godišnje, u EUR ili USD. Preračunajte ih na isti imenitelj, pa
+            uporedite sa lokalnim platama iz izvora ispod. Ne izmišljamo tržišni prosek.
+          </p>
+        </div>
+      </section>
+      <div className="mx-auto max-w-6xl px-5 py-12 md:px-12 md:py-16">
+        <SalaryCalculator rsdPerEur={fx?.rsdPerEur ?? null} rsdPerUsd={fx?.rsdPerUsd ?? null} />
+        <p className="mt-3 text-xs text-[#7a8982]">
+          {fx
+            ? `${fx.source}, lista od ${fx.publishedOn}: 1 EUR = ${fx.rsdPerEur} RSD, 1 USD = ${fx.rsdPerUsd} RSD.`
+            : "Kurs trenutno nije dostupan, prikazuje se samo izabrana valuta."}
+        </p>
+
+        <section className="mt-16" aria-labelledby="izvori-plata">
+          <p className="eyebrow">IZVORI PLATA</p>
+          <h2 id="izvori-plata" className="mt-3 font-serif text-4xl tracking-[-0.03em] md:text-5xl">
+            Plate po zemljama
+          </h2>
+          <p className="mt-3 max-w-2xl text-sm leading-6 text-[#60736b]">
+            Anonimne ankete i prijavljene plate. Nijedan izvor nije savršen, pa uporedite bar dva.
+          </p>
+          <div className="mt-10 space-y-12">
+            {byCountry.map(({ scope, items }) => (
+              <div key={scope.code}>
+                <h3 className="mb-5 flex items-center gap-3 font-serif text-2xl tracking-[-0.02em]">
+                  <CountryBadge code={scope.code} className="size-10 text-xs" />
+                  {scope.name}
+                </h3>
+                <ResourceGrid resources={items} />
+              </div>
+            ))}
+          </div>
+        </section>
+      </div>
+    </main>
+  );
 }
