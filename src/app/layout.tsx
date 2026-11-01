@@ -5,6 +5,7 @@ import { SiteHeader } from "@/components/SiteHeader";
 import { SupportMenu } from "@/components/SupportMenu";
 import { JsonLd } from "@/components/JsonLd";
 import { SITE_NAME, SITE_URL } from "@/lib/seo";
+import { KOFI_URL, PAYPAL_URL } from "@/lib/support";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -82,8 +83,8 @@ export default function RootLayout({
         </div>
         <SiteFooter />
         <SupportMenu
-          paypalUrl={process.env.NEXT_PUBLIC_PAYPAL_URL ?? "https://www.paypal.com/paypalme/o0o0o0o0o0o0o"}
-          kofiUrl={process.env.NEXT_PUBLIC_KOFI_URL ?? "https://ko-fi.com/o0o0o0o"}
+          paypalUrl={PAYPAL_URL}
+          kofiUrl={KOFI_URL}
         />
       </body>
     </html>

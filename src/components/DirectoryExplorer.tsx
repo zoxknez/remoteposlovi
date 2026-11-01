@@ -288,7 +288,7 @@ export function DirectoryExplorer({
               if (event.target.value) setSection("Sve");
             }}
             className="min-w-0 flex-1 bg-transparent py-3 text-sm outline-none placeholder:text-[#8d9a94]"
-            placeholder="npr. porez Hrvatska, zavod, engleski, portfolio, faktura..."
+            placeholder="npr. porez Srbija, zavod, engleski, portfolio, faktura..."
           />
           {query ? (
             <button type="button" onClick={() => setQuery("")} className="min-h-11 px-2 text-xs font-bold text-[#60736b]">

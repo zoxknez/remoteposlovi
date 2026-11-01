@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { CountryBadge } from "@/components/CountryBadge";
 import { BALKAN_COUNTRIES } from "@/data/countries";
+import { KOFI_URL, PAYPAL_URL } from "@/lib/support";
 
 export function SiteFooter() {
   return (
@@ -53,7 +54,24 @@ export function SiteFooter() {
                   <p className="mt-1 text-xs leading-5 text-[#a9beb4]">Možete da podržite projekat preko PayPal-a ili Ko-fi-ja.</p>
                 </div>
               </div>
-              <p className="mt-4 text-[10px] leading-4 text-[#79978a]">Dugme za podršku nalazi se u donjem desnom uglu.</p>
+              <div className="mt-4 grid grid-cols-2 gap-2">
+                <a
+                  href={PAYPAL_URL}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex min-h-11 items-center justify-center gap-1.5 rounded-xl bg-[#ffc439] px-3 text-xs font-bold text-[#17312a] shadow-[0_8px_18px_rgba(0,0,0,.18)] transition hover:-translate-y-0.5 hover:bg-[#ffd166]"
+                >
+                  PayPal <span aria-hidden>↗</span>
+                </a>
+                <a
+                  href={KOFI_URL}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex min-h-11 items-center justify-center gap-1.5 rounded-xl bg-[#ff5e5b] px-3 text-xs font-bold text-white shadow-[0_8px_18px_rgba(0,0,0,.18)] transition hover:-translate-y-0.5 hover:bg-[#ff7a77]"
+                >
+                  Ko-fi <span aria-hidden>↗</span>
+                </a>
+              </div>
             </div>
             <div className="mt-3 rounded-[1.25rem] border border-white/10 bg-white/[0.045] p-4">
               <p className="text-sm font-bold text-white">Pitanja ili dopuna sadržaja?</p>
